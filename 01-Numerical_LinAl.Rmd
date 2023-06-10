@@ -1,0 +1,136 @@
+# Numerical Linear Algebra 
+
+## Columnspace, Nullspace and all
+Consider a matrix $A\in\mathbb{R}^{m\times n}$ defined as:
+$$A = \begin{bmatrix} -&r_1^T&-\\ -&r_2^T&-\\ & \vdots& \\ - & r_m^T& - \end{bmatrix} = \begin{bmatrix} | & | &  & | \\ a_1 & a_2 &\cdots & a_n \\ | & | & & |\end{bmatrix}$$
+where $r_i \in \mathbb{R}^{n\times 1}$ for $1\le i \le m$ are the rows and $a_i \in \mathbb{R}^{m\times 1}$ for $1\le i\le n$ are the columns of $A$.
+
+Columnspace of a matrix $A$ is the span(linear combination) of columns of $A$. Also called as Range of $A$.
+\begin{equation}
+\text{Range}(A) =\text{Columnspace}(A) =  \{ Ax : x\in \mathbb{R}^{n\times 1} \}
+\end{equation}
+
+$$Ax = \begin{bmatrix} | & | &  & | \\ a_1 & a_2 &\cdots & a_n \\ | & | & & |\end{bmatrix}\begin{bmatrix}x_1\\x_2\\ \vdots\\ x_n \end{bmatrix} = \sum_{i=1}^n a_i x_i$$
+
+
+Rowspace of a matrix $A$ is the span(linear combination) of rows of $A$. 
+\begin{equation}
+\text{Rowspace}(A) = \{ A^Ty : y\in \mathbb{R}^{m\times 1} \} 
+\end{equation}
+
+$$A^Ty = \begin{bmatrix} | & | &  & | \\ r_1 & r_2 &\cdots & r_n \\ | & | & & |\end{bmatrix}\begin{bmatrix}y_1\\y_2\\ \vdots\\ y_n \end{bmatrix} = \sum_{i=1}^n r_i y_i$$
+Nullspace of a matrix $A$ is defined as follows:
+\begin{equation}
+\text{Nullspace}(A) = \{ z\in \mathbb{R}^{n\times 1}: Az=0\}
+\end{equation}
+
+NOTE:-
+
+1. A linear system $Ax=b$ has a solution ONLY IF $b\in\text{Range}(A)$.
+
+2. Dimension of Range$(A)$ is the number of linearly independent columns of $A$ or the column rank of $A$. Similarly, the dimension of Rowspace$(A)$ is the row rank or the number of independent rows of $A$. 
+
+3. For a matrix $A$, row rank = column rank = rank$\le \min(m,n)$.
+
+4. Nullspace of a matrix is orthogonal to row space of a matrix.i.e, Given any vector $z\in \text{Nullspace}(A)$ and $w \in \text{Rowspace}(A)$  , $z$ is orthogonal to $w$.
+
+Proof:- Let $w \in \text{Rowspace}(A)$, then $\exists y\in\mathbb{R}^{n\times 1}$ such that $w = A^Ty$. 
+
+Also as $z\in \text{Nullspace}(A)$, we have $Az=0$.
+
+Therefore,
+$$\langle w,z\rangle = w^Tz = y^T Az = 0$$
+Thus, nullspace of a matrix is orthogonal to row space of a matrix.
+
+5. **Rank-Nullity Theorem:** Dimension of Nullspace$(A)$+Rank$(A)$ = $n$ = No. of columns of $A$
+
+ 
+
+## Matrix Norms
+Consider a matrix $A\in\mathbb{R}^{m\times n}$. Just like how we have defined a vector norm, we could have defined an "element wise matrix norm" as follows:
+\begin{equation}
+\lVert A \rVert_p^* = \left(\sum_{i=1}^n |A_{ij}|^p\right)^{\frac{1}{p}} 
+\end{equation}
+
+But this definition of norm does not satisfy the **submultiplicative property**. We are interested in this property as this dictates the convergence of iterative schemes.
+
+A matrix norm is said to be submultiplicative if for any matrices $A\in \mathbb{R}^{m\times k}$ and $B \in \mathbb{R}^{k\times n}$, we have 
+\begin{equation}
+\lvert AB \rVert \le \lVert A \rVert  \lVert B \rVert
+\end{equation}
+
+Consider the case $$A = \begin{bmatrix} 2&2\\2&2 \end{bmatrix}$$ and $p\to \infty$, Therefore we have $$ \lVert A \rVert_{\infty}^* = \max_{1\le i \le m,1 \le j \le n} |A_{ij}| = 2$$.
+
+$$A^2 = \begin{bmatrix} 8 & 8\\ 8& 8 \end{bmatrix}$$
+Therefore,
+$$\lVert A^2 \rVert_{\infty}^* = 8$$
+We can clearly see that:
+$$\lVert A^2 \rVert_{\infty}^* = 8 \ge \lVert A \rVert_{\infty}^* \cdot \lVert A \rVert_{\infty}^* = 2 \times 2 = 4$$
+
+<!-- Consider the case $$A = \begin{bmatrix} 1&1\\1&1 \end{bmatrix}$$ and $p=1$. Therefore, we have $$\lVert A \rVert_{1}^* = \sum_i\sum_j |A_{ij}| = 4$$ -->
+<!-- As $A$ is an identity matrix, we have $$A^2 = A$$ Therefore $$\lVert A^2 \rVert_{1}^* = 4$$ -->
+<!-- We can clearly see that: -->
+<!-- $$\lVert A^2 \rVert_{\infty}^* = 4 \ge \lVert A \rVert_{\infty}^* \cdot \lVert A \rVert_{\infty}^* = 2 \times 2 = 4$$ -->
+which violates the submultiplicative property.
+
+
+Hence, we define a p-norm of matrix which satisfies submultiplicative property as follows. 
+\begin{equation}
+\lVert A \rVert_p = \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert Ax \rVert_p}{\lVert x \rVert_p} = \sup_{\lVert y \rVert_p = 1} \lVert Ay \rVert_p
+\end{equation}
+
+p-norms are submultiplicative.
+
+PROOF:- From the definition of p-norm,
+<!-- $$\lVert AB \rVert_p = \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert ABx \rVert_p}{\lVert x \rVert_p}$$ -->
+\begin{align*}
+\lVert AB \rVert_p &= \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert ABx \rVert_p}{\lVert x \rVert_p}\\
+&= \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert ABx \rVert_p}{\lVert Bx \rVert_p} \frac{\lVert Bx \rVert_p}{\lVert x \rVert_p} \\
+&\le \left[\sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert ABx \rVert_p}{\lVert Bx \rVert_p} \right] \cdot \left[ \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert Bx \rVert_p}{\lVert x \rVert_p} \right]  \\
+&= \lVert A \rVert_p \cdot \lVert B \rVert_p\\
+\therefore \lVert AB \rVert_p \le \lVert A \rVert_p \cdot \lVert B \rVert_p
+\end{align*}
+
+Using this property, we can say that 
+\begin{equation}
+ \lVert A^n \rVert_p \le \lVert A \rVert^n_p
+\end{equation}
+ 
+ $\lVert A\rVert_1$ = Maximum of column sum of absolute values. 
+
+ $\lVert A\rVert_{\infty}$  = Maximum of row sum of absolute values. 
+
+<!-- $$\therefore$$ -->
+
+
+
+
+
+## Condition number of Matrix vector products
+
+Consider a matrix $A\in\mathbb{R}^{m\times n}$ and a vector $x\in\mathbb{R}^{n\times 1}$. Assume that there is no error in representing $A$. We are interested in finding the condition number of the Matrix-Vector product $f(x;A)= Ax$. 
+
+From the definition of condition number, we can write the condition number $\kappa_r$ of the matrix vector product as:
+
+$$\kappa_r = \lim_{r\to 0} \sup_{\Vert \delta x \Vert_q\le r} \dfrac{\frac{\Vert A(x+\delta x)-Ax \Vert_p}{\Vert Ax \Vert_p}}{\frac{\Vert x+\delta x-x\Vert_q}{\Vert x\Vert_q}}$$
+For simplicity let us choose $p=q$. Therefore,
+$$\kappa_r = \lim_{r\to 0} \sup_{\Vert \delta x \Vert_p\le r} \frac{\Vert A\delta x \Vert_p}{\Vert \delta x \Vert_p} \frac{\Vert x \Vert_p}{\Vert Ax\Vert_p}$$
+From the definition of matrix p-norm, we can say that: $$\lim_{r\to 0} \sup_{\Vert \delta x \Vert_p\le r} \frac{\Vert A\delta x \Vert_p}{\Vert \delta x \Vert_p} = \Vert A\Vert_p$$
+Therefore the condition number of the matrix vector product is:
+\begin{equation}
+\kappa_r =  \frac{\Vert A \Vert_p \Vert x \Vert_p}{\Vert Ax\Vert_p}
+\end{equation}
+
+From Sub-multiplicative property, as $\Vert Ax\Vert_p \ge\Vert A \Vert_p \Vert x \Vert_p$, we can show that $\kappa_r\ge 1$. 
+
+## Solving Linear Systems
+
+<!-- All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (`#`) per .Rmd file. -->
+
+<!-- ## A section -->
+
+<!-- All chapter sections start with a second-level (`##`) or higher heading followed by your section title, like the sections above and below here. You can have as many as you want within a chapter. -->
+
+<!-- ### An unnumbered section {-} -->
+
+<!-- Chapters and sections are numbered by default. To un-number a heading, add a `{.unnumbered}` or the shorter `{-}` at the end of the heading, like in this section. -->

@@ -1,0 +1,524 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{plainnat}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Numerical Analysis},
+  pdfauthor={Sai Saandeep.S, Dr.~Sivaram},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Numerical Analysis}
+\author{Sai Saandeep.S, Dr.~Sivaram}
+\date{2023-06-02}
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{conjecture}{Conjecture}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{definition}
+\newtheorem{hypothesis}{Hypothesis}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{introduction}{%
+\chapter{Introduction}\label{introduction}}
+
+\hypertarget{why-numerical-analysis}{%
+\section{Why Numerical Analysis?}\label{why-numerical-analysis}}
+
+\hypertarget{representing-numbers-on-a-machine}{%
+\section{Representing Numbers on a Machine}\label{representing-numbers-on-a-machine}}
+
+\hypertarget{condition-number-of-a-problem}{%
+\section{Condition Number of a Problem}\label{condition-number-of-a-problem}}
+
+Consider a function in one variable \(f:\mathbb{R}\to\mathbb{R}\).
+Condition number for a function \(f(x)\) tells about the error amplification of a function \(f(x)\) i.e., for a given error in input \(x\), how much is the error in the output \(f(x)\).
+
+Absolute Condition Number \(\kappa_{\text{abs}}\) of the function \(f(x)\) is defined as:
+\begin{equation}
+\kappa_{\text{abs}} = \frac{\text{Absolute Change in Output}}{\text{Absolute Change in Input}} = \lim_{\delta x \to 0} \left\lvert{\frac{f(x+\delta x)-f(x)}{x+\delta x - x}}\right\rvert = \left\lvert{f'(x)}\right\rvert
+\end{equation}
+
+Relative Condition Number \(\kappa_{r}\) of the function \(f(x)\) is defined as:
+\begin{equation}
+\kappa_{r} = \frac{\text{Relative Change in Output}}{\text{Relative Change in Input}} = \lim_{\delta x \to 0} \frac{\left\lvert{\frac{f(x+\delta x)-f(x)}{f(x)}}\right\rvert}{\left\lvert{\frac{x+\delta x - x}{x}}\right\rvert} = \left\lvert{\frac{x}{f(x)}f'(x)}\right\rvert
+\end{equation}
+
+Now what if the function has multiple inputs? Or What if the function has multiple outputs?
+
+Examples:-
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Input 2 numbers \(a,b\in\mathbb{R}\) and then find \(f(a,b) = a+b\)?. This problem takes 2 inputs- \(a, b\) and one output \(f(a,b)\).
+\item
+  Find the roots of a polynomial \(a_0+a_1x+a_2x^2+\cdots+ a_nx^n\). We are inputting the vector \(\begin{bmatrix} a_0 & a_1 & a_2 & \cdots & a_n\end{bmatrix}^T\) and the output is \(x\) in this case.
+\item
+  Given a matrix \(A\in\mathbb{R}^{m\times n}\). Input a vector \(\mathbf{x}\in\mathbb{R}^{n\times 1}\) and then find \(f(\mathbf{x}) = A\mathbf{x} \in \mathbb{R}^{m\times 1}\)?
+\item
+  Solve the linear system \(A\mathbf{x}=\mathbf{b}\) where \(A\in\mathbb{R}^{m\times n}\), \(\mathbf{x}\in\mathbb{R}^{n\times 1}\) and \(\mathbf{b}\in\mathbb{R}^{m\times 1}\) . Inputs are \(A, \mathbf{b}\) and output is a vector \(\mathbf{x}\).
+\end{enumerate}
+
+To accommodate these cases, a generalized definition of a (relative) condition number \(\kappa_r\) for a function \(f:X\to Y\) where \(X \subset \mathbb{R}^{m\times 1}\) and \(Y \subset \mathbb{R}^{n\times 1}\) is shown below:
+\begin{equation}
+  \kappa_r = \lim_{r\to 0} \sup_{\lVert x \rVert_q \le r} \frac{\frac{\lVert f(x+\delta x)-f(x) \rVert_p}{\lVert f(x) \rVert_p}}{\frac{\lVert \delta x \rVert_q}{\lVert x \rVert_q}}
+\end{equation}
+
+where \(p,q \in \mathbb{N}\) and \(\lVert . \rVert_p\) denotes the vector \(p-\) norm.
+
+\hypertarget{vector-normsrecap}{%
+\subsection{Vector Norms(Recap)}\label{vector-normsrecap}}
+
+For a vector \(x\) in the vextor space \(X\) over a field \(F\), \(\lVert . \rVert:F\to R\) is defined such that:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \(\lVert x \rVert\ge 0 \ \ \ \forall x \in X\).
+\item
+  \(\lVert \alpha x \rVert = \left\lvert{\alpha}\right\rvert, \ \ \ \forall x \in X, \ \ \ \alpha \in F\)
+\item
+  \(\lVert x+y \rVert \le \lVert x \rVert+\lVert y \rVert, \  \ \ \forall x,y \in X\).
+\item
+  \(\lVert x \rVert = 0 \Longleftrightarrow x = 0\)
+\end{enumerate}
+
+Let \(x =\begin{bmatrix} x_1 & x_2&\cdots &x_n \end{bmatrix}^T\). Different possible vector norms which satisfy the above conditions are:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Euclidean norm (2-norm)
+  \begin{equation}
+  \lVert x \rVert_2 = \sqrt{x_1^2+x_2^2+\cdots+x_n^2}
+  \end{equation}
+\item
+  Supremum norm(max. norm)
+  \begin{equation}
+  \lVert x \rVert_{\max} = \lVert x \rVert_{\infty} = \max_{1\le i\le n} |x_i|
+  \end{equation}
+\item
+  1-norm
+  \begin{equation}
+  \lVert x \rVert_1 = \sum_{i=1}^n |x_i|
+  \end{equation}
+\item
+  \(p\)-norm
+  \begin{equation}
+  \lVert x \rVert_{p} = \left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}}
+  \end{equation}
+\end{enumerate}
+
+\textbf{NOTE:-} Supremum norm of \(x\) is \(p\)-norm of \(x\) as \(p\to\infty\)
+
+Proof:- From the definition, \[\lim_{p\to\infty} \lVert x \rVert_p = \lim_{p\to\infty}\left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}}\]
+
+\[\left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}} \le \left( n\max_{1\le i\le n} |x_i|^p \right)^{\frac{1}{p}} = n^{\frac{1}{p}} \max_{1\le i\le n} |x_i|\]
+
+\[\left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}} \ge \left( \max_{1\le i\le n} |x_i|^p \right)^{\frac{1}{p}} = \max_{1\le i\le n} |x_i|\]
+
+From the above 2 inequalities, we can say that:
+\[\max_{1\le i\le n} |x_i| \le \lVert x \rVert_p \le n^{\frac{1}{p}} \max_{1\le i\le n} |x_i|\]
+As \(p \to \infty,\ \  \ n^{\frac{1}{p}} \max_{1\le i\le n} |x_i| \to \max_{1\le i\le n} |x_i|\). Therefore, by using sandwich theorem, we can say that \[\lVert x \rVert_p = \max_{1\le i\le n} |x_i|\]
+
+\hypertarget{examples-on-finding-condition-number}{%
+\subsection{Examples on finding Condition number}\label{examples-on-finding-condition-number}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Let \(f(a,b) = a+b\). Find the condition number of this problem?
+\end{enumerate}
+
+The inputs are \(a,\, b\). Let the inputs have an error \(\delta a,\, \delta b\) respectively.
+
+\[\text{Relative error in input} = \dfrac{\left\Vert \begin{bmatrix} a+\delta a\\ b+\delta b \end{bmatrix}- \begin{bmatrix} a\\  b \end{bmatrix}\right\Vert_p}{\left\Vert \begin{bmatrix} a\\ b \end{bmatrix}\right\Vert_p}\]
+
+For simplicity, let us consider 2-norm. Any norm can be used in fact. Therefore,
+
+\[\text{Relative error in input} =\dfrac{\sqrt{\delta a^2+\delta b^2}}{\sqrt{a^2+b^2}}\]
+The output \(f(a+\delta a,b+\delta b) = a+b+\delta a+\delta b\). Therefore,
+\[\text{Relative Error in output} = \dfrac{|(a+b+\delta a + \delta b)-(a+b)|}{|a+b|} = \frac{|\delta a+\delta b|}{|a+b|}\]
+The relative condition number is:
+\[\kappa_r = \lim_{r\to 0} \sup_{\left\Vert\begin{bmatrix} \delta a\\ \delta b \end{bmatrix}\right\Vert_2\le r} \dfrac{\frac{|\delta a+\delta b|}{|a+b|}}{\dfrac{\sqrt{\delta a^2+\delta b^2}}{\sqrt{a^2+b^2}}}\]
+\[\implies \kappa_r = \lim_{r\to 0} \sup_{\left\Vert\begin{bmatrix} \delta a\\ \delta b \end{bmatrix}\right\Vert_2\le r} \dfrac{|\delta a+\delta b|}{\sqrt{\delta a^2+\delta b^2}} \cdot \dfrac{\sqrt{a^2+b^2}}{|a+b|} \]
+To calculate \[\lim_{r\to 0} \sup_{\left\Vert\begin{bmatrix} \delta a\\ \delta b \end{bmatrix}\right\Vert_2\le r}\dfrac{|\delta a+\delta b|}{\sqrt{\delta a^2+\delta b^2}}\] we assume that \(\delta a = \alpha \cos \theta\) and \(\delta b = \alpha \sin \theta\) where \(\alpha>0\) and \(0\le\theta<2\pi\).
+
+Therefore, we have:
+\[\lim_{r\to 0} \sup_{\left\Vert\begin{bmatrix} \delta a\\ \delta b \end{bmatrix}\right\Vert_2\le r}\dfrac{|\delta a+\delta b|}{\sqrt{\delta a^2+\delta b^2}} = \lim_{r \to 0} \sup_{\alpha < r} \dfrac{|\alpha \cos \theta+\alpha \sin \theta|}{\alpha} = \lim_{r\to 0} \sup_{\alpha<r}|\cos \theta+\sin \theta| = \sqrt{2}\]
+Thus, the condition number for adding 2 numbers is:
+\[ \kappa_r = \dfrac{\sqrt{2(a^2+b^2)}}{|a+b|}\le \sqrt{2} \text{ (if $a,\, b>0$)}\]
+(as \(|a+b| \ge \sqrt{a^2+b^2}\) for \(a,b \in \mathbb{R}^+\))
+
+For \(a,b>0\), we can clearly see that the condition number is bounded above by \(\sqrt{2}\). In other words, \textbf{addition is well-conditioned.}
+
+By performing a similar exercise, we can show that the \textbf{subtraction is ill-conditioned} as for \(\frac{a}{b} \to 1\), \(\kappa_r \to \infty\).
+
+Multiplication and division operations are also ill-conditioned.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Condition number on finding roots of the polynomial \(x^2-2x+1\).
+\end{enumerate}
+
+\hypertarget{numerical-linear-algebra}{%
+\chapter{Numerical Linear Algebra}\label{numerical-linear-algebra}}
+
+\hypertarget{columnspace-nullspace-and-all}{%
+\section{Columnspace, Nullspace and all}\label{columnspace-nullspace-and-all}}
+
+Consider a matrix \(A\in\mathbb{R}^{m\times n}\) defined as:
+\[A = \begin{bmatrix} -&r_1^T&-\\ -&r_2^T&-\\ & \vdots& \\ - & r_m^T& - \end{bmatrix} = \begin{bmatrix} | & | &  & | \\ a_1 & a_2 &\cdots & a_n \\ | & | & & |\end{bmatrix}\]
+where \(r_i \in \mathbb{R}^{n\times 1}\) for \(1\le i \le m\) are the rows and \(a_i \in \mathbb{R}^{m\times 1}\) for \(1\le i\le n\) are the columns of \(A\).
+
+Columnspace of a matrix \(A\) is the span(linear combination) of columns of \(A\). Also called as Range of \(A\).
+\begin{equation}
+\text{Range}(A) =\text{Columnspace}(A) =  \{ Ax : x\in \mathbb{R}^{n\times 1} \}
+\end{equation}
+
+\[Ax = \begin{bmatrix} | & | &  & | \\ a_1 & a_2 &\cdots & a_n \\ | & | & & |\end{bmatrix}\begin{bmatrix}x_1\\x_2\\ \vdots\\ x_n \end{bmatrix} = \sum_{i=1}^n a_i x_i\]
+
+Rowspace of a matrix \(A\) is the span(linear combination) of rows of \(A\).
+\begin{equation}
+\text{Rowspace}(A) = \{ A^Ty : y\in \mathbb{R}^{m\times 1} \} 
+\end{equation}
+
+\[A^Ty = \begin{bmatrix} | & | &  & | \\ r_1 & r_2 &\cdots & r_n \\ | & | & & |\end{bmatrix}\begin{bmatrix}y_1\\y_2\\ \vdots\\ y_n \end{bmatrix} = \sum_{i=1}^n r_i y_i\]
+Nullspace of a matrix \(A\) is defined as follows:
+\begin{equation}
+\text{Nullspace}(A) = \{ z\in \mathbb{R}^{n\times 1}: Az=0\}
+\end{equation}
+
+NOTE:-
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  A linear system \(Ax=b\) has a solution ONLY IF \(b\in\text{Range}(A)\).
+\item
+  Dimension of Range\((A)\) is the number of linearly independent columns of \(A\) or the column rank of \(A\). Similarly, the dimension of Rowspace\((A)\) is the row rank or the number of independent rows of \(A\).
+\item
+  For a matrix \(A\), row rank = column rank = rank\(\le \min(m,n)\).
+\item
+  Nullspace of a matrix is orthogonal to row space of a matrix.i.e, Given any vector \(z\in \text{Nullspace}(A)\) and \(w \in \text{Rowspace}(A)\) , \(z\) is orthogonal to \(w\).
+\end{enumerate}
+
+Proof:- Let \(w \in \text{Rowspace}(A)\), then \(\exists y\in\mathbb{R}^{n\times 1}\) such that \(w = A^Ty\).
+
+Also as \(z\in \text{Nullspace}(A)\), we have \(Az=0\).
+
+Therefore,
+\[\langle w,z\rangle = w^Tz = y^T Az = 0\]
+Thus, nullspace of a matrix is orthogonal to row space of a matrix.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  \textbf{Rank-Nullity Theorem:} Dimension of Nullspace\((A)\)+Rank\((A)\) = \(n\) = No.~of columns of \(A\)
+\end{enumerate}
+
+\hypertarget{matrix-norms}{%
+\section{Matrix Norms}\label{matrix-norms}}
+
+Consider a matrix \(A\in\mathbb{R}^{m\times n}\). Just like how we have defined a vector norm, we could have defined an ``element wise matrix norm'' as follows:
+\begin{equation}
+\lVert A \rVert_p^* = \left(\sum_{i=1}^n |A_{ij}|^p\right)^{\frac{1}{p}} 
+\end{equation}
+
+But this definition of norm does not satisfy the \textbf{submultiplicative property}. We are interested in this property as this dictates the convergence of iterative schemes.
+
+A matrix norm is said to be submultiplicative if for any matrices \(A\in \mathbb{R}^{m\times k}\) and \(B \in \mathbb{R}^{k\times n}\), we have
+\begin{equation}
+\lvert AB \rVert \le \lVert A \rVert  \lVert B \rVert
+\end{equation}
+
+Consider the case \[A = \begin{bmatrix} 2&2\\2&2 \end{bmatrix}\] and \(p\to \infty\), Therefore we have \[ \lVert A \rVert_{\infty}^* = \max_{1\le i \le m,1 \le j \le n} |A_{ij}| = 2\].
+
+\[A^2 = \begin{bmatrix} 8 & 8\\ 8& 8 \end{bmatrix}\]
+Therefore,
+\[\lVert A^2 \rVert_{\infty}^* = 8\]
+We can clearly see that:
+\[\lVert A^2 \rVert_{\infty}^* = 8 \ge \lVert A \rVert_{\infty}^* \cdot \lVert A \rVert_{\infty}^* = 2 \times 2 = 4\]
+
+which violates the submultiplicative property.
+
+Hence, we define a p-norm of matrix which satisfies submultiplicative property as follows.
+\begin{equation}
+\lVert A \rVert_p = \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert Ax \rVert_p}{\lVert x \rVert_p} = \sup_{\lVert y \rVert_p = 1} \lVert Ay \rVert_p
+\end{equation}
+
+p-norms are submultiplicative.
+
+PROOF:- From the definition of p-norm,
+\begin{align*}
+\lVert AB \rVert_p &= \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert ABx \rVert_p}{\lVert x \rVert_p}\\
+&= \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert ABx \rVert_p}{\lVert Bx \rVert_p} \frac{\lVert Bx \rVert_p}{\lVert x \rVert_p} \\
+&\le \left[\sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert ABx \rVert_p}{\lVert Bx \rVert_p} \right] \cdot \left[ \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert Bx \rVert_p}{\lVert x \rVert_p} \right]  \\
+&= \lVert A \rVert_p \cdot \lVert B \rVert_p\\
+\therefore \lVert AB \rVert_p \le \lVert A \rVert_p \cdot \lVert B \rVert_p
+\end{align*}
+
+Using this property, we can say that
+\begin{equation}
+ \lVert A^n \rVert_p \le \lVert A \rVert^n_p
+\end{equation}
+
+\(\lVert A\rVert_1\) = Maximum of column sum of absolute values.
+
+\(\lVert A\rVert_{\infty}\) = Maximum of row sum of absolute values.
+
+\hypertarget{condition-number-of-matrix-vector-products}{%
+\section{Condition number of Matrix vector products}\label{condition-number-of-matrix-vector-products}}
+
+Consider a matrix \(A\in\mathbb{R}^{m\times n}\) and a vector \(x\in\mathbb{R}^{n\times 1}\). Assume that there is no error in representing \(A\). We are interested in finding the condition number of the Matrix-Vector product \(f(x;A)= Ax\).
+
+From the definition of condition number, we can write the condition number \(\kappa_r\) of the matrix vector product as:
+
+\[\kappa_r = \lim_{r\to 0} \sup_{\Vert \delta x \Vert_q\le r} \dfrac{\frac{\Vert A(x+\delta x)-Ax \Vert_p}{\Vert Ax \Vert_p}}{\frac{\Vert x+\delta x-x\Vert_q}{\Vert x\Vert_q}}\]
+For simplicity let us choose \(p=q\). Therefore,
+\[\kappa_r = \lim_{r\to 0} \sup_{\Vert \delta x \Vert_p\le r} \frac{\Vert A\delta x \Vert_p}{\Vert \delta x \Vert_p} \frac{\Vert x \Vert_p}{\Vert Ax\Vert_p}\]
+From the definition of matrix p-norm, we can say that: \[\lim_{r\to 0} \sup_{\Vert \delta x \Vert_p\le r} \frac{\Vert A\delta x \Vert_p}{\Vert \delta x \Vert_p} = \Vert A\Vert_p\]
+Therefore the condition number of the matrix vector product is:
+\begin{equation}
+\kappa_r =  \frac{\Vert A \Vert_p \Vert x \Vert_p}{\Vert Ax\Vert_p}
+\end{equation}
+
+From Sub-multiplicative property, as \(\Vert Ax\Vert_p \ge\Vert A \Vert_p \Vert x \Vert_p\), we can show that \(\kappa_r\ge 1\).
+
+\hypertarget{solving-linear-systems}{%
+\section{Solving Linear Systems}\label{solving-linear-systems}}
+
+\hypertarget{interpolation}{%
+\chapter{Interpolation}\label{interpolation}}
+
+\hypertarget{parts}{%
+\chapter{Parts}\label{parts}}
+
+You can add parts to organize one or more book chapters together. Parts can be inserted at the top of an .Rmd file, before the first-level chapter heading in that same file.
+
+Add a numbered part: \texttt{\#\ (PART)\ Act\ one\ \{-\}} (followed by \texttt{\#\ A\ chapter})
+
+Add an unnumbered part: \texttt{\#\ (PART\textbackslash{}*)\ Act\ one\ \{-\}} (followed by \texttt{\#\ A\ chapter})
+
+Add an appendix as a special kind of un-numbered part: \texttt{\#\ (APPENDIX)\ Other\ stuff\ \{-\}} (followed by \texttt{\#\ A\ chapter}). Chapters in an appendix are prepended with letters instead of numbers.
+
+\hypertarget{footnotes-and-citations}{%
+\chapter{Footnotes and citations}\label{footnotes-and-citations}}
+
+\hypertarget{footnotes}{%
+\section{Footnotes}\label{footnotes}}
+
+Footnotes are put inside the square brackets after a caret \texttt{\^{}{[}{]}}. Like this one \footnote{This is a footnote.}.
+
+\hypertarget{citations}{%
+\section{Citations}\label{citations}}
+
+Reference items in your bibliography file(s) using \texttt{@key}.
+
+For example, we are using the \textbf{bookdown} package \citep{R-bookdown} (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and \textbf{knitr} \citep{xie2015} (this citation was added manually in an external file book.bib).
+Note that the \texttt{.bib} files need to be listed in the index.Rmd with the YAML \texttt{bibliography} key.
+
+The RStudio Visual Markdown Editor can also make it easier to insert citations: \url{https://rstudio.github.io/visual-markdown-editing/\#/citations}
+
+\hypertarget{blocks}{%
+\chapter{Blocks}\label{blocks}}
+
+\hypertarget{equations}{%
+\section{Equations}\label{equations}}
+
+Here is an equation.
+
+\begin{equation} 
+  f\left(k\right) = \binom{n}{k} p^k\left(1-p\right)^{n-k}
+  \label{eq:binom}
+\end{equation}
+
+You may refer to using \texttt{\textbackslash{}@ref(eq:binom)}, like see Equation \eqref{eq:binom}.
+
+\hypertarget{theorems-and-proofs}{%
+\section{Theorems and proofs}\label{theorems-and-proofs}}
+
+Labeled theorems can be referenced in text using \texttt{\textbackslash{}@ref(thm:tri)}, for example, check out this smart theorem \ref{thm:tri}.
+
+\begin{theorem}
+\protect\hypertarget{thm:tri}{}\label{thm:tri}For a right triangle, if \(c\) denotes the \emph{length} of the hypotenuse
+and \(a\) and \(b\) denote the lengths of the \textbf{other} two sides, we have
+\[a^2 + b^2 = c^2\]
+\end{theorem}
+
+Read more here \url{https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html}.
+
+\hypertarget{callout-blocks}{%
+\section{Callout blocks}\label{callout-blocks}}
+
+The R Markdown Cookbook provides more help on how to use custom blocks to design your own callouts: \url{https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html}
+
+\hypertarget{sharing-your-book}{%
+\chapter{Sharing your book}\label{sharing-your-book}}
+
+\hypertarget{publishing}{%
+\section{Publishing}\label{publishing}}
+
+HTML books can be published online, see: \url{https://bookdown.org/yihui/bookdown/publishing.html}
+
+\hypertarget{pages}{%
+\section{404 pages}\label{pages}}
+
+By default, users will be directed to a 404 page if they try to access a webpage that cannot be found. If you'd like to customize your 404 page instead of using the default, you may add either a \texttt{\_404.Rmd} or \texttt{\_404.md} file to your project root and use code and/or Markdown syntax.
+
+\hypertarget{metadata-for-sharing}{%
+\section{Metadata for sharing}\label{metadata-for-sharing}}
+
+Bookdown HTML books will provide HTML metadata for social sharing on platforms like Twitter, Facebook, and LinkedIn, using information you provide in the \texttt{index.Rmd} YAML. To setup, set the \texttt{url} for your book and the path to your \texttt{cover-image} file. Your book's \texttt{title} and \texttt{description} are also used.
+
+This \texttt{gitbook} uses the same social sharing data across all chapters in your book- all links shared will look the same.
+
+Specify your book's source repository on GitHub using the \texttt{edit} key under the configuration options in the \texttt{\_output.yml} file, which allows users to suggest an edit by linking to a chapter's source file.
+
+Read more about the features of this output format here:
+
+\url{https://pkgs.rstudio.com/bookdown/reference/gitbook.html}
+
+Or use:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?bookdown}\SpecialCharTok{::}\NormalTok{gitbook}
+\end{Highlighting}
+\end{Shaded}
+
+
+  \bibliography{book.bib,packages.bib}
+
+\end{document}

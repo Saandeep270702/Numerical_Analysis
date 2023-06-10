@@ -1,0 +1,177 @@
+--- 
+title: "Numerical Analysis"
+author: "Sai Saandeep.S, Dr. Sivaram"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  This is a minimal example of using the bookdown package to write a book.
+  The HTML output format for this example is bookdown::gitbook,
+  set in the _output.yml file.
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+# Introduction
+
+<!-- This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports; for example, a math equation $a^2 + b^2 = c^2$. -->
+
+## Why Numerical Analysis?
+
+## Representing Numbers on a Machine
+
+
+
+## Condition Number of a Problem
+Consider a function in one variable $f:\mathbb{R}\to\mathbb{R}$.
+Condition number for a function $f(x)$ tells about the error amplification of a function $f(x)$ i.e., for a given error in input $x$, how much is the error in the output $f(x)$.
+
+Absolute Condition Number $\kappa_{\text{abs}}$ of the function $f(x)$ is defined as:
+\begin{equation}
+\kappa_{\text{abs}} = \frac{\text{Absolute Change in Output}}{\text{Absolute Change in Input}} = \lim_{\delta x \to 0} \left\lvert{\frac{f(x+\delta x)-f(x)}{x+\delta x - x}}\right\rvert = \left\lvert{f'(x)}\right\rvert
+\end{equation}
+
+Relative Condition Number $\kappa_{r}$ of the function $f(x)$ is defined as:
+\begin{equation}
+\kappa_{r} = \frac{\text{Relative Change in Output}}{\text{Relative Change in Input}} = \lim_{\delta x \to 0} \frac{\left\lvert{\frac{f(x+\delta x)-f(x)}{f(x)}}\right\rvert}{\left\lvert{\frac{x+\delta x - x}{x}}\right\rvert} = \left\lvert{\frac{x}{f(x)}f'(x)}\right\rvert
+\end{equation}
+
+Now what if the function has multiple inputs? Or What if the function has multiple outputs?
+
+Examples:-
+
+1. Input 2 numbers $a,b\in\mathbb{R}$ and then find $f(a,b) = a+b$?. This problem takes 2 inputs- $a, b$ and one output $f(a,b)$.
+
+2. Find the roots of a polynomial $a_0+a_1x+a_2x^2+\cdots+ a_nx^n$. We are inputting the vector $\begin{bmatrix} a_0 & a_1 & a_2 & \cdots & a_n\end{bmatrix}^T$ and the output is $x$ in this case.
+
+3. Given a matrix $A\in\mathbb{R}^{m\times n}$. Input a vector  $\mathbf{x}\in\mathbb{R}^{n\times 1}$ and then find $f(\mathbf{x}) = A\mathbf{x} \in \mathbb{R}^{m\times 1}$?
+
+4. Solve the linear system $A\mathbf{x}=\mathbf{b}$ where $A\in\mathbb{R}^{m\times n}$, $\mathbf{x}\in\mathbb{R}^{n\times 1}$ and $\mathbf{b}\in\mathbb{R}^{m\times 1}$ . Inputs are $A, \mathbf{b}$ and output is a vector $\mathbf{x}$. 
+
+To accommodate these cases, a generalized definition of a (relative) condition number $\kappa_r$ for a function $f:X\to Y$ where $X \subset \mathbb{R}^{m\times 1}$ and $Y \subset \mathbb{R}^{n\times 1}$ is shown below:
+\begin{equation}
+  \kappa_r = \lim_{r\to 0} \sup_{\lVert x \rVert_q \le r} \frac{\frac{\lVert f(x+\delta x)-f(x) \rVert_p}{\lVert f(x) \rVert_p}}{\frac{\lVert \delta x \rVert_q}{\lVert x \rVert_q}}
+\end{equation}
+
+where $p,q \in \mathbb{N}$ and $\lVert . \rVert_p$ denotes the vector $p-$ norm.
+
+### Vector Norms(Recap)
+
+For a vector $x$ in the vextor space $X$ over a field  $F$, $\lVert . \rVert:F\to R$ is defined such that:
+
+1. $\lVert x \rVert\ge 0 \ \ \ \forall x \in X$.
+
+2. $\lVert \alpha x \rVert = \left\lvert{\alpha}\right\rvert, \ \ \ \forall x \in X, \ \ \ \alpha \in F$
+
+3. $\lVert x+y \rVert \le \lVert x \rVert+\lVert y \rVert, \  \ \ \forall x,y \in X$.
+
+4. $\lVert x \rVert = 0 \Longleftrightarrow x = 0$
+
+Let $x =\begin{bmatrix} x_1 & x_2&\cdots &x_n \end{bmatrix}^T$. Different possible vector norms which satisfy the above conditions are:
+
+1. Euclidean norm (2-norm)
+\begin{equation}
+\lVert x \rVert_2 = \sqrt{x_1^2+x_2^2+\cdots+x_n^2}
+\end{equation}
+
+2. Supremum norm(max. norm)
+\begin{equation}
+\lVert x \rVert_{\max} = \lVert x \rVert_{\infty} = \max_{1\le i\le n} |x_i|
+\end{equation}
+
+3. 1-norm
+\begin{equation}
+\lVert x \rVert_1 = \sum_{i=1}^n |x_i|
+\end{equation}
+
+4. $p$-norm
+\begin{equation}
+\lVert x \rVert_{p} = \left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}}
+\end{equation}
+
+**NOTE:-** Supremum norm of $x$ is $p$-norm of $x$ as $p\to\infty$
+
+Proof:- From the definition, $$\lim_{p\to\infty} \lVert x \rVert_p = \lim_{p\to\infty}\left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}}$$
+
+$$\left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}} \le \left( n\max_{1\le i\le n} |x_i|^p \right)^{\frac{1}{p}} = n^{\frac{1}{p}} \max_{1\le i\le n} |x_i|$$ 
+
+$$\left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}} \ge \left( \max_{1\le i\le n} |x_i|^p \right)^{\frac{1}{p}} = \max_{1\le i\le n} |x_i|$$
+
+From the above 2 inequalities, we can say that:
+$$\max_{1\le i\le n} |x_i| \le \lVert x \rVert_p \le n^{\frac{1}{p}} \max_{1\le i\le n} |x_i|$$
+As $p \to \infty,\ \   \ n^{\frac{1}{p}} \max_{1\le i\le n} |x_i| \to \max_{1\le i\le n} |x_i|$. Therefore, by using sandwich theorem, we can say that $$\lVert x \rVert_p = \max_{1\le i\le n} |x_i|$$
+
+
+### Examples on finding Condition number
+
+1. Let $f(a,b) = a+b$. Find the condition number of this problem? 
+
+The inputs are $a,\, b$. Let the inputs have an error $\delta a,\, \delta b$ respectively. 
+
+$$\text{Relative error in input} = \dfrac{\left\Vert \begin{bmatrix} a+\delta a\\ b+\delta b \end{bmatrix}- \begin{bmatrix} a\\  b \end{bmatrix}\right\Vert_p}{\left\Vert \begin{bmatrix} a\\ b \end{bmatrix}\right\Vert_p}$$
+
+For simplicity, let us consider 2-norm. Any norm can be used in fact. Therefore,
+
+$$\text{Relative error in input} =\dfrac{\sqrt{\delta a^2+\delta b^2}}{\sqrt{a^2+b^2}}$$
+The output $f(a+\delta a,b+\delta b) = a+b+\delta a+\delta b$. Therefore,
+$$\text{Relative Error in output} = \dfrac{|(a+b+\delta a + \delta b)-(a+b)|}{|a+b|} = \frac{|\delta a+\delta b|}{|a+b|}$$
+The relative condition number is:
+$$\kappa_r = \lim_{r\to 0} \sup_{\left\Vert\begin{bmatrix} \delta a\\ \delta b \end{bmatrix}\right\Vert_2\le r} \dfrac{\frac{|\delta a+\delta b|}{|a+b|}}{\dfrac{\sqrt{\delta a^2+\delta b^2}}{\sqrt{a^2+b^2}}}$$
+$$\implies \kappa_r = \lim_{r\to 0} \sup_{\left\Vert\begin{bmatrix} \delta a\\ \delta b \end{bmatrix}\right\Vert_2\le r} \dfrac{|\delta a+\delta b|}{\sqrt{\delta a^2+\delta b^2}} \cdot \dfrac{\sqrt{a^2+b^2}}{|a+b|} $$
+To calculate $$\lim_{r\to 0} \sup_{\left\Vert\begin{bmatrix} \delta a\\ \delta b \end{bmatrix}\right\Vert_2\le r}\dfrac{|\delta a+\delta b|}{\sqrt{\delta a^2+\delta b^2}}$$ we assume that $\delta a = \alpha \cos \theta$ and $\delta b = \alpha \sin \theta$ where $\alpha>0$ and $0\le\theta<2\pi$. 
+
+Therefore, we have:
+$$\lim_{r\to 0} \sup_{\left\Vert\begin{bmatrix} \delta a\\ \delta b \end{bmatrix}\right\Vert_2\le r}\dfrac{|\delta a+\delta b|}{\sqrt{\delta a^2+\delta b^2}} = \lim_{r \to 0} \sup_{\alpha < r} \dfrac{|\alpha \cos \theta+\alpha \sin \theta|}{\alpha} = \lim_{r\to 0} \sup_{\alpha<r}|\cos \theta+\sin \theta| = \sqrt{2}$$
+Thus, the condition number for adding 2 numbers is:
+$$ \kappa_r = \dfrac{\sqrt{2(a^2+b^2)}}{|a+b|}\le \sqrt{2} \text{ (if $a,\, b>0$)}$$
+(as $|a+b| \ge \sqrt{a^2+b^2}$ for $a,b \in \mathbb{R}^+$)
+
+For $a,b>0$, we can clearly see that the condition number is bounded above by $\sqrt{2}$. In other words, **addition is well-conditioned.**
+
+By performing a similar exercise, we can show that the **subtraction is ill-conditioned** as for $\frac{a}{b} \to 1$, $\kappa_r \to \infty$. 
+
+Multiplication and division operations are also ill-conditioned.
+
+2. Condition number on finding roots of the polynomial $x^2-2x+1$.
+
+
+<!-- Each **bookdown** chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter *must* start with a first-level heading: `# A good chapter`, and can contain one (and only one) first-level heading. -->
+
+<!-- Use second-level and higher headings within chapters like: `## A short section` or `### An even shorter section`. -->
+
+<!-- The `index.Rmd` file is required, and is also your first book chapter. It will be the homepage when you render the book. -->
+
+<!-- ## Render book -->
+
+<!-- You can render the HTML version of this example book without changing anything: -->
+
+<!-- 1. Find the **Build** pane in the RStudio IDE, and -->
+
+<!-- 1. Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files. -->
+
+<!-- Or build the book from the R console: -->
+
+<!-- ```{r, eval=FALSE} -->
+<!-- bookdown::render_book() -->
+<!-- ``` -->
+
+<!-- To render this example to PDF as a `bookdown::pdf_book`, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.org/tinytex/>. -->
+
+<!-- ## Preview book -->
+
+<!-- As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console: -->
+
+<!-- ```{r eval=FALSE} -->
+<!-- bookdown::serve_book() -->
+<!-- ``` -->
+
+
+<!-- ```{r include=FALSE} -->
+<!-- # automatically create a bib database for R packages -->
+<!-- knitr::write_bib(c( -->
+<!--   .packages(), 'bookdown', 'knitr', 'rmarkdown' -->
+<!-- ), 'packages.bib') -->
+<!-- ``` -->

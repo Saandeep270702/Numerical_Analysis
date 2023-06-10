@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Numerical Analysis</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Numerical Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Numerical Analysis" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Sai Saandeep.S, Dr. Sivaram" />
+
+
+<meta name="date" content="2023-06-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="numerical-linear-algebra.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#why-numerical-analysis"><i class="fa fa-check"></i><b>1.1</b> Why Numerical Analysis?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#representing-numbers-on-a-machine"><i class="fa fa-check"></i><b>1.2</b> Representing Numbers on a Machine</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#condition-number-of-a-problem"><i class="fa fa-check"></i><b>1.3</b> Condition Number of a Problem</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#vector-normsrecap"><i class="fa fa-check"></i><b>1.3.1</b> Vector Norms(Recap)</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#examples-on-finding-condition-number"><i class="fa fa-check"></i><b>1.3.2</b> Examples on finding Condition number</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html"><i class="fa fa-check"></i><b>2</b> Numerical Linear Algebra</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#columnspace-nullspace-and-all"><i class="fa fa-check"></i><b>2.1</b> Columnspace, Nullspace and all</a></li>
+<li class="chapter" data-level="2.2" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#matrix-norms"><i class="fa fa-check"></i><b>2.2</b> Matrix Norms</a></li>
+<li class="chapter" data-level="2.3" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#condition-number-of-matrix-vector-products"><i class="fa fa-check"></i><b>2.3</b> Condition number of Matrix vector products</a></li>
+<li class="chapter" data-level="2.4" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#solving-linear-systems"><i class="fa fa-check"></i><b>2.4</b> Solving Linear Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="interpolation.html"><a href="interpolation.html"><i class="fa fa-check"></i><b>3</b> Interpolation</a></li>
+<li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
+<li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
+<li class="chapter" data-level="5.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>5.2</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>6</b> Blocks</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>6.1</b> Equations</a></li>
+<li class="chapter" data-level="6.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>6.2</b> Theorems and proofs</a></li>
+<li class="chapter" data-level="6.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>6.3</b> Callout blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>7</b> Sharing your book</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>7.1</b> Publishing</a></li>
+<li class="chapter" data-level="7.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>7.2</b> 404 pages</a></li>
+<li class="chapter" data-level="7.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>7.3</b> Metadata for sharing</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Numerical Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Numerical Analysis</h1>
+<p class="author"><em>Sai Saandeep.S, Dr. Sivaram</em></p>
+<p class="date"><em>2023-06-02</em></p>
+</div>
+<div id="introduction" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction<a href="index.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<!-- This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports; for example, a math equation $a^2 + b^2 = c^2$. -->
+<div id="why-numerical-analysis" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Why Numerical Analysis?<a href="index.html#why-numerical-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="representing-numbers-on-a-machine" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Representing Numbers on a Machine<a href="index.html#representing-numbers-on-a-machine" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="condition-number-of-a-problem" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Condition Number of a Problem<a href="index.html#condition-number-of-a-problem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Consider a function in one variable <span class="math inline">\(f:\mathbb{R}\to\mathbb{R}\)</span>.
+Condition number for a function <span class="math inline">\(f(x)\)</span> tells about the error amplification of a function <span class="math inline">\(f(x)\)</span> i.e., for a given error in input <span class="math inline">\(x\)</span>, how much is the error in the output <span class="math inline">\(f(x)\)</span>.</p>
+<p>Absolute Condition Number <span class="math inline">\(\kappa_{\text{abs}}\)</span> of the function <span class="math inline">\(f(x)\)</span> is defined as:
+<span class="math display">\[\begin{equation}
+\kappa_{\text{abs}} = \frac{\text{Absolute Change in Output}}{\text{Absolute Change in Input}} = \lim_{\delta x \to 0} \left\lvert{\frac{f(x+\delta x)-f(x)}{x+\delta x - x}}\right\rvert = \left\lvert{f&#39;(x)}\right\rvert
+\end{equation}\]</span></p>
+<p>Relative Condition Number <span class="math inline">\(\kappa_{r}\)</span> of the function <span class="math inline">\(f(x)\)</span> is defined as:
+<span class="math display">\[\begin{equation}
+\kappa_{r} = \frac{\text{Relative Change in Output}}{\text{Relative Change in Input}} = \lim_{\delta x \to 0} \frac{\left\lvert{\frac{f(x+\delta x)-f(x)}{f(x)}}\right\rvert}{\left\lvert{\frac{x+\delta x - x}{x}}\right\rvert} = \left\lvert{\frac{x}{f(x)}f&#39;(x)}\right\rvert
+\end{equation}\]</span></p>
+<p>Now what if the function has multiple inputs? Or What if the function has multiple outputs?</p>
+<p>Examples:-</p>
+<ol style="list-style-type: decimal">
+<li><p>Input 2 numbers <span class="math inline">\(a,b\in\mathbb{R}\)</span> and then find <span class="math inline">\(f(a,b) = a+b\)</span>?. This problem takes 2 inputs- <span class="math inline">\(a, b\)</span> and one output <span class="math inline">\(f(a,b)\)</span>.</p></li>
+<li><p>Find the roots of a polynomial <span class="math inline">\(a_0+a_1x+a_2x^2+\cdots+ a_nx^n\)</span>. We are inputting the vector <span class="math inline">\(\begin{bmatrix} a_0 &amp; a_1 &amp; a_2 &amp; \cdots &amp; a_n\end{bmatrix}^T\)</span> and the output is <span class="math inline">\(x\)</span> in this case.</p></li>
+<li><p>Given a matrix <span class="math inline">\(A\in\mathbb{R}^{m\times n}\)</span>. Input a vector <span class="math inline">\(\mathbf{x}\in\mathbb{R}^{n\times 1}\)</span> and then find <span class="math inline">\(f(\mathbf{x}) = A\mathbf{x} \in \mathbb{R}^{m\times 1}\)</span>?</p></li>
+<li><p>Solve the linear system <span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span> where <span class="math inline">\(A\in\mathbb{R}^{m\times n}\)</span>, <span class="math inline">\(\mathbf{x}\in\mathbb{R}^{n\times 1}\)</span> and <span class="math inline">\(\mathbf{b}\in\mathbb{R}^{m\times 1}\)</span> . Inputs are <span class="math inline">\(A, \mathbf{b}\)</span> and output is a vector <span class="math inline">\(\mathbf{x}\)</span>.</p></li>
+</ol>
+<p>To accommodate these cases, a generalized definition of a (relative) condition number <span class="math inline">\(\kappa_r\)</span> for a function <span class="math inline">\(f:X\to Y\)</span> where <span class="math inline">\(X \subset \mathbb{R}^{m\times 1}\)</span> and <span class="math inline">\(Y \subset \mathbb{R}^{n\times 1}\)</span> is shown below:
+<span class="math display">\[\begin{equation}
+  \kappa_r = \lim_{r\to 0} \sup_{\lVert x \rVert_q \le r} \frac{\frac{\lVert f(x+\delta x)-f(x) \rVert_p}{\lVert f(x) \rVert_p}}{\frac{\lVert \delta x \rVert_q}{\lVert x \rVert_q}}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(p,q \in \mathbb{N}\)</span> and <span class="math inline">\(\lVert . \rVert_p\)</span> denotes the vector <span class="math inline">\(p-\)</span> norm.</p>
+<div id="vector-normsrecap" class="section level3 hasAnchor" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Vector Norms(Recap)<a href="index.html#vector-normsrecap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For a vector <span class="math inline">\(x\)</span> in the vextor space <span class="math inline">\(X\)</span> over a field <span class="math inline">\(F\)</span>, <span class="math inline">\(\lVert . \rVert:F\to R\)</span> is defined such that:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(\lVert x \rVert\ge 0 \ \ \ \forall x \in X\)</span>.</p></li>
+<li><p><span class="math inline">\(\lVert \alpha x \rVert = \left\lvert{\alpha}\right\rvert, \ \ \ \forall x \in X, \ \ \ \alpha \in F\)</span></p></li>
+<li><p><span class="math inline">\(\lVert x+y \rVert \le \lVert x \rVert+\lVert y \rVert, \  \ \ \forall x,y \in X\)</span>.</p></li>
+<li><p><span class="math inline">\(\lVert x \rVert = 0 \Longleftrightarrow x = 0\)</span></p></li>
+</ol>
+<p>Let <span class="math inline">\(x =\begin{bmatrix} x_1 &amp; x_2&amp;\cdots &amp;x_n \end{bmatrix}^T\)</span>. Different possible vector norms which satisfy the above conditions are:</p>
+<ol style="list-style-type: decimal">
+<li><p>Euclidean norm (2-norm)
+<span class="math display">\[\begin{equation}
+\lVert x \rVert_2 = \sqrt{x_1^2+x_2^2+\cdots+x_n^2}
+\end{equation}\]</span></p></li>
+<li><p>Supremum norm(max. norm)
+<span class="math display">\[\begin{equation}
+\lVert x \rVert_{\max} = \lVert x \rVert_{\infty} = \max_{1\le i\le n} |x_i|
+\end{equation}\]</span></p></li>
+<li><p>1-norm
+<span class="math display">\[\begin{equation}
+\lVert x \rVert_1 = \sum_{i=1}^n |x_i|
+\end{equation}\]</span></p></li>
+<li><p><span class="math inline">\(p\)</span>-norm
+<span class="math display">\[\begin{equation}
+\lVert x \rVert_{p} = \left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}}
+\end{equation}\]</span></p></li>
+</ol>
+<p><strong>NOTE:-</strong> Supremum norm of <span class="math inline">\(x\)</span> is <span class="math inline">\(p\)</span>-norm of <span class="math inline">\(x\)</span> as <span class="math inline">\(p\to\infty\)</span></p>
+<p>Proof:- From the definition, <span class="math display">\[\lim_{p\to\infty} \lVert x \rVert_p = \lim_{p\to\infty}\left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}}\]</span></p>
+<p><span class="math display">\[\left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}} \le \left( n\max_{1\le i\le n} |x_i|^p \right)^{\frac{1}{p}} = n^{\frac{1}{p}} \max_{1\le i\le n} |x_i|\]</span></p>
+<p><span class="math display">\[\left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}} \ge \left( \max_{1\le i\le n} |x_i|^p \right)^{\frac{1}{p}} = \max_{1\le i\le n} |x_i|\]</span></p>
+<p>From the above 2 inequalities, we can say that:
+<span class="math display">\[\max_{1\le i\le n} |x_i| \le \lVert x \rVert_p \le n^{\frac{1}{p}} \max_{1\le i\le n} |x_i|\]</span>
+As <span class="math inline">\(p \to \infty,\ \  \ n^{\frac{1}{p}} \max_{1\le i\le n} |x_i| \to \max_{1\le i\le n} |x_i|\)</span>. Therefore, by using sandwich theorem, we can say that <span class="math display">\[\lVert x \rVert_p = \max_{1\le i\le n} |x_i|\]</span></p>
+</div>
+<div id="examples-on-finding-condition-number" class="section level3 hasAnchor" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Examples on finding Condition number<a href="index.html#examples-on-finding-condition-number" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>Let <span class="math inline">\(f(a,b) = a+b\)</span>. Find the condition number of this problem?</li>
+</ol>
+<p>The inputs are <span class="math inline">\(a,\, b\)</span>. Let the inputs have an error <span class="math inline">\(\delta a,\, \delta b\)</span> respectively.</p>
+<p><span class="math display">\[\text{Relative error in input} = \dfrac{\left\Vert \begin{bmatrix} a+\delta a\\ b+\delta b \end{bmatrix}- \begin{bmatrix} a\\  b \end{bmatrix}\right\Vert_p}{\left\Vert \begin{bmatrix} a\\ b \end{bmatrix}\right\Vert_p}\]</span></p>
+<p>For simplicity, let us consider 2-norm. Any norm can be used in fact. Therefore,</p>
+<p><span class="math display">\[\text{Relative error in input} =\dfrac{\sqrt{\delta a^2+\delta b^2}}{\sqrt{a^2+b^2}}\]</span>
+The output <span class="math inline">\(f(a+\delta a,b+\delta b) = a+b+\delta a+\delta b\)</span>. Therefore,
+<span class="math display">\[\text{Relative Error in output} = \dfrac{|(a+b+\delta a + \delta b)-(a+b)|}{|a+b|} = \frac{|\delta a+\delta b|}{|a+b|}\]</span>
+The relative condition number is:
+<span class="math display">\[\kappa_r = \lim_{r\to 0} \sup_{\left\Vert\begin{bmatrix} \delta a\\ \delta b \end{bmatrix}\right\Vert_2\le r} \dfrac{\frac{|\delta a+\delta b|}{|a+b|}}{\dfrac{\sqrt{\delta a^2+\delta b^2}}{\sqrt{a^2+b^2}}}\]</span>
+<span class="math display">\[\implies \kappa_r = \lim_{r\to 0} \sup_{\left\Vert\begin{bmatrix} \delta a\\ \delta b \end{bmatrix}\right\Vert_2\le r} \dfrac{|\delta a+\delta b|}{\sqrt{\delta a^2+\delta b^2}} \cdot \dfrac{\sqrt{a^2+b^2}}{|a+b|} \]</span>
+To calculate <span class="math display">\[\lim_{r\to 0} \sup_{\left\Vert\begin{bmatrix} \delta a\\ \delta b \end{bmatrix}\right\Vert_2\le r}\dfrac{|\delta a+\delta b|}{\sqrt{\delta a^2+\delta b^2}}\]</span> we assume that <span class="math inline">\(\delta a = \alpha \cos \theta\)</span> and <span class="math inline">\(\delta b = \alpha \sin \theta\)</span> where <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(0\le\theta&lt;2\pi\)</span>.</p>
+<p>Therefore, we have:
+<span class="math display">\[\lim_{r\to 0} \sup_{\left\Vert\begin{bmatrix} \delta a\\ \delta b \end{bmatrix}\right\Vert_2\le r}\dfrac{|\delta a+\delta b|}{\sqrt{\delta a^2+\delta b^2}} = \lim_{r \to 0} \sup_{\alpha &lt; r} \dfrac{|\alpha \cos \theta+\alpha \sin \theta|}{\alpha} = \lim_{r\to 0} \sup_{\alpha&lt;r}|\cos \theta+\sin \theta| = \sqrt{2}\]</span>
+Thus, the condition number for adding 2 numbers is:
+<span class="math display">\[ \kappa_r = \dfrac{\sqrt{2(a^2+b^2)}}{|a+b|}\le \sqrt{2} \text{ (if $a,\, b&gt;0$)}\]</span>
+(as <span class="math inline">\(|a+b| \ge \sqrt{a^2+b^2}\)</span> for <span class="math inline">\(a,b \in \mathbb{R}^+\)</span>)</p>
+<p>For <span class="math inline">\(a,b&gt;0\)</span>, we can clearly see that the condition number is bounded above by <span class="math inline">\(\sqrt{2}\)</span>. In other words, <strong>addition is well-conditioned.</strong></p>
+<p>By performing a similar exercise, we can show that the <strong>subtraction is ill-conditioned</strong> as for <span class="math inline">\(\frac{a}{b} \to 1\)</span>, <span class="math inline">\(\kappa_r \to \infty\)</span>.</p>
+<p>Multiplication and division operations are also ill-conditioned.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Condition number on finding roots of the polynomial <span class="math inline">\(x^2-2x+1\)</span>.</li>
+</ol>
+<!-- Each **bookdown** chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter *must* start with a first-level heading: `# A good chapter`, and can contain one (and only one) first-level heading. -->
+<!-- Use second-level and higher headings within chapters like: `## A short section` or `### An even shorter section`. -->
+<!-- The `index.Rmd` file is required, and is also your first book chapter. It will be the homepage when you render the book. -->
+<!-- ## Render book -->
+<!-- You can render the HTML version of this example book without changing anything: -->
+<!-- 1. Find the **Build** pane in the RStudio IDE, and -->
+<!-- 1. Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files. -->
+<!-- Or build the book from the R console: -->
+<!-- ```{r, eval=FALSE} -->
+<!-- bookdown::render_book() -->
+<!-- ``` -->
+<!-- To render this example to PDF as a `bookdown::pdf_book`, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.org/tinytex/>. -->
+<!-- ## Preview book -->
+<!-- As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console: -->
+<!-- ```{r eval=FALSE} -->
+<!-- bookdown::serve_book() -->
+<!-- ``` -->
+<!-- ```{r include=FALSE} -->
+<!-- # automatically create a bib database for R packages -->
+<!-- knitr::write_bib(c( -->
+<!--   .packages(), 'bookdown', 'knitr', 'rmarkdown' -->
+<!-- ), 'packages.bib') -->
+<!-- ``` -->
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="numerical-linear-algebra.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
