@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Sai Saandeep.S, Dr. Sivaram" />
 
 
-<meta name="date" content="2023-06-02" />
+<meta name="date" content="2023-06-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -185,7 +185,22 @@ div.csl-indent {
 <li class="chapter" data-level="2.3" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#condition-number-of-matrix-vector-products"><i class="fa fa-check"></i><b>2.3</b> Condition number of Matrix vector products</a></li>
 <li class="chapter" data-level="2.4" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#solving-linear-systems"><i class="fa fa-check"></i><b>2.4</b> Solving Linear Systems</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="interpolation.html"><a href="interpolation.html"><i class="fa fa-check"></i><b>3</b> Interpolation</a></li>
+<li class="chapter" data-level="3" data-path="interpolation.html"><a href="interpolation.html"><i class="fa fa-check"></i><b>3</b> Interpolation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="interpolation.html"><a href="interpolation.html#motivation---interpolation-vs.-approximation"><i class="fa fa-check"></i><b>3.1</b> Motivation - Interpolation vs. Approximation</a></li>
+<li class="chapter" data-level="3.2" data-path="interpolation.html"><a href="interpolation.html#lagrange-interpolation"><i class="fa fa-check"></i><b>3.2</b> Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="interpolation.html"><a href="interpolation.html#motivation"><i class="fa fa-check"></i><b>3.2.1</b> Motivation</a></li>
+<li class="chapter" data-level="3.2.2" data-path="interpolation.html"><a href="interpolation.html#lagrange-interpolant"><i class="fa fa-check"></i><b>3.2.2</b> Lagrange Interpolant</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="interpolation.html"><a href="interpolation.html#choice-of-nodes"><i class="fa fa-check"></i><b>3.3</b> Choice of Nodes</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="interpolation.html"><a href="interpolation.html#motivation-1"><i class="fa fa-check"></i><b>3.3.1</b> Motivation</a></li>
+<li class="chapter" data-level="3.3.2" data-path="interpolation.html"><a href="interpolation.html#fundamental-theorem-of-polynomial-interpolation"><i class="fa fa-check"></i><b>3.3.2</b> Fundamental Theorem of Polynomial Interpolation</a></li>
+<li class="chapter" data-level="3.3.3" data-path="interpolation.html"><a href="interpolation.html#different-possible-types-of-nodes"><i class="fa fa-check"></i><b>3.3.3</b> Different Possible types of nodes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="interpolation.html"><a href="interpolation.html#wierstrass-approximation-theorem"><i class="fa fa-check"></i><b>3.4</b> Wierstrass Approximation theorem</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
 <li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
 <ul>
@@ -227,6 +242,32 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="interpolation" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Interpolation<a href="interpolation.html#interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="motivation---interpolation-vs.-approximation" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Motivation - Interpolation vs. Approximation<a href="interpolation.html#motivation---interpolation-vs.-approximation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="lagrange-interpolation" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Lagrange Interpolation<a href="interpolation.html#lagrange-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="motivation" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Motivation<a href="interpolation.html#motivation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="lagrange-interpolant" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Lagrange Interpolant<a href="interpolation.html#lagrange-interpolant" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="choice-of-nodes" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Choice of Nodes<a href="interpolation.html#choice-of-nodes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="motivation-1" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Motivation<a href="interpolation.html#motivation-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="fundamental-theorem-of-polynomial-interpolation" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Fundamental Theorem of Polynomial Interpolation<a href="interpolation.html#fundamental-theorem-of-polynomial-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="different-possible-types-of-nodes" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Different Possible types of nodes<a href="interpolation.html#different-possible-types-of-nodes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="wierstrass-approximation-theorem" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Wierstrass Approximation theorem<a href="interpolation.html#wierstrass-approximation-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <!-- # Cross-references {#cross} -->
 <!-- Cross-references make it easier for your readers to find and link to elements in your book. -->
 <!-- ## Chapters and sub-chapters -->
@@ -251,6 +292,7 @@ div.csl-indent {
 <!-- ) -->
 <!-- ``` -->
 
+</div>
 </div>
             </section>
 

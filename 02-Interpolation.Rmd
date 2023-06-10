@@ -1,5 +1,24 @@
 # Interpolation
 
+## Motivation - Interpolation vs. Approximation
+
+## Lagrange Interpolation
+
+### Motivation
+
+### Lagrange Interpolant
+
+## Choice of Nodes
+
+### Motivation
+
+### Fundamental Theorem of Polynomial Interpolation
+
+
+### Different Possible types of nodes
+
+## Wierstrass Approximation theorem
+
 <!-- # Cross-references {#cross} -->
 
 <!-- Cross-references make it easier for your readers to find and link to elements in your book. -->

@@ -11,6 +11,15 @@ matrix-norms
 condition-number-of-matrix-vector-products
 solving-linear-systems
 interpolation
+motivation---interpolation-vs.-approximation
+lagrange-interpolation
+motivation
+lagrange-interpolant
+choice-of-nodes
+motivation-1
+fundamental-theorem-of-polynomial-interpolation
+different-possible-types-of-nodes
+wierstrass-approximation-theorem
 parts
 footnotes-and-citations
 footnotes
