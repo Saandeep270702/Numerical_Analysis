@@ -1,3 +1,5 @@
+eq:integralfinterp
+eq:dfdxinterp
 eq:binom
 introduction
 why-numerical-analysis

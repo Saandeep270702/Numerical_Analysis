@@ -2,9 +2,84 @@
 
 ## Motivation - Interpolation vs. Approximation
 
+If the exact form of $f(x)$ is known, then we have full information about $f(x)$ i.e., Derivatives etc., But what if the exact form is not known? 
+
+Given points $\{x_i\}_{i=1}^n$ and functional values at those points $f(x_1),f(x_2), \dots, f(x_n)$, we wish to find an Approximation to $f(x)$. One way to approximate a function is by *interpolating* it. 
+
+>We say that $p(x)$ is an interpolant to $f(x)$ at $\{x_i\}_{i=1}^n$ if $p(x_i)= f(x_i)$ for $1\le i\le n$. 
+
+Eg: A step function $p(x) = f(x_i)$ for $x\in \left[ \frac{x_i+x_{i-1}}{2}, \frac{x_i+x_{i+1}}{2} \right]$.
+
+The step function, though it is an interpolant, we don't prefer it. The main issue is that it is not continuous. We prefer in some practical applications for the interpolant to be differentiable. 
+
+Assume $f(x)$ to be continuous. Consider the sequence of interpolants $\{P_n(x)\}_{n=1}^{\infty}$ converging to $f(x)$ on $[a,b]$ such that $P_n(x)=f(x) \ \  \ \forall x\in \{x_1,x_2,\dots,x_n \}$
+
+\begin{equation}
+(\#eq:integralfinterp)
+\int_a^b f(x) \, dx \approx \int_a^b P_n(x) \, dx 
+\end{equation}
+
+\begin{equation}
+(\#eq:dfdxinterp)
+\frac{df}{dx}(x) \approx \frac{dP_n}{dx}(x)
+\end{equation}
+
+Equation\@ref(eq:integralfinterp) holds true if $\{P_n(x)\}_{n=1}^{\infty}$ converges to $f(x)$ *uniformly*.
+
+Equation\@ref(eq:dfdxinterp) holds true if $P_n'(x)$ exists and $\{P'_n(x)\}_{n=1}^{\infty}$ converges to $f'(x)$ *uniformly*.
+
+
+In this course, we consider the interpolants $p(x) \in C^{\infty}([a,b])$. A simplest such interpolant would be a polynomial. 
+
+
 ## Lagrange Interpolation
 
 ### Motivation
+
+Consider $p(x) = a_0+a_1x+a_2x^2+\dots+ a_mx^m$ to be a polynomial interpolant for $f(x)$ with **node points** as $\{x_i\}_{i=1}^n$. Therefore,
+$$p(x_i)=f(x_i) \implies a_0+a_1x_i+a_2x_i^2+\dots+ a_mx_i^m = f(x_i) \ \ \ \forall i \in \{1,2,\cdots, n\}$$.
+
+
+\begin{equation}
+\implies \begin{bmatrix}
+1 & x_1 & x_1^2 & \cdots & x_1^m\\
+1 & x_2 & x_2^2 & \cdots & x_2^m\\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_n & x_n^2 & \cdots & x_n^m\\
+\end{bmatrix}_{n \times(m+1)} \begin{bmatrix}a_0\\a_1\\ \vdots \\a_m \end{bmatrix}_{(m+1) \times 1}  = \begin{bmatrix} f(x_1)\\f(x_2)\\ \vdots \\f(x_n) \end{bmatrix}_{n\times 1}
+\end{equation}
+
+Let $$X = \begin{bmatrix}
+1 & x_1 & x_1^2 & \cdots & x_1^m\\
+1 & x_2 & x_2^2 & \cdots & x_2^m\\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_n & x_n^2 & \cdots & x_n^m\\
+\end{bmatrix}\text{ ,} \ \  \ \bar{a} = \begin{bmatrix}a_0\\a_1\\ \vdots \\a_m \end{bmatrix}  \text{ and } \ \ \ \bar{f}=  \begin{bmatrix} f(x_1)\\f(x_2)\\ \vdots \\f(x_n) \end{bmatrix}$$
+$$\implies X\bar{a} = \bar{f}$$
+
+Now the $\bar{a}$ has the coefficients of the interpolant. To find the coefficients, we need to solve the linear system. 
+
+If $m+1<n$ then $X$ is a thin matrix. i.e., we have lesser number of variables than equations. Therefore, solution may not exist. i.e., we may not be able to find $p(x)$.
+
+If $m+1>n$ then $X$ is a fat matrix. Infinitely many polynomial interpolants exist.
+
+If $m+1=n$ then $X$ is a square matrix. $X$ is Vandermonde matrix. 
+$$\det(X) = \prod_{1\le i<j\le n}(x_i-x_j)$$
+If $x_i's$ are distinct then $\det(X)\neq 0 \implies X$ is invertible. 
+
+$\implies X\bar{a} = \bar{f}$ has a unique solution for $m+1=n$. 
+
+$\implies p(x)$ interpolates $f(x)$ uniquely if $\deg(p(x)) = n-1$.
+
+Thus, the minimum degree of the interpolant polynomial is $n-1$.
+
+$p(x)$ interpolates $f(x)$ uniquely if $\deg(p(x))=n-1$. Thus, solving the equation $X\bar{a} = \bar{f}$.
+But there are issues in solving the linear system like this. 
+
++ Computational complexity in solving the linear system $\mathcal{O}(n^3)$.
++ Condition number of $X$ grows exponentially in $n$. This is not preferred as this might cause large errors with small error in input(say due to roundoff errors etc.,)
+
+To overcome these problems, we use Lagrange interpolation.
 
 ### Lagrange Interpolant
 

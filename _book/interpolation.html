@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Sai Saandeep.S, Dr. Sivaram" />
 
 
-<meta name="date" content="2023-06-10" />
+<meta name="date" content="2023-06-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -244,11 +244,63 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 3</span> Interpolation<a href="interpolation.html#interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="motivation---interpolation-vs.-approximation" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Motivation - Interpolation vs. Approximation<a href="interpolation.html#motivation---interpolation-vs.-approximation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If the exact form of <span class="math inline">\(f(x)\)</span> is known, then we have full information about <span class="math inline">\(f(x)\)</span> i.e., Derivatives etc., But what if the exact form is not known?</p>
+<p>Given points <span class="math inline">\(\{x_i\}_{i=1}^n\)</span> and functional values at those points <span class="math inline">\(f(x_1),f(x_2), \dots, f(x_n)\)</span>, we wish to find an Approximation to <span class="math inline">\(f(x)\)</span>. One way to approximate a function is by <em>interpolating</em> it.</p>
+<blockquote>
+<p>We say that <span class="math inline">\(p(x)\)</span> is an interpolant to <span class="math inline">\(f(x)\)</span> at <span class="math inline">\(\{x_i\}_{i=1}^n\)</span> if <span class="math inline">\(p(x_i)= f(x_i)\)</span> for <span class="math inline">\(1\le i\le n\)</span>.</p>
+</blockquote>
+<p>Eg: A step function <span class="math inline">\(p(x) = f(x_i)\)</span> for <span class="math inline">\(x\in \left[ \frac{x_i+x_{i-1}}{2}, \frac{x_i+x_{i+1}}{2} \right]\)</span>.</p>
+<p>The step function, though it is an interpolant, we don’t prefer it. The main issue is that it is not continuous. We prefer in some practical applications for the interpolant to be differentiable.</p>
+<p>Assume <span class="math inline">\(f(x)\)</span> to be continuous. Consider the sequence of interpolants <span class="math inline">\(\{P_n(x)\}_{n=1}^{\infty}\)</span> converging to <span class="math inline">\(f(x)\)</span> on <span class="math inline">\([a,b]\)</span> such that <span class="math inline">\(P_n(x)=f(x) \ \  \ \forall x\in \{x_1,x_2,\dots,x_n \}\)</span></p>
+<p><span class="math display" id="eq:integralfinterp">\[\begin{equation}
+\tag{3.1}
+\int_a^b f(x) \, dx \approx \int_a^b P_n(x) \, dx
+\end{equation}\]</span></p>
+<p><span class="math display" id="eq:dfdxinterp">\[\begin{equation}
+\tag{3.2}
+\frac{df}{dx}(x) \approx \frac{dP_n}{dx}(x)
+\end{equation}\]</span></p>
+<p>Equation<a href="interpolation.html#eq:integralfinterp">(3.1)</a> holds true if <span class="math inline">\(\{P_n(x)\}_{n=1}^{\infty}\)</span> converges to <span class="math inline">\(f(x)\)</span> <em>uniformly</em>.</p>
+<p>Equation<a href="interpolation.html#eq:dfdxinterp">(3.2)</a> holds true if <span class="math inline">\(P_n&#39;(x)\)</span> exists and <span class="math inline">\(\{P&#39;_n(x)\}_{n=1}^{\infty}\)</span> converges to <span class="math inline">\(f&#39;(x)\)</span> <em>uniformly</em>.</p>
+<p>In this course, we consider the interpolants <span class="math inline">\(p(x) \in C^{\infty}([a,b])\)</span>. A simplest such interpolant would be a polynomial.</p>
 </div>
 <div id="lagrange-interpolation" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Lagrange Interpolation<a href="interpolation.html#lagrange-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="motivation" class="section level3 hasAnchor" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> Motivation<a href="interpolation.html#motivation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider <span class="math inline">\(p(x) = a_0+a_1x+a_2x^2+\dots+ a_mx^m\)</span> to be a polynomial interpolant for <span class="math inline">\(f(x)\)</span> with <strong>node points</strong> as <span class="math inline">\(\{x_i\}_{i=1}^n\)</span>. Therefore,
+<span class="math display">\[p(x_i)=f(x_i) \implies a_0+a_1x_i+a_2x_i^2+\dots+ a_mx_i^m = f(x_i) \ \ \ \forall i \in \{1,2,\cdots, n\}\]</span>.</p>
+<p><span class="math display">\[\begin{equation}
+\implies \begin{bmatrix}
+1 &amp; x_1 &amp; x_1^2 &amp; \cdots &amp; x_1^m\\
+1 &amp; x_2 &amp; x_2^2 &amp; \cdots &amp; x_2^m\\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+1 &amp; x_n &amp; x_n^2 &amp; \cdots &amp; x_n^m\\
+\end{bmatrix}_{n \times(m+1)} \begin{bmatrix}a_0\\a_1\\ \vdots \\a_m \end{bmatrix}_{(m+1) \times 1}  = \begin{bmatrix} f(x_1)\\f(x_2)\\ \vdots \\f(x_n) \end{bmatrix}_{n\times 1}
+\end{equation}\]</span></p>
+<p>Let <span class="math display">\[X = \begin{bmatrix}
+1 &amp; x_1 &amp; x_1^2 &amp; \cdots &amp; x_1^m\\
+1 &amp; x_2 &amp; x_2^2 &amp; \cdots &amp; x_2^m\\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+1 &amp; x_n &amp; x_n^2 &amp; \cdots &amp; x_n^m\\
+\end{bmatrix}\text{ ,} \ \  \ \bar{a} = \begin{bmatrix}a_0\\a_1\\ \vdots \\a_m \end{bmatrix}  \text{ and } \ \ \ \bar{f}=  \begin{bmatrix} f(x_1)\\f(x_2)\\ \vdots \\f(x_n) \end{bmatrix}\]</span>
+<span class="math display">\[\implies X\bar{a} = \bar{f}\]</span></p>
+<p>Now the <span class="math inline">\(\bar{a}\)</span> has the coefficients of the interpolant. To find the coefficients, we need to solve the linear system.</p>
+<p>If <span class="math inline">\(m+1&lt;n\)</span> then <span class="math inline">\(X\)</span> is a thin matrix. i.e., we have lesser number of variables than equations. Therefore, solution may not exist. i.e., we may not be able to find <span class="math inline">\(p(x)\)</span>.</p>
+<p>If <span class="math inline">\(m+1&gt;n\)</span> then <span class="math inline">\(X\)</span> is a fat matrix. Infinitely many polynomial interpolants exist.</p>
+<p>If <span class="math inline">\(m+1=n\)</span> then <span class="math inline">\(X\)</span> is a square matrix. <span class="math inline">\(X\)</span> is Vandermonde matrix.
+<span class="math display">\[\det(X) = \prod_{1\le i&lt;j\le n}(x_i-x_j)\]</span>
+If <span class="math inline">\(x_i&#39;s\)</span> are distinct then <span class="math inline">\(\det(X)\neq 0 \implies X\)</span> is invertible.</p>
+<p><span class="math inline">\(\implies X\bar{a} = \bar{f}\)</span> has a unique solution for <span class="math inline">\(m+1=n\)</span>.</p>
+<p><span class="math inline">\(\implies p(x)\)</span> interpolates <span class="math inline">\(f(x)\)</span> uniquely if <span class="math inline">\(\deg(p(x)) = n-1\)</span>.</p>
+<p>Thus, the minimum degree of the interpolant polynomial is <span class="math inline">\(n-1\)</span>.</p>
+<p><span class="math inline">\(p(x)\)</span> interpolates <span class="math inline">\(f(x)\)</span> uniquely if <span class="math inline">\(\deg(p(x))=n-1\)</span>. Thus, solving the equation <span class="math inline">\(X\bar{a} = \bar{f}\)</span>.
+But there are issues in solving the linear system like this.</p>
+<ul>
+<li>Computational complexity in solving the linear system <span class="math inline">\(\mathcal{O}(n^3)\)</span>.</li>
+<li>Condition number of <span class="math inline">\(X\)</span> grows exponentially in <span class="math inline">\(n\)</span>. This is not preferred as this might cause large errors with small error in input(say due to roundoff errors etc.,)</li>
+</ul>
+<p>To overcome these problems, we use Lagrange interpolation.</p>
 </div>
 <div id="lagrange-interpolant" class="section level3 hasAnchor" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Lagrange Interpolant<a href="interpolation.html#lagrange-interpolant" class="anchor-section" aria-label="Anchor link to header"></a></h3>
