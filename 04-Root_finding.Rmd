@@ -1,15 +1,137 @@
-# Footnotes and citations 
+# Root Finding Algorithms
 
-## Footnotes
+## Motivation
+Let $f(x)$ be a continuous function. We are interested in solving $f(x)=0$ for $x$,i.e., we are interested in finding $x^*$ such that $f(x^*)=0$. But finding $x^*$ analytically is not always easy. 
 
-Footnotes are put inside the square brackets after a caret `^[]`. Like this one ^[This is a footnote.]. 
+Examples:-
 
-## Citations
+1. Solving for $x$ for $3x=9$, $x^2+2x-1=0$ are easy. We have closed form zeros for $x$ till 4th order polynomial. Beyond 4th order closed form solution is NOT possible.
 
-Reference items in your bibliography file(s) using `@key`.
+2. Solving transcendental equations like $\tan x = x$, $x=e^x$ exactly. 
 
-For example, we are using the **bookdown** package [@R-bookdown] (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and **knitr** [@xie2015] (this citation was added manually in an external file book.bib). 
-Note that the `.bib` files need to be listed in the index.Rmd with the YAML `bibliography` key.
+Considering the issues present, we need to think of solving the equations numerically.
+
+Consider $f(x) = xe^x-5$. We are now interested to find $x^*$ such that $f(x^*)=0$. Let us guess say $x^*=1.2$. $f(1.2) = -1.015859692716143$. We need to refine this further! For this we need to find a sequence of $x_k$'s iteratively, such that the sequence $\{x_k\}$ converges to $x^*$.
+
+## Bisection Method
+
+We know from Intermediate Value theorem that if $f(x)$ is continuous on $[a,b]$ and if $f(a) f(b)<0$, $\exists x^* \, \in(a,b)$ such that $f(x^*)=0$.
+
+Given a continuous function $f(x)$ and if we could find $a,b\in \mathbb{R}$ such that $a<b$ and $f(a) f(b)<0$, then we can find $x^*$ as follows:
+
+1. Choose $x_0 = \frac{a+b}{2}$ and if
+
+    a. $f(x_0) f(a)<0 \implies  \ \exists \text{ a } x^*\, \in (a,x_0)$. 
+  
+    b. $f(x_0) f(a)>0 \implies  \ \exists \text{ a } x^*\, \in (x_0,b)$
+
+    c. $f(x_0) =0 \implies x^* = x_0$
+    
+2. Refine the guess by taking mean of new interval and check for convergence. 
+
+3. The stopping criteria are $|f(x)|<\epsilon$ and $|I_k|<\delta$ where
+
+   - $|I_k|$ is the length of the interval $I_k$ at the $k^{th}$ step. This is found as:
+         
+      Interval at $0^{th}$ step is $I_0 = [a,b]$. Hence the length of interval $I_0$ is $|I_0|= b-a$. 
+         
+      Let the interval at $k^{th}$ step is $I_k$. Then from step 1,2 we can say that $|I_k| = \frac{|I_{k-1}|}{2}$. Therefore: $$|I_k| = \frac{b-a}{2^k}$$
+         
+    - $\epsilon$ and $\delta$ are user specified small tolerences.(eg 1e-10).
+
+**INSERT PICTURE HERE**
+
+**INSERT CODE/PSEUDO-CODE HERE**
+
+This method described above is called as Bisection method.
+
+When does Bisection Method fail? 
+
+In case of Bisection Method, if 2 initial points $a,b \in \mathbb{R}$ are chosen such that $f(a)f(b)<0$, the we can guarantee that Root can be found from the Intermediate value theorem. Thus, the sequence of iterates always converge to the root. 
+
+## Newton Method
+
+In Bisection method, we need to find functional value at 2 points initially where we expect the root to lie between them. Is it possible to find the root by taking just 1 initial guess? Newton's method allows us to do this! But we need to know the value of derivative at that point. 
+
+**INSERT PICTURE HERE**
+
+Pick guess value $x_0$. We improve this guess by finding the unique root of the linear approximation at this point. The linear approximation is the tangent at that point. The equation of tangent to $f(x)$ at $x=x_0$ is:
+$$y-f(x_0) = f'(x_0) (x-x_0)$$
+This intersects $x$ axis at say $(x_1,0)$. Therefore,
+$$0-f(x_0) =  f'(x_0) (x_1-x_0)$$
+If  $f'(x_0)\neq 0$, then $x_1$ exists. Therefore, the improved guess is
+\begin{equation}
+x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}
+\end{equation}
+
+On repeating the process, we get the improved guess iterates as:
+\begin{equation}
+x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}
+\end{equation}
+
+**INSERT CODE/PSEUDOCODE HERE**
+
+### Rate of Convergence 
+
+Assume that the iterate sequence $\{x_k\}\to x^*$ where $f(x^*)=0$.
+Define $e_k = x_k-x^* \implies x^*=x_k-e_k$. 
+
+We assume that $f(x)$ is a continuous function which is twice differentiable with $f''(x)$ being continuous. Writing Taylor series of $f(x^*)=0$ about $x_k$ gives:
+$$f(x^*)=0= f(x_k-e_k) = f(x_k) - e_k f'(x_k)+\frac{e_k^2}{2!} f''(\zeta_k) $$
+where $\zeta_k \in (\min(x_k,x^*),\max(x_k,x^*))$
+$$\implies 0=f(x_k)-(x_k-x^*)f'(x_k)+\frac{e_k^2}{2!} f''(\zeta_k)$$ 
+$$\implies 0 = f(x_k) - (x_k-x_{k+1}+x_{k+1}-x^*)f'(x_k) + \frac{e_k^2}{2!} f''(\zeta_k)$$
+
+$$\implies 0 = f(x_k) - (x_k-x_{k+1}) f'(x_k) - e_{k+1} f'(x_k) +\frac{e_k^2}{2!} f''(\zeta_k)$$
+From equation()
+$$\implies 0 =f(x_k) - \frac{f(x_k)}{f'(x_k)}f'(x_k) - e_{k+1} f'(x_k) +\frac{e_k^2}{2!} f''(\zeta_k)$$
+$$ e_{k+1} = \frac{e_k^2}{2!} \frac{f''(\zeta_k)}{f'(x_k)}$$
+As $\zeta_k \in (\min(x_k,x^*),\max(x_k,x^*))$ and as $f''(x)$ and $f'(x)$ are continuous, $\exists\,  M,m\in \mathbb{R}$ such that $f''(\zeta_k) \le M$ and $f'(x_k) \ge m$. Therefore,
+$$\frac{f''(\zeta_k)}{2 f'(x_k)} \le \frac{M}{2m} = C \ \text{(say)}$$
+Therefore, 
+\begin{equation}
+e_{k+1} \le C e_k^2
+\end{equation}
+
+This implies that the rate of converge is quadratic for Newton's method. For Bisection, the convergence rate is linear.
+
+**RATE OF CONVERGENCE plot/code**
+
+### Possibility of Non-Convergence?
+Now the main question comes! When does Newton Method fail? 
+
+1. When $f'(x_k) = 0$ at any step in iteration. This means that the tangent at $x=x_k$ is parallel to $x$ axis and hence, no root can be found from there!
+
+Eg: $f(x) = x^2-1$ and $x_0 = 0$ This implies that $f'(x_0) = 2x_0 = 0$. Thus we have to change initial guess.
+
+2. $f(x) = x^{\frac{1}{3}}$ and $x_0 = a>0$. Root is $x^*=0$
+
+$f'(x) = \frac{1}{3x^{\frac{2}{3}}}$
+
+$$x_{k+1}= x_k - \frac{f(x_k)}{f'(x_k)} = x_k - \frac{x_k^{\frac{1}{3}}}{\frac{1}{3x_k^{\frac{2}{3}}}} = -2 x_k$$
+
+Therefore, $x_n = (-2)^n x_0 = (-2)^n a$.
+
+$$\lim_{n \to \infty} x_n \text{ doesn't exist.}$$
+
+Thus, convergence is not always guaranteed in Newton's Method.
 
 
-The RStudio Visual Markdown Editor can also make it easier to insert citations: <https://rstudio.github.io/visual-markdown-editing/#/citations>
+
+<!-- # Footnotes and citations  -->
+
+<!-- ## Footnotes -->
+
+<!-- Footnotes are put inside the square brackets after a caret `^[]`. Like this one ^[This is a footnote.].  -->
+
+<!-- ## Citations -->
+
+<!-- Reference items in your bibliography file(s) using `@key`. -->
+
+<!-- For example, we are using the **bookdown** package [@R-bookdown] (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and **knitr** [@xie2015] (this citation was added manually in an external file book.bib).  -->
+<!-- Note that the `.bib` files need to be listed in the index.Rmd with the YAML `bibliography` key. -->
+
+
+<!-- The RStudio Visual Markdown Editor can also make it easier to insert citations: <https://rstudio.github.io/visual-markdown-editing/#/citations> -->
+
+

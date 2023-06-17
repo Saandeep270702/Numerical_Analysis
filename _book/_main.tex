@@ -120,7 +120,7 @@
 
 \title{Numerical Analysis}
 \author{Sai Saandeep.S, Dr.~Sivaram}
-\date{2023-06-12}
+\date{2023-06-17}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -440,6 +440,10 @@ Eg: A step function \(p(x) = f(x_i)\) for \(x\in \left[ \frac{x_i+x_{i-1}}{2}, \
 
 The step function, though it is an interpolant, we don't prefer it. The main issue is that it is not continuous. We prefer in some practical applications for the interpolant to be differentiable.
 
+Note that not all approximations are interpolants.
+
+Eg: A polynomial approximation to \(\sin x\) is a truncated Taylor series after a few terms(say till degree \(2n+1\)). This approximation is not an interpolant as it won't intersect \(\sin x\) at \(2n+2\) points.
+
 Assume \(f(x)\) to be continuous. Consider the sequence of interpolants \(\{P_n(x)\}_{n=1}^{\infty}\) converging to \(f(x)\) on \([a,b]\) such that \(P_n(x)=f(x) \ \  \ \forall x\in \{x_1,x_2,\dots,x_n \}\)
 
 \begin{equation}
@@ -490,7 +494,7 @@ If \(m+1<n\) then \(X\) is a thin matrix. i.e., we have lesser number of variabl
 
 If \(m+1>n\) then \(X\) is a fat matrix. Infinitely many polynomial interpolants exist.
 
-If \(m+1=n\) then \(X\) is a square matrix. \(X\) is Vandermonde matrix.
+If \(m+1=n\) then \(X\) is a square matrix. \(X\) is Vandermonde matrix. It can be shown that:
 \[\det(X) = \prod_{1\le i<j\le n}(x_i-x_j)\]
 If \(x_i's\) are distinct then \(\det(X)\neq 0 \implies X\) is invertible.
 
@@ -516,20 +520,321 @@ To overcome these problems, we use Lagrange interpolation.
 \hypertarget{lagrange-interpolant}{%
 \subsection{Lagrange Interpolant}\label{lagrange-interpolant}}
 
+Consider
+
+\begin{equation}
+g(x_i) = \begin{cases}
+        1 & \text{if } i\neq j\\
+        0 & \text{if } i=j
+    \end{cases}
+\end{equation}
+for \(i,j \in \{1,2,\dots,n\}\). We are interested to find a polynomial interpolant for this. Let us consider the case of \(n=3\) points and \(j=2\). i.e., \(g(x_1)=g(x_3)=0\) and \(g(x_2)=1\) for simplicity. The least degree of the polynomial interpolant \(p(x)\) is \(n-1=2\). By intuition, we can say that \((x-x_1)(x-x_3)\) is a factor of interpolant \(p(x)\). As \(p(x_2)=g(x_2)=1\), we can say that the interpolant \(p(x)\) is:
+\begin{equation}
+p(x) = \frac{(x-x_1)(x-x_3)}{(x_2-x_1)(x_2-x_3)}
+\end{equation}
+
+For \(n\) points, we have the interpolant polynomial to \(g(x)\) as:
+\begin{equation}
+p(x) = l_j(x) = \prod_{\substack{i=0 \\ i\neq j}} \frac{x-x_i}{x_j-x_i}
+\end{equation}
+
+\(l_j(x)\) is a polynomial of degree \(n-1\) such that:
+\[l_j(x_i) = \delta_{ij}\]
+Now consider \(n\) node points \(\{f(x_i)\}_{i=1}^n\) and consider the polynomial \(p(x)\) defined as:
+\begin{equation}
+p(x) = \sum_{j=1}^n f(x_j) l_j(x)
+\end{equation}
+
+\(p(x)\) is a polynomial of degree atmost \(n-1\). Now,
+
+\[p(x_i) = \sum_{j=1}^n f(x_j) l_j(x_i) = \sum_{j=1}^n f(x_j) \delta_{ij} = f(x_i)\]
+This implies that \(p(x)\) is an interpolant. This is known as \emph{Lagrange Interpolant}.
+
 \hypertarget{choice-of-nodes}{%
 \section{Choice of Nodes}\label{choice-of-nodes}}
 
 \hypertarget{motivation-1}{%
 \subsection{Motivation}\label{motivation-1}}
 
+Now after finding the interpolant, the next question to be asked is how accurate is the interpolant? Immediate obvious answer would be the numer of points chosen. But are there any other factors which determine the accuracy of the interpolant?
+
+Example: Consider the function \(f(x) = \frac{1}{1+25x^2}\) and the interpolation nodes as uniform nodes from {[}-1,1{]}.
+
+\textbf{INSERT CODE HERE}
+
+We can see that the interpolant is not converging to \(f(x)\) uniformly. There are some \textbf{\emph{boundary effects}}
+
+Thus, selection of node points is also important. The question to ask now is what set of nodes guarantees uniform convergence?
+
 \hypertarget{fundamental-theorem-of-polynomial-interpolation}{%
 \subsection{Fundamental Theorem of Polynomial Interpolation}\label{fundamental-theorem-of-polynomial-interpolation}}
+
+Let \(f(x)\) be a smooth function on {[}-1,1{]}. Let \(P_n(x)\) be a polynomial interpolant to \(f(x)\) at \(\{x_k\}_{k=0}^n\) with atmost degree \(n\). Then \(\exists \, \zeta\in[-1,1]\) such that:
+\begin{equation}
+e(x) = f(x)-P_n(x) = \frac{f^{(n+1)}(\zeta)}{(n+1)!}\prod_{k=0}^n(x-x_k)
+\end{equation}
+
+\textbf{Proof:-}
+Define \[w(x) := \prod_{k=0}^n(x-x_k)\] and
+\begin{equation}
+g_x(t) : = f(t)-P_n(t)-\left(\frac{f(x)-P_n(x)}{w(x)}\right)w(t)
+\end{equation}
+where the subscript \(x\) denotes that \(x\) is fixed.
+
+\[g_x(x) = f(x)-P_n(x)-\left(\frac{f(x)-P_n(x)}{w(x)}\right)w(x) = 0\]
+
+\[g_x(x_j) = f(x_j)-P_n(x_j)-\left(\frac{f(x)-P_n(x)}{w(x)}\right)w(x_j)\]
+As \(P_n(x)\) is an interpolant to \(f(x)\) at nodes \(\{x_i\}_{i=0}^n\), \(P_n(x_j) = f(x_j)\) and by definition \(w(x_j) =0\). Therefore, for \(j\in\{0,1,2,\dots ,n\}\), we have \(g_x(x_j)=0\).
+
+\(g_x(t)\) is smooth in the interval (-1,1).
+
+Define intervals
+\begin{align}
+I_1     &= [x_0,x_1]\\
+I_2     &= [x_1,x_2]\\
+        &\vdots\\
+I_k     &= [x_{k-1},x_k]\\
+I_{k+1} &= [x_k,x]\\
+I_{k+2} &=[x,x_{k+1}]\\
+I_{k+3} &= [x_{k+1},x_{k+2}]\\
+        &\vdots\\
+I_{n+1} &= [x_{n-1},x_n]
+\end{align}
+According to Rolle's theorem, \(g'_x(t)\) has atleast \(n+1\) zeros on \([-1,1]\).
+Again according to Rolle's theorem, we can say that \(g''_x(t)\) has atleast \(n\) zeros in \([-1,1]\). If we keep on using Rolle's theorem for further \(n-1\) times, we can show that \(g_x^{(n+1)}(t)\) has atleast 1 zero on \([-1,1]\) i.e., \(\exists \text{ a } \zeta\in[-1,1]\) such that \(g_x^{(n+1)}(\zeta)=0\)
+
+\[g^{(n+1)}_x(\zeta) = f^{(n+1)}(\zeta)-P^{(n+1)}_n(\zeta)-\left(\frac{f(x)-P_n(x)}{w(x)}\right)w^{(n+1)}(\zeta)\]
+
+As \(P_n(t)\) is an \$n\^{}th degree polynomial, \(P^{(n+1)}_n(\zeta)=0\).
+
+\[w(t) = \prod_{k=0}^n(t-x_k)\implies w^{(n+1)}(t) = (n+1)!\]
+
+Therefore \[0 = f^{(n+1)}(\zeta)-0 - \left(\frac{f(x)-P_n(x)}{w(x)}\right)(n+1)!\]
+\[\implies e(x) = f(x)-P_n(x) = \frac{f^{(n+1)}(\zeta)}{(n+1)!}w(x)= \frac{f^{(n+1)}(\zeta)}{(n+1)!}\prod_{k=0}^n(x-x_k)\]
+
+\begin{quote}
+What if \(x\in[a,b]\) instead of \(x\in[-1,1]\)?
+\end{quote}
+
+We can use a linear mapping from \([a,b]\) to \([-1,1]\).
 
 \hypertarget{different-possible-types-of-nodes}{%
 \subsection{Different Possible types of nodes}\label{different-possible-types-of-nodes}}
 
+Now the goal is to find the nodes which minimise the maximum absolute interpolation error i.e., \[\min \max_{x\in[-1,1]} |e(x)|\]. In general, we can also try finding nodes which minimise \(p\)-norm of the interpolation error i.e., \(\min \lVert e(x) \rVert_p\) where:
+\[\lVert e(x) \rVert_p = \left( \int_{-1}^1 |e(x)|^p \, dx\right)^{\frac{1}{p}}\] and \[\lim_{p\to\infty} \lVert e(x) \rVert_p = \max_{x\in[-1,1]}|e(x)|\]
+
+Now the issue is it is difficult to know about \(f^{(n+1)}(\zeta)\) as \(f(x)\) is not known always. Now the best thing we can do is to find nodes which minimise \[\min \max_{x\in[-1,1]}\left|\prod_{k=0}^n(x-x_k)\right| \text{ or } \min \lVert \prod_{k=0}^n(x-x_k) \rVert_p\].
+
+It turns out that Legendre nodes minimise \(||w(x)||_2\), Chebyshev nodes of first kind minimise \(||w(x)||_{\infty}\) and Chebyshev nodes of second kind minimises \(||w(x)||_1\).
+
+\hypertarget{legendre-nodes}{%
+\subsubsection{Legendre Nodes}\label{legendre-nodes}}
+
+Monic Legendre polynomials are defined as:
+\[q_0(x) = 1, \, \, q_1(x) = x\]
+\(q_n(x)\) is a monic polynomial of degree \(n\) such that:
+\begin{equation}
+\int_{-1}^1 q_n(x) q_m(x) \, dx = 0 \ \  \ \forall \,  m\neq n
+\end{equation}
+
+First few monic Legendre polynomials are:
+\begin{align*}
+  q_0(x) &= 1\\
+  q_1(x) &= x\\
+  q_2(x) &= x^2-\frac{1}{3}\\
+  q_3(x) &= x^3-\frac{3}{5}x\\
+  q_4(x) &= x^4- \frac{6}{7}x^2+\frac{3}{35}
+\end{align*}
+
+The zeros of these Legendre polynomials are called Legendre nodes. Legendre nodes minimise \(||w(x)||_2\).
+
+\hypertarget{chebyshev-nodes-of-first-kind}{%
+\subsubsection{Chebyshev nodes of first kind}\label{chebyshev-nodes-of-first-kind}}
+
+Chebyshev polynomials of first kind are given by \(T_n(x) = \cos(n\cos^{-1}(x))\).
+
+First few Chebyshev polynomials are:
+\begin{align}
+T_0(x) &= 1\\
+T_1(x) &= x\\
+T_2(x) &= 2x^2-1\\
+T_3(x) &= 4x^3-3x\\
+T_4(x) &= 8x^4-8x^2+1
+\end{align}
+
+An interesting property of these polynomials are \(T_m(x)\) and \(T_n(x)\) are orthogonal weighted by \(\frac{1}{\sqrt{1-x^2}}\).
+
+\begin{align}
+   \int_{-1}^{1}\frac{ T_n(x)T_m(x)}{\sqrt{1-x^2}}dx &= 0 , m \neq n\\
+                                    &= \pi,m = n= 0\\
+                                    &= \frac{\pi}{2}, m = n \neq 0               
+\end{align}
+
+\textbf{Proof:-}
+
+Let \(x = \cos \theta\) where \(\theta \in [0,\pi]\). This implies that \(dx = -\sin \theta \, d \theta = -\sqrt{1-x^2} \, d \theta\). And \(x=-1 \implies \theta = \pi\) and \(x =1 \implies \theta = 0\). Therefore,
+\begin{align*}
+\int_{-1}^{1} T_m(x)T_n(x) \frac{1}{\sqrt{1-x^2}} dx & = \int_{0}^{\pi} \cos(m\theta) \cos(n\theta) d\theta \\
+&= \frac{1}{2}{\int_{0}^{\pi}} \cos(m+n)\theta 
++ \cos(m-n)\theta d\theta  \\
+&=\frac{1}{2} \left[\sin\frac{(m+n)\theta }{m+n}\right]_{0}^{\pi}
++ \left[\sin\frac{(m-n)\theta }{m-n}\right]_{0}^{\pi}\\
+&= 0, \text{ if } m \neq n 
+\end{align*}
+
+Similarly with appropriate substitution, conditions for \$m = n=0 \$ and \$m = n \neq 0 \$ can be proved.
+
+The zeros of Chebyshev polynomial \(T_{n+1}(x)\) are given by \(x_k = \cos\left( \frac{2k+1}{2n+2} \pi \right)\) where \(k \in \{ 0,1,2,\cdots,n \}\).
+
+\textbf{Proof:-}
+
+\begin{flushleft}
+\textbf{Proof:-}
+\end{flushleft}
+
+We have \[T_{n+1}(x) = \cos((n+1)\arccos(x))\]
+\[T_{n+1}(x) = 0 \implies \cos((n+1)\arccos(x)) = 0\]
+
+\[\implies(n+1) \arccos(x) = (2k+1)\frac{\pi}{2} \ \ \ k \in \mathbb{Z}\]
+
+\[\implies \arccos(x) = (2k+1)\frac{\pi}{2(n+1)} \ \ \ \ k \in \mathbb{Z}\]
+
+But as the principle range of \(\arccos(x)\) is defined as \([0,\pi]\), we must restrict the values \(k\) can take.
+
+\[0 \le (2k+1)\frac{\pi}{2(n+1)} \le \pi \implies 0 \le k \le n+\frac{1}{2} \]
+
+But as \(k \in \mathbb{Z}\), we can say that the possible values \(k\) can take are \(\{ 0,1,2,\cdots,n\}\).
+
+Therefore \(\arccos(x_k) = (2k+1)\frac{\pi}{2(n+1)} \ \ \ \ k \in \{ 0,1,2,\cdots,n\}\)
+\[\implies x_k = \cos\left( (2k+1)\frac{\pi}{2(n+1)} \right)\ \ \ \ k \in \{ 0,1,2,\cdots,n\}\]
+
+Therefore the zeros of \(T_{n+1}(x)\) are in the interval \([-1,1]\) are given by \(x_k = \cos\left( \frac{2k+1}{2n+2} \pi \right)\) where \(k \in \{ 0,1,2,\cdots,n \}\). The number of zeros is also consistent with the fact that as \(T_{n+1}(x)\) is an \((n+1)\) th-degree polynomial, it has \((n+1)\) roots. Also, these zeros are distinct.
+
+These zeros are called the Chebyshev nodes of first kind. They minimise \(||w(x)||_{\infty}\)
+
+\textbf{Theorem}
+
+If \(f(x)\) is smooth on \([-1,1]\), then Lagrange interpolation using the roots of Chebyshev nodes of first kind converges uniformly.
+
+\textbf{INSERT RUNGE FUNCTION-CHEBYSHEV NODES CONVERGENCE CODE}
+
 \hypertarget{wierstrass-approximation-theorem}{%
 \section{Wierstrass Approximation theorem}\label{wierstrass-approximation-theorem}}
+
+\emph{Suppose \(f\) is a continuous real-valued function defined on the real interval \([a,b]\). For every \(\epsilon > 0\), there exists a polynomial \(p\) such that for all \(x\) in \([a,b]\), we have \(|f(x) - p(x)| < \epsilon\).}
+
+\emph{\textbf{Bernstein polynomial:}}
+
+The Bernstein basis polynomials of degree \(n\) are defined as
+\begin{equation}
+    b_{k,n}(x) = {}^nC_{k}\, x^k (1-x)^{n-k}
+\end{equation}
+A linear combination of these basis polynomials can be used to obtain other polynomials. One of the properties of these polynomials is that
+\begin{equation}
+\begin{aligned}
+    \sum_{k=0}^n {b_{k,n}(x)} &= \sum_{k=0}^n {{}^nC_{k}\, x^k (1-x)^{n-k}} \\
+    &= (x + (1 - x))^n = 1
+    \label{equ:property}
+\end{aligned}
+\end{equation}
+So these polynomials can also be considered to act as some kind of weights. Now, for approximating functions, the Bernstein Polynomial is defined as
+\begin{equation}
+    B_n(f;x) = \sum_{k=0}^n {f\left(\dfrac{k}{n}\right) {}^nC_{k}\, x^k (1-x)^{n-k}}
+    \label{eqn:bern}
+\end{equation}
+Here, \(f\) is the function being approximated, \(n\) is the order of approximation \& \(x\) is the point at which the approximation is made.
+
+\textbf{Proof:}
+
+To prove the theorem on closed intervals \([a,b]\), without loss of generality, we can take the closed interval as \([0, 1]\). Thus, \(f\) can be considered as a continuous real-valued function on \([0, 1]\). Since \(f\) is a continuous function, we can say that for a given \(\epsilon > 0\), there exists a \(\delta > 0\) such that:
+\begin{equation}
+    |x-y| < \delta \implies |f(x) - f(y)| <\frac{\epsilon}{2} \ \ \ \  \forall \, x,y \in [0,1]
+    \label{equ:convcond}
+\end{equation}
+To prove that \(B_n(f,x)\) converges to \(f(x)\) uniformly, we show that \(|B_n(f,x) - f(x)|\) has to be made small. By the definition of Bernstein's polynomial, as shown in Eqn. \ref{eqn:bern} and by using the property given in Eqn. \ref{equ:property}, we can write \(|B_n(f;x) - f(x)|\) as:
+\begin{align*}
+    |B_n(f;x) - f(x)| &= \left| \sum_{k=0}^n {\left(f\left(\dfrac{k}{n}\right) - f(x)\right) {}^nC_{k} \, x^k (1-x)^{n-k}} \right| \\
+    &\leq \sum_{k=0}^n {\left|f\left(\dfrac{k}{n}\right) - f(x)\right| {}^nC_{k} \, x^k (1-x)^{n-k}}
+\end{align*}
+Now, if we consider \(y=\dfrac{k}{n}\) in Eqn. \ref{equ:convcond} and if \(\left|\dfrac{k}{n} - x\right| < \delta\), we can say that \(\left|f\left(\dfrac{k}{n}\right) - f(x)\right| < \dfrac{\epsilon}{2}\). But this is not true in the entire domain. So, we partition the domain in to two sets: \(A\) and \(B\), where \(A\) and \(B\) have the following properties:
+\begin{equation}
+    \begin{aligned}
+        A \cup B &= [0,1]\\
+        A \cap B &= \phi\\
+        A &= \{x:|k/n - x| \leq \delta, x \in [0,1]\}\\
+        B &= \{x:|k/n-x| > \delta, x \in [0,1]\}
+    \end{aligned}
+    \label{equ:sets}
+\end{equation}
+By dividing the domain into sets \(A\) and \(B\) as defined in \ref{equ:sets}, we can write:
+\begin{equation*}
+\begin{split}
+    |B_n(f;x) - f(x)| = \sum_{x\in A} \left|f\left(\dfrac{k}{n}\right) - f(x)\right| &{}^nC_{k}\, x^k (1-x)^{n-k} \\
+    &+ \sum_{x\in B} \left|f\left(\dfrac{k}{n}\right) - f(x)\right |{}^nC_{k}\, x^k (1-x)^{n-k}
+\end{split}
+\end{equation*}
+From Eqns. \ref{equ:convcond} and \ref{equ:sets}, we can say that \(\left|f\left(\dfrac{k}{n}\right) - f(x)\right|\) has an upper bound of \(\dfrac{\epsilon}{2}\) on the set \(A\). Therefore, we can write:
+\begin{equation*}
+\begin{split}
+    |B_n(f;x) - f(x)| \leq \sum_{x\in A} \left(\dfrac{\epsilon}{2}\right){}^nC_{k}\, x^k &(1-x)^{n-k} \\
+    &+ \sum_{x\in B} \left|f\left(\dfrac{k}{n}\right) - f(x)\right |{}^nC_{k}\, x^k (1-x)^{n-k}
+\end{split}
+\end{equation*}
+By using the property described in Eqn. \ref{equ:property}, we can simplify the above inequality as:
+\begin{equation*}
+    |B_n(f,;x) - f(x)| \leq \frac{\epsilon}{2} + \sum_{x\in B} \left|f\left(\dfrac{k}{n}\right) - f(x)\right |{}^nC_{k}\, x^k (1-x)^{n-k}
+\end{equation*}
+Since \(f\) is uniformly converging in \([0,1]\), \(f\) is bounded from above. So, let the maximum value of \(f\) in the domain be \(M\). Thus:
+\begin{equation*}
+    \text{max\{} | f(x) | \} = M \ \ \ \  \forall \, x \in [0,1]
+\end{equation*}
+Thus, the maximum value \(\left|f\left(\dfrac{k}{n}\right) - f(x)\right|\) can achieve in the domain is \(2M\) (considering the case where, one of them is \(M\) and the other is \(-M\)). Thus, we have:
+\begin{equation*}
+    |B_n(f;x) - f(x)| \leq \frac{\epsilon}{2} + (2M) \sum_{x\in B} {{}^nC_{k}\, x^k (1-x)^{n-k}}
+\end{equation*}
+Now, in set \(B\), \(\left| \dfrac{k}{n} - x \right| > \delta\). Thus, we get:
+\begin{equation*}
+    \frac{\left( k/n - x \right)^2}{\delta^2} > 1
+\end{equation*}
+Multiplying this to the second term of RHS, we get:
+\begin{equation*}
+    |B_n(f;x) - f(x)| \leq \frac{\epsilon}{2} + (2M) \sum_{x\in B} {\frac{\left( k/n - x \right)^2}{\delta^2}{}^nC_{k}\, x^k (1-x)^{n-k}}
+\end{equation*}
+The second term can now be written as:
+\begin{equation*}
+    \dfrac{2M}{\delta^2 n^2} \sum_{x\in B} {(k-nx)^2 \, {}^nC_{k}\, x^k (1-x)^{n-k}}
+\end{equation*}
+The summation term is equivalent to computing the variance of a binomial distribution with parameters \(n\) \& \(x\). The variance is given by \(nx(1-x)\). Thus, we get:
+\begin{equation*}
+    |B_n(f;x) - f(x)| \leq \frac{\epsilon}{2} + \dfrac{2M}{\delta^2 n^2} nx(1-x)
+\end{equation*}
+We know that using AM \(\geq\) GM:
+\begin{equation*}
+    x(1-x) \leq \dfrac{1}{4}
+\end{equation*}
+Thus, we have:
+\begin{equation*}
+    |B_n(f;x) - f(x)| \leq \frac{\epsilon}{2} + \dfrac{M}{2\delta^2 n}
+\end{equation*}
+Now, let us define a quantity \(N\) such that the above condition holds true for all \(n > N\), which gives us \(\dfrac{1}{n} < \dfrac{1}{N}\). Thus:
+\begin{equation*}
+    |B_n(f;x) - f(x)| \leq \frac{\epsilon}{2} + \dfrac{M}{2\delta^2 N}
+\end{equation*}
+If we choose the \(N\) such that:
+\begin{equation*}
+    \dfrac{M}{2\delta^2N} = \dfrac{\epsilon}{2}
+\end{equation*}
+giving us:
+\begin{align*}
+    |B_n(f;x) - f(x)| &\leq \dfrac{\epsilon}{2} + \dfrac{\epsilon}{2} \\
+    |B_n(f;x) - f(x)| &\leq \epsilon
+\end{align*}
+Thus, we have for all \(n > N\), where \(N = \dfrac{M}{\delta^2\epsilon}\), we have
+\begin{equation}
+    |B_n(f;x) - f(x)| \leq \epsilon
+\end{equation}
+i.e., the Bernstein Polynomial \(B_n(f;x)\) uniformly converges to \(f(x)\) for all \(x\) in the domain \([0,1]\).
 
 \hypertarget{parts}{%
 \chapter{Parts}\label{parts}}
@@ -542,23 +847,157 @@ Add an unnumbered part: \texttt{\#\ (PART\textbackslash{}*)\ Act\ one\ \{-\}} (f
 
 Add an appendix as a special kind of un-numbered part: \texttt{\#\ (APPENDIX)\ Other\ stuff\ \{-\}} (followed by \texttt{\#\ A\ chapter}). Chapters in an appendix are prepended with letters instead of numbers.
 
-\hypertarget{footnotes-and-citations}{%
-\chapter{Footnotes and citations}\label{footnotes-and-citations}}
+\hypertarget{root-finding-algorithms}{%
+\chapter{Root Finding Algorithms}\label{root-finding-algorithms}}
 
-\hypertarget{footnotes}{%
-\section{Footnotes}\label{footnotes}}
+\hypertarget{motivation-2}{%
+\section{Motivation}\label{motivation-2}}
 
-Footnotes are put inside the square brackets after a caret \texttt{\^{}{[}{]}}. Like this one \footnote{This is a footnote.}.
+Let \(f(x)\) be a continuous function. We are interested in solving \(f(x)=0\) for \(x\),i.e., we are interested in finding \(x^*\) such that \(f(x^*)=0\). But finding \(x^*\) analytically is not always easy.
 
-\hypertarget{citations}{%
-\section{Citations}\label{citations}}
+Examples:-
 
-Reference items in your bibliography file(s) using \texttt{@key}.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Solving for \(x\) for \(3x=9\), \(x^2+2x-1=0\) are easy. We have closed form zeros for \(x\) till 4th order polynomial. Beyond 4th order closed form solution is NOT possible.
+\item
+  Solving transcendental equations like \(\tan x = x\), \(x=e^x\) exactly.
+\end{enumerate}
 
-For example, we are using the \textbf{bookdown} package \citep{R-bookdown} (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and \textbf{knitr} \citep{xie2015} (this citation was added manually in an external file book.bib).
-Note that the \texttt{.bib} files need to be listed in the index.Rmd with the YAML \texttt{bibliography} key.
+Considering the issues present, we need to think of solving the equations numerically.
 
-The RStudio Visual Markdown Editor can also make it easier to insert citations: \url{https://rstudio.github.io/visual-markdown-editing/\#/citations}
+Consider \(f(x) = xe^x-5\). We are now interested to find \(x^*\) such that \(f(x^*)=0\). Let us guess say \(x^*=1.2\). \(f(1.2) = -1.015859692716143\). We need to refine this further! For this we need to find a sequence of \(x_k\)'s iteratively, such that the sequence \(\{x_k\}\) converges to \(x^*\).
+
+\hypertarget{bisection-method}{%
+\section{Bisection Method}\label{bisection-method}}
+
+We know from Intermediate Value theorem that if \(f(x)\) is continuous on \([a,b]\) and if \(f(a) f(b)<0\), \(\exists x^* \, \in(a,b)\) such that \(f(x^*)=0\).
+
+Given a continuous function \(f(x)\) and if we could find \(a,b\in \mathbb{R}\) such that \(a<b\) and \(f(a) f(b)<0\), then we can find \(x^*\) as follows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Choose \(x_0 = \frac{a+b}{2}\) and if
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    \(f(x_0) f(a)<0 \implies \ \exists \text{ a } x^*\, \in (a,x_0)\).
+  \item
+    \(f(x_0) f(a)>0 \implies \ \exists \text{ a } x^*\, \in (x_0,b)\)
+  \item
+    \(f(x_0) =0 \implies x^* = x_0\)
+  \end{enumerate}
+\item
+  Refine the guess by taking mean of new interval and check for convergence.
+\item
+  The stopping criteria are \(|f(x)|<\epsilon\) and \(|I_k|<\delta\) where
+
+  \begin{itemize}
+  \item
+    \(|I_k|\) is the length of the interval \(I_k\) at the \(k^{th}\) step. This is found as:
+
+    Interval at \(0^{th}\) step is \(I_0 = [a,b]\). Hence the length of interval \(I_0\) is \(|I_0|= b-a\).
+
+    Let the interval at \(k^{th}\) step is \(I_k\). Then from step 1,2 we can say that \(|I_k| = \frac{|I_{k-1}|}{2}\). Therefore: \[|I_k| = \frac{b-a}{2^k}\]
+  \item
+    \(\epsilon\) and \(\delta\) are user specified small tolerences.(eg 1e-10).
+  \end{itemize}
+\end{enumerate}
+
+\textbf{INSERT PICTURE HERE}
+
+\textbf{INSERT CODE/PSEUDO-CODE HERE}
+
+This method described above is called as Bisection method.
+
+When does Bisection Method fail?
+
+In case of Bisection Method, if 2 initial points \(a,b \in \mathbb{R}\) are chosen such that \(f(a)f(b)<0\), the we can guarantee that Root can be found from the Intermediate value theorem. Thus, the sequence of iterates always converge to the root.
+
+\hypertarget{newton-method}{%
+\section{Newton Method}\label{newton-method}}
+
+In Bisection method, we need to find functional value at 2 points initially where we expect the root to lie between them. Is it possible to find the root by taking just 1 initial guess? Newton's method allows us to do this! But we need to know the value of derivative at that point.
+
+\textbf{INSERT PICTURE HERE}
+
+Pick guess value \(x_0\). We improve this guess by finding the unique root of the linear approximation at this point. The linear approximation is the tangent at that point. The equation of tangent to \(f(x)\) at \(x=x_0\) is:
+\[y-f(x_0) = f'(x_0) (x-x_0)\]
+This intersects \(x\) axis at say \((x_1,0)\). Therefore,
+\[0-f(x_0) =  f'(x_0) (x_1-x_0)\]
+If \(f'(x_0)\neq 0\), then \(x_1\) exists. Therefore, the improved guess is
+\begin{equation}
+x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}
+\end{equation}
+
+On repeating the process, we get the improved guess iterates as:
+\begin{equation}
+x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}
+\end{equation}
+
+\textbf{INSERT CODE/PSEUDOCODE HERE}
+
+\hypertarget{rate-of-convergence}{%
+\subsection{Rate of Convergence}\label{rate-of-convergence}}
+
+Assume that the iterate sequence \(\{x_k\}\to x^*\) where \(f(x^*)=0\).
+Define \(e_k = x_k-x^* \implies x^*=x_k-e_k\).
+
+We assume that \(f(x)\) is a continuous function which is twice differentiable with \(f''(x)\) being continuous. Writing Taylor series of \(f(x^*)=0\) about \(x_k\) gives:
+\[f(x^*)=0= f(x_k-e_k) = f(x_k) - e_k f'(x_k)+\frac{e_k^2}{2!} f''(\zeta_k) \]
+where \(\zeta_k \in (\min(x_k,x^*),\max(x_k,x^*))\)
+\[\implies 0=f(x_k)-(x_k-x^*)f'(x_k)+\frac{e_k^2}{2!} f''(\zeta_k)\]
+\[\implies 0 = f(x_k) - (x_k-x_{k+1}+x_{k+1}-x^*)f'(x_k) + \frac{e_k^2}{2!} f''(\zeta_k)\]
+
+\[\implies 0 = f(x_k) - (x_k-x_{k+1}) f'(x_k) - e_{k+1} f'(x_k) +\frac{e_k^2}{2!} f''(\zeta_k)\]
+From equation()
+\[\implies 0 =f(x_k) - \frac{f(x_k)}{f'(x_k)}f'(x_k) - e_{k+1} f'(x_k) +\frac{e_k^2}{2!} f''(\zeta_k)\]
+\[ e_{k+1} = \frac{e_k^2}{2!} \frac{f''(\zeta_k)}{f'(x_k)}\]
+As \(\zeta_k \in (\min(x_k,x^*),\max(x_k,x^*))\) and as \(f''(x)\) and \(f'(x)\) are continuous, \(\exists\, M,m\in \mathbb{R}\) such that \(f''(\zeta_k) \le M\) and \(f'(x_k) \ge m\). Therefore,
+\[\frac{f''(\zeta_k)}{2 f'(x_k)} \le \frac{M}{2m} = C \ \text{(say)}\]
+Therefore,
+\begin{equation}
+e_{k+1} \le C e_k^2
+\end{equation}
+
+This implies that the rate of converge is quadratic for Newton's method. For Bisection, the convergence rate is linear.
+
+\textbf{RATE OF CONVERGENCE plot/code}
+
+\hypertarget{possibility-of-non-convergence}{%
+\subsection{Possibility of Non-Convergence?}\label{possibility-of-non-convergence}}
+
+Now the main question comes! When does Newton Method fail?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  When \(f'(x_k) = 0\) at any step in iteration. This means that the tangent at \(x=x_k\) is parallel to \(x\) axis and hence, no root can be found from there!
+\end{enumerate}
+
+Eg: \(f(x) = x^2-1\) and \(x_0 = 0\) This implies that \(f'(x_0) = 2x_0 = 0\). Thus we have to change initial guess.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \(f(x) = x^{\frac{1}{3}}\) and \(x_0 = a>0\). Root is \(x^*=0\)
+\end{enumerate}
+
+\(f'(x) = \frac{1}{3x^{\frac{2}{3}}}\)
+
+\[x_{k+1}= x_k - \frac{f(x_k)}{f'(x_k)} = x_k - \frac{x_k^{\frac{1}{3}}}{\frac{1}{3x_k^{\frac{2}{3}}}} = -2 x_k\]
+
+Therefore, \(x_n = (-2)^n x_0 = (-2)^n a\).
+
+\[\lim_{n \to \infty} x_n \text{ doesn't exist.}\]
+
+Thus, convergence is not always guaranteed in Newton's Method.
 
 \hypertarget{blocks}{%
 \chapter{Blocks}\label{blocks}}

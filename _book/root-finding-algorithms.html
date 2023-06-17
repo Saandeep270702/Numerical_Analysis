@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Footnotes and citations | Numerical Analysis</title>
+  <title>Chapter 5 Root Finding Algorithms | Numerical Analysis</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Footnotes and citations | Numerical Analysis" />
+  <meta property="og:title" content="Chapter 5 Root Finding Algorithms | Numerical Analysis" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
@@ -19,7 +19,7 @@ set in the _output.yml file.</p>" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Footnotes and citations | Numerical Analysis" />
+  <meta name="twitter:title" content="Chapter 5 Root Finding Algorithms | Numerical Analysis" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Sai Saandeep.S, Dr. Sivaram" />
 
 
-<meta name="date" content="2023-06-15" />
+<meta name="date" content="2023-06-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,28 +129,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -202,10 +180,15 @@ div.csl-indent {
 <li class="chapter" data-level="3.4" data-path="interpolation.html"><a href="interpolation.html#wierstrass-approximation-theorem"><i class="fa fa-check"></i><b>3.4</b> Wierstrass Approximation theorem</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
-<li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
+<li class="chapter" data-level="5" data-path="root-finding-algorithms.html"><a href="root-finding-algorithms.html"><i class="fa fa-check"></i><b>5</b> Root Finding Algorithms</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
-<li class="chapter" data-level="5.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>5.2</b> Citations</a></li>
+<li class="chapter" data-level="5.1" data-path="root-finding-algorithms.html"><a href="root-finding-algorithms.html#motivation-2"><i class="fa fa-check"></i><b>5.1</b> Motivation</a></li>
+<li class="chapter" data-level="5.2" data-path="root-finding-algorithms.html"><a href="root-finding-algorithms.html#bisection-method"><i class="fa fa-check"></i><b>5.2</b> Bisection Method</a></li>
+<li class="chapter" data-level="5.3" data-path="root-finding-algorithms.html"><a href="root-finding-algorithms.html#newton-method"><i class="fa fa-check"></i><b>5.3</b> Newton Method</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="root-finding-algorithms.html"><a href="root-finding-algorithms.html#rate-of-convergence"><i class="fa fa-check"></i><b>5.3.1</b> Rate of Convergence</a></li>
+<li class="chapter" data-level="5.3.2" data-path="root-finding-algorithms.html"><a href="root-finding-algorithms.html#possibility-of-non-convergence"><i class="fa fa-check"></i><b>5.3.2</b> Possibility of Non-Convergence?</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>6</b> Blocks</a>
 <ul>
@@ -240,35 +223,110 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="footnotes-and-citations" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">Chapter 5</span> Footnotes and citations<a href="footnotes-and-citations.html#footnotes-and-citations" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="footnotes" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> Footnotes<a href="footnotes-and-citations.html#footnotes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Footnotes are put inside the square brackets after a caret <code>^[]</code>. Like this one <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<div id="root-finding-algorithms" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Root Finding Algorithms<a href="root-finding-algorithms.html#root-finding-algorithms" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="motivation-2" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Motivation<a href="root-finding-algorithms.html#motivation-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let <span class="math inline">\(f(x)\)</span> be a continuous function. We are interested in solving <span class="math inline">\(f(x)=0\)</span> for <span class="math inline">\(x\)</span>,i.e., we are interested in finding <span class="math inline">\(x^*\)</span> such that <span class="math inline">\(f(x^*)=0\)</span>. But finding <span class="math inline">\(x^*\)</span> analytically is not always easy.</p>
+<p>Examples:-</p>
+<ol style="list-style-type: decimal">
+<li><p>Solving for <span class="math inline">\(x\)</span> for <span class="math inline">\(3x=9\)</span>, <span class="math inline">\(x^2+2x-1=0\)</span> are easy. We have closed form zeros for <span class="math inline">\(x\)</span> till 4th order polynomial. Beyond 4th order closed form solution is NOT possible.</p></li>
+<li><p>Solving transcendental equations like <span class="math inline">\(\tan x = x\)</span>, <span class="math inline">\(x=e^x\)</span> exactly.</p></li>
+</ol>
+<p>Considering the issues present, we need to think of solving the equations numerically.</p>
+<p>Consider <span class="math inline">\(f(x) = xe^x-5\)</span>. We are now interested to find <span class="math inline">\(x^*\)</span> such that <span class="math inline">\(f(x^*)=0\)</span>. Let us guess say <span class="math inline">\(x^*=1.2\)</span>. <span class="math inline">\(f(1.2) = -1.015859692716143\)</span>. We need to refine this further! For this we need to find a sequence of <span class="math inline">\(x_k\)</span>’s iteratively, such that the sequence <span class="math inline">\(\{x_k\}\)</span> converges to <span class="math inline">\(x^*\)</span>.</p>
 </div>
-<div id="citations" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> Citations<a href="footnotes-and-citations.html#citations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Reference items in your bibliography file(s) using <code>@key</code>.</p>
-<p>For example, we are using the <strong>bookdown</strong> package <span class="citation">(<a href="#ref-R-bookdown">Xie 2023</a>)</span> (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(<a href="#ref-xie2015">Xie 2015</a>)</span> (this citation was added manually in an external file book.bib).
-Note that the <code>.bib</code> files need to be listed in the index.Rmd with the YAML <code>bibliography</code> key.</p>
-<p>The RStudio Visual Markdown Editor can also make it easier to insert citations: <a href="https://rstudio.github.io/visual-markdown-editing/#/citations" class="uri">https://rstudio.github.io/visual-markdown-editing/#/citations</a></p>
+<div id="bisection-method" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Bisection Method<a href="root-finding-algorithms.html#bisection-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We know from Intermediate Value theorem that if <span class="math inline">\(f(x)\)</span> is continuous on <span class="math inline">\([a,b]\)</span> and if <span class="math inline">\(f(a) f(b)&lt;0\)</span>, <span class="math inline">\(\exists x^* \, \in(a,b)\)</span> such that <span class="math inline">\(f(x^*)=0\)</span>.</p>
+<p>Given a continuous function <span class="math inline">\(f(x)\)</span> and if we could find <span class="math inline">\(a,b\in \mathbb{R}\)</span> such that <span class="math inline">\(a&lt;b\)</span> and <span class="math inline">\(f(a) f(b)&lt;0\)</span>, then we can find <span class="math inline">\(x^*\)</span> as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Choose <span class="math inline">\(x_0 = \frac{a+b}{2}\)</span> and if</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(f(x_0) f(a)&lt;0 \implies \ \exists \text{ a } x^*\, \in (a,x_0)\)</span>.</p></li>
+<li><p><span class="math inline">\(f(x_0) f(a)&gt;0 \implies \ \exists \text{ a } x^*\, \in (x_0,b)\)</span></p></li>
+<li><p><span class="math inline">\(f(x_0) =0 \implies x^* = x_0\)</span></p></li>
+</ol></li>
+<li><p>Refine the guess by taking mean of new interval and check for convergence.</p></li>
+<li><p>The stopping criteria are <span class="math inline">\(|f(x)|&lt;\epsilon\)</span> and <span class="math inline">\(|I_k|&lt;\delta\)</span> where</p>
+<ul>
+<li><p><span class="math inline">\(|I_k|\)</span> is the length of the interval <span class="math inline">\(I_k\)</span> at the <span class="math inline">\(k^{th}\)</span> step. This is found as:</p>
+<p>Interval at <span class="math inline">\(0^{th}\)</span> step is <span class="math inline">\(I_0 = [a,b]\)</span>. Hence the length of interval <span class="math inline">\(I_0\)</span> is <span class="math inline">\(|I_0|= b-a\)</span>.</p>
+<p>Let the interval at <span class="math inline">\(k^{th}\)</span> step is <span class="math inline">\(I_k\)</span>. Then from step 1,2 we can say that <span class="math inline">\(|I_k| = \frac{|I_{k-1}|}{2}\)</span>. Therefore: <span class="math display">\[|I_k| = \frac{b-a}{2^k}\]</span></p></li>
+<li><p><span class="math inline">\(\epsilon\)</span> and <span class="math inline">\(\delta\)</span> are user specified small tolerences.(eg 1e-10).</p></li>
+</ul></li>
+</ol>
+<p><strong>INSERT PICTURE HERE</strong></p>
+<p><strong>INSERT CODE/PSEUDO-CODE HERE</strong></p>
+<p>This method described above is called as Bisection method.</p>
+<p>When does Bisection Method fail?</p>
+<p>In case of Bisection Method, if 2 initial points <span class="math inline">\(a,b \in \mathbb{R}\)</span> are chosen such that <span class="math inline">\(f(a)f(b)&lt;0\)</span>, the we can guarantee that Root can be found from the Intermediate value theorem. Thus, the sequence of iterates always converge to the root.</p>
+</div>
+<div id="newton-method" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Newton Method<a href="root-finding-algorithms.html#newton-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In Bisection method, we need to find functional value at 2 points initially where we expect the root to lie between them. Is it possible to find the root by taking just 1 initial guess? Newton’s method allows us to do this! But we need to know the value of derivative at that point.</p>
+<p><strong>INSERT PICTURE HERE</strong></p>
+<p>Pick guess value <span class="math inline">\(x_0\)</span>. We improve this guess by finding the unique root of the linear approximation at this point. The linear approximation is the tangent at that point. The equation of tangent to <span class="math inline">\(f(x)\)</span> at <span class="math inline">\(x=x_0\)</span> is:
+<span class="math display">\[y-f(x_0) = f&#39;(x_0) (x-x_0)\]</span>
+This intersects <span class="math inline">\(x\)</span> axis at say <span class="math inline">\((x_1,0)\)</span>. Therefore,
+<span class="math display">\[0-f(x_0) =  f&#39;(x_0) (x_1-x_0)\]</span>
+If <span class="math inline">\(f&#39;(x_0)\neq 0\)</span>, then <span class="math inline">\(x_1\)</span> exists. Therefore, the improved guess is
+<span class="math display">\[\begin{equation}
+x_1 = x_0 - \frac{f(x_0)}{f&#39;(x_0)}
+\end{equation}\]</span></p>
+<p>On repeating the process, we get the improved guess iterates as:
+<span class="math display">\[\begin{equation}
+x_{k+1} = x_k - \frac{f(x_k)}{f&#39;(x_k)}
+\end{equation}\]</span></p>
+<p><strong>INSERT CODE/PSEUDOCODE HERE</strong></p>
+<div id="rate-of-convergence" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Rate of Convergence<a href="root-finding-algorithms.html#rate-of-convergence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assume that the iterate sequence <span class="math inline">\(\{x_k\}\to x^*\)</span> where <span class="math inline">\(f(x^*)=0\)</span>.
+Define <span class="math inline">\(e_k = x_k-x^* \implies x^*=x_k-e_k\)</span>.</p>
+<p>We assume that <span class="math inline">\(f(x)\)</span> is a continuous function which is twice differentiable with <span class="math inline">\(f&#39;&#39;(x)\)</span> being continuous. Writing Taylor series of <span class="math inline">\(f(x^*)=0\)</span> about <span class="math inline">\(x_k\)</span> gives:
+<span class="math display">\[f(x^*)=0= f(x_k-e_k) = f(x_k) - e_k f&#39;(x_k)+\frac{e_k^2}{2!} f&#39;&#39;(\zeta_k) \]</span>
+where <span class="math inline">\(\zeta_k \in (\min(x_k,x^*),\max(x_k,x^*))\)</span>
+<span class="math display">\[\implies 0=f(x_k)-(x_k-x^*)f&#39;(x_k)+\frac{e_k^2}{2!} f&#39;&#39;(\zeta_k)\]</span>
+<span class="math display">\[\implies 0 = f(x_k) - (x_k-x_{k+1}+x_{k+1}-x^*)f&#39;(x_k) + \frac{e_k^2}{2!} f&#39;&#39;(\zeta_k)\]</span></p>
+<p><span class="math display">\[\implies 0 = f(x_k) - (x_k-x_{k+1}) f&#39;(x_k) - e_{k+1} f&#39;(x_k) +\frac{e_k^2}{2!} f&#39;&#39;(\zeta_k)\]</span>
+From equation()
+<span class="math display">\[\implies 0 =f(x_k) - \frac{f(x_k)}{f&#39;(x_k)}f&#39;(x_k) - e_{k+1} f&#39;(x_k) +\frac{e_k^2}{2!} f&#39;&#39;(\zeta_k)\]</span>
+<span class="math display">\[ e_{k+1} = \frac{e_k^2}{2!} \frac{f&#39;&#39;(\zeta_k)}{f&#39;(x_k)}\]</span>
+As <span class="math inline">\(\zeta_k \in (\min(x_k,x^*),\max(x_k,x^*))\)</span> and as <span class="math inline">\(f&#39;&#39;(x)\)</span> and <span class="math inline">\(f&#39;(x)\)</span> are continuous, <span class="math inline">\(\exists\, M,m\in \mathbb{R}\)</span> such that <span class="math inline">\(f&#39;&#39;(\zeta_k) \le M\)</span> and <span class="math inline">\(f&#39;(x_k) \ge m\)</span>. Therefore,
+<span class="math display">\[\frac{f&#39;&#39;(\zeta_k)}{2 f&#39;(x_k)} \le \frac{M}{2m} = C \ \text{(say)}\]</span>
+Therefore,
+<span class="math display">\[\begin{equation}
+e_{k+1} \le C e_k^2
+\end{equation}\]</span></p>
+<p>This implies that the rate of converge is quadratic for Newton’s method. For Bisection, the convergence rate is linear.</p>
+<p><strong>RATE OF CONVERGENCE plot/code</strong></p>
+</div>
+<div id="possibility-of-non-convergence" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Possibility of Non-Convergence?<a href="root-finding-algorithms.html#possibility-of-non-convergence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now the main question comes! When does Newton Method fail?</p>
+<ol style="list-style-type: decimal">
+<li>When <span class="math inline">\(f&#39;(x_k) = 0\)</span> at any step in iteration. This means that the tangent at <span class="math inline">\(x=x_k\)</span> is parallel to <span class="math inline">\(x\)</span> axis and hence, no root can be found from there!</li>
+</ol>
+<p>Eg: <span class="math inline">\(f(x) = x^2-1\)</span> and <span class="math inline">\(x_0 = 0\)</span> This implies that <span class="math inline">\(f&#39;(x_0) = 2x_0 = 0\)</span>. Thus we have to change initial guess.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><span class="math inline">\(f(x) = x^{\frac{1}{3}}\)</span> and <span class="math inline">\(x_0 = a&gt;0\)</span>. Root is <span class="math inline">\(x^*=0\)</span></li>
+</ol>
+<p><span class="math inline">\(f&#39;(x) = \frac{1}{3x^{\frac{2}{3}}}\)</span></p>
+<p><span class="math display">\[x_{k+1}= x_k - \frac{f(x_k)}{f&#39;(x_k)} = x_k - \frac{x_k^{\frac{1}{3}}}{\frac{1}{3x_k^{\frac{2}{3}}}} = -2 x_k\]</span></p>
+<p>Therefore, <span class="math inline">\(x_n = (-2)^n x_0 = (-2)^n a\)</span>.</p>
+<p><span class="math display">\[\lim_{n \to \infty} x_n \text{ doesn&#39;t exist.}\]</span></p>
+<p>Thus, convergence is not always guaranteed in Newton’s Method.</p>
+<!-- # Footnotes and citations  -->
+<!-- ## Footnotes -->
+<!-- Footnotes are put inside the square brackets after a caret `^[]`. Like this one ^[This is a footnote.].  -->
+<!-- ## Citations -->
+<!-- Reference items in your bibliography file(s) using `@key`. -->
+<!-- For example, we are using the **bookdown** package [@R-bookdown] (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and **knitr** [@xie2015] (this citation was added manually in an external file book.bib).  -->
+<!-- Note that the `.bib` files need to be listed in the index.Rmd with the YAML `bibliography` key. -->
+<!-- The RStudio Visual Markdown Editor can also make it easier to insert citations: <https://rstudio.github.io/visual-markdown-editing/#/citations> -->
 
 </div>
 </div>
-<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-xie2015" class="csl-entry">
-Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.
-</div>
-<div id="ref-R-bookdown" class="csl-entry">
-———. 2023. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>This is a footnote.<a href="footnotes-and-citations.html#fnref1" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
             </section>
 

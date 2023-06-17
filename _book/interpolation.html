@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Sai Saandeep.S, Dr. Sivaram" />
 
 
-<meta name="date" content="2023-06-12" />
+<meta name="date" content="2023-06-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,28 +129,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -202,10 +180,15 @@ div.csl-indent {
 <li class="chapter" data-level="3.4" data-path="interpolation.html"><a href="interpolation.html#wierstrass-approximation-theorem"><i class="fa fa-check"></i><b>3.4</b> Wierstrass Approximation theorem</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
-<li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
+<li class="chapter" data-level="5" data-path="root-finding-algorithms.html"><a href="root-finding-algorithms.html"><i class="fa fa-check"></i><b>5</b> Root Finding Algorithms</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
-<li class="chapter" data-level="5.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>5.2</b> Citations</a></li>
+<li class="chapter" data-level="5.1" data-path="root-finding-algorithms.html"><a href="root-finding-algorithms.html#motivation-2"><i class="fa fa-check"></i><b>5.1</b> Motivation</a></li>
+<li class="chapter" data-level="5.2" data-path="root-finding-algorithms.html"><a href="root-finding-algorithms.html#bisection-method"><i class="fa fa-check"></i><b>5.2</b> Bisection Method</a></li>
+<li class="chapter" data-level="5.3" data-path="root-finding-algorithms.html"><a href="root-finding-algorithms.html#newton-method"><i class="fa fa-check"></i><b>5.3</b> Newton Method</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="root-finding-algorithms.html"><a href="root-finding-algorithms.html#rate-of-convergence"><i class="fa fa-check"></i><b>5.3.1</b> Rate of Convergence</a></li>
+<li class="chapter" data-level="5.3.2" data-path="root-finding-algorithms.html"><a href="root-finding-algorithms.html#possibility-of-non-convergence"><i class="fa fa-check"></i><b>5.3.2</b> Possibility of Non-Convergence?</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>6</b> Blocks</a>
 <ul>
@@ -251,6 +234,8 @@ div.csl-indent {
 </blockquote>
 <p>Eg: A step function <span class="math inline">\(p(x) = f(x_i)\)</span> for <span class="math inline">\(x\in \left[ \frac{x_i+x_{i-1}}{2}, \frac{x_i+x_{i+1}}{2} \right]\)</span>.</p>
 <p>The step function, though it is an interpolant, we don’t prefer it. The main issue is that it is not continuous. We prefer in some practical applications for the interpolant to be differentiable.</p>
+<p>Note that not all approximations are interpolants.</p>
+<p>Eg: A polynomial approximation to <span class="math inline">\(\sin x\)</span> is a truncated Taylor series after a few terms(say till degree <span class="math inline">\(2n+1\)</span>). This approximation is not an interpolant as it won’t intersect <span class="math inline">\(\sin x\)</span> at <span class="math inline">\(2n+2\)</span> points.</p>
 <p>Assume <span class="math inline">\(f(x)\)</span> to be continuous. Consider the sequence of interpolants <span class="math inline">\(\{P_n(x)\}_{n=1}^{\infty}\)</span> converging to <span class="math inline">\(f(x)\)</span> on <span class="math inline">\([a,b]\)</span> such that <span class="math inline">\(P_n(x)=f(x) \ \  \ \forall x\in \{x_1,x_2,\dots,x_n \}\)</span></p>
 <p><span class="math display" id="eq:integralfinterp">\[\begin{equation}
 \tag{3.1}
@@ -288,7 +273,7 @@ div.csl-indent {
 <p>Now the <span class="math inline">\(\bar{a}\)</span> has the coefficients of the interpolant. To find the coefficients, we need to solve the linear system.</p>
 <p>If <span class="math inline">\(m+1&lt;n\)</span> then <span class="math inline">\(X\)</span> is a thin matrix. i.e., we have lesser number of variables than equations. Therefore, solution may not exist. i.e., we may not be able to find <span class="math inline">\(p(x)\)</span>.</p>
 <p>If <span class="math inline">\(m+1&gt;n\)</span> then <span class="math inline">\(X\)</span> is a fat matrix. Infinitely many polynomial interpolants exist.</p>
-<p>If <span class="math inline">\(m+1=n\)</span> then <span class="math inline">\(X\)</span> is a square matrix. <span class="math inline">\(X\)</span> is Vandermonde matrix.
+<p>If <span class="math inline">\(m+1=n\)</span> then <span class="math inline">\(X\)</span> is a square matrix. <span class="math inline">\(X\)</span> is Vandermonde matrix. It can be shown that:
 <span class="math display">\[\det(X) = \prod_{1\le i&lt;j\le n}(x_i-x_j)\]</span>
 If <span class="math inline">\(x_i&#39;s\)</span> are distinct then <span class="math inline">\(\det(X)\neq 0 \implies X\)</span> is invertible.</p>
 <p><span class="math inline">\(\implies X\bar{a} = \bar{f}\)</span> has a unique solution for <span class="math inline">\(m+1=n\)</span>.</p>
@@ -304,22 +289,264 @@ But there are issues in solving the linear system like this.</p>
 </div>
 <div id="lagrange-interpolant" class="section level3 hasAnchor" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Lagrange Interpolant<a href="interpolation.html#lagrange-interpolant" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider</p>
+<p><span class="math display">\[\begin{equation}
+g(x_i) = \begin{cases}
+        1 &amp; \text{if } i\neq j\\
+        0 &amp; \text{if } i=j
+    \end{cases}
+\end{equation}\]</span>
+for <span class="math inline">\(i,j \in \{1,2,\dots,n\}\)</span>. We are interested to find a polynomial interpolant for this. Let us consider the case of <span class="math inline">\(n=3\)</span> points and <span class="math inline">\(j=2\)</span>. i.e., <span class="math inline">\(g(x_1)=g(x_3)=0\)</span> and <span class="math inline">\(g(x_2)=1\)</span> for simplicity. The least degree of the polynomial interpolant <span class="math inline">\(p(x)\)</span> is <span class="math inline">\(n-1=2\)</span>. By intuition, we can say that <span class="math inline">\((x-x_1)(x-x_3)\)</span> is a factor of interpolant <span class="math inline">\(p(x)\)</span>. As <span class="math inline">\(p(x_2)=g(x_2)=1\)</span>, we can say that the interpolant <span class="math inline">\(p(x)\)</span> is:
+<span class="math display">\[\begin{equation}
+p(x) = \frac{(x-x_1)(x-x_3)}{(x_2-x_1)(x_2-x_3)}
+\end{equation}\]</span></p>
+<p>For <span class="math inline">\(n\)</span> points, we have the interpolant polynomial to <span class="math inline">\(g(x)\)</span> as:
+<span class="math display">\[\begin{equation}
+p(x) = l_j(x) = \prod_{\substack{i=0 \\ i\neq j}} \frac{x-x_i}{x_j-x_i}
+\end{equation}\]</span></p>
+<p><span class="math inline">\(l_j(x)\)</span> is a polynomial of degree <span class="math inline">\(n-1\)</span> such that:
+<span class="math display">\[l_j(x_i) = \delta_{ij}\]</span>
+Now consider <span class="math inline">\(n\)</span> node points <span class="math inline">\(\{f(x_i)\}_{i=1}^n\)</span> and consider the polynomial <span class="math inline">\(p(x)\)</span> defined as:
+<span class="math display">\[\begin{equation}
+p(x) = \sum_{j=1}^n f(x_j) l_j(x)
+\end{equation}\]</span></p>
+<p><span class="math inline">\(p(x)\)</span> is a polynomial of degree atmost <span class="math inline">\(n-1\)</span>. Now,</p>
+<p><span class="math display">\[p(x_i) = \sum_{j=1}^n f(x_j) l_j(x_i) = \sum_{j=1}^n f(x_j) \delta_{ij} = f(x_i)\]</span>
+This implies that <span class="math inline">\(p(x)\)</span> is an interpolant. This is known as <em>Lagrange Interpolant</em>.</p>
 </div>
 </div>
 <div id="choice-of-nodes" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Choice of Nodes<a href="interpolation.html#choice-of-nodes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="motivation-1" class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Motivation<a href="interpolation.html#motivation-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now after finding the interpolant, the next question to be asked is how accurate is the interpolant? Immediate obvious answer would be the numer of points chosen. But are there any other factors which determine the accuracy of the interpolant?</p>
+<p>Example: Consider the function <span class="math inline">\(f(x) = \frac{1}{1+25x^2}\)</span> and the interpolation nodes as uniform nodes from [-1,1].</p>
+<p><strong>INSERT CODE HERE</strong></p>
+<p>We can see that the interpolant is not converging to <span class="math inline">\(f(x)\)</span> uniformly. There are some <strong><em>boundary effects</em></strong></p>
+<p>Thus, selection of node points is also important. The question to ask now is what set of nodes guarantees uniform convergence?</p>
 </div>
 <div id="fundamental-theorem-of-polynomial-interpolation" class="section level3 hasAnchor" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Fundamental Theorem of Polynomial Interpolation<a href="interpolation.html#fundamental-theorem-of-polynomial-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(f(x)\)</span> be a smooth function on [-1,1]. Let <span class="math inline">\(P_n(x)\)</span> be a polynomial interpolant to <span class="math inline">\(f(x)\)</span> at <span class="math inline">\(\{x_k\}_{k=0}^n\)</span> with atmost degree <span class="math inline">\(n\)</span>. Then <span class="math inline">\(\exists \, \zeta\in[-1,1]\)</span> such that:
+<span class="math display">\[\begin{equation}
+e(x) = f(x)-P_n(x) = \frac{f^{(n+1)}(\zeta)}{(n+1)!}\prod_{k=0}^n(x-x_k)
+\end{equation}\]</span></p>
+<p><strong>Proof:-</strong>
+Define <span class="math display">\[w(x) := \prod_{k=0}^n(x-x_k)\]</span> and
+<span class="math display">\[\begin{equation}
+g_x(t) : = f(t)-P_n(t)-\left(\frac{f(x)-P_n(x)}{w(x)}\right)w(t)
+\end{equation}\]</span>
+where the subscript <span class="math inline">\(x\)</span> denotes that <span class="math inline">\(x\)</span> is fixed.</p>
+<p><span class="math display">\[g_x(x) = f(x)-P_n(x)-\left(\frac{f(x)-P_n(x)}{w(x)}\right)w(x) = 0\]</span></p>
+<p><span class="math display">\[g_x(x_j) = f(x_j)-P_n(x_j)-\left(\frac{f(x)-P_n(x)}{w(x)}\right)w(x_j)\]</span>
+As <span class="math inline">\(P_n(x)\)</span> is an interpolant to <span class="math inline">\(f(x)\)</span> at nodes <span class="math inline">\(\{x_i\}_{i=0}^n\)</span>, <span class="math inline">\(P_n(x_j) = f(x_j)\)</span> and by definition <span class="math inline">\(w(x_j) =0\)</span>. Therefore, for <span class="math inline">\(j\in\{0,1,2,\dots ,n\}\)</span>, we have <span class="math inline">\(g_x(x_j)=0\)</span>.</p>
+<p><span class="math inline">\(g_x(t)\)</span> is smooth in the interval (-1,1).</p>
+<p>Define intervals
+<span class="math display">\[\begin{align}
+I_1     &amp;= [x_0,x_1]\\
+I_2     &amp;= [x_1,x_2]\\
+        &amp;\vdots\\
+I_k     &amp;= [x_{k-1},x_k]\\
+I_{k+1} &amp;= [x_k,x]\\
+I_{k+2} &amp;=[x,x_{k+1}]\\
+I_{k+3} &amp;= [x_{k+1},x_{k+2}]\\
+        &amp;\vdots\\
+I_{n+1} &amp;= [x_{n-1},x_n]
+\end{align}\]</span>
+According to Rolle’s theorem, <span class="math inline">\(g&#39;_x(t)\)</span> has atleast <span class="math inline">\(n+1\)</span> zeros on <span class="math inline">\([-1,1]\)</span>.
+Again according to Rolle’s theorem, we can say that <span class="math inline">\(g&#39;&#39;_x(t)\)</span> has atleast <span class="math inline">\(n\)</span> zeros in <span class="math inline">\([-1,1]\)</span>. If we keep on using Rolle’s theorem for further <span class="math inline">\(n-1\)</span> times, we can show that <span class="math inline">\(g_x^{(n+1)}(t)\)</span> has atleast 1 zero on <span class="math inline">\([-1,1]\)</span> i.e., <span class="math inline">\(\exists \text{ a } \zeta\in[-1,1]\)</span> such that <span class="math inline">\(g_x^{(n+1)}(\zeta)=0\)</span></p>
+<p><span class="math display">\[g^{(n+1)}_x(\zeta) = f^{(n+1)}(\zeta)-P^{(n+1)}_n(\zeta)-\left(\frac{f(x)-P_n(x)}{w(x)}\right)w^{(n+1)}(\zeta)\]</span></p>
+<p>As <span class="math inline">\(P_n(t)\)</span> is an $n^th degree polynomial, <span class="math inline">\(P^{(n+1)}_n(\zeta)=0\)</span>.</p>
+<p><span class="math display">\[w(t) = \prod_{k=0}^n(t-x_k)\implies w^{(n+1)}(t) = (n+1)!\]</span></p>
+<p>Therefore <span class="math display">\[0 = f^{(n+1)}(\zeta)-0 - \left(\frac{f(x)-P_n(x)}{w(x)}\right)(n+1)!\]</span>
+<span class="math display">\[\implies e(x) = f(x)-P_n(x) = \frac{f^{(n+1)}(\zeta)}{(n+1)!}w(x)= \frac{f^{(n+1)}(\zeta)}{(n+1)!}\prod_{k=0}^n(x-x_k)\]</span></p>
+<blockquote>
+<p>What if <span class="math inline">\(x\in[a,b]\)</span> instead of <span class="math inline">\(x\in[-1,1]\)</span>?</p>
+</blockquote>
+<p>We can use a linear mapping from <span class="math inline">\([a,b]\)</span> to <span class="math inline">\([-1,1]\)</span>.</p>
 </div>
 <div id="different-possible-types-of-nodes" class="section level3 hasAnchor" number="3.3.3">
 <h3><span class="header-section-number">3.3.3</span> Different Possible types of nodes<a href="interpolation.html#different-possible-types-of-nodes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now the goal is to find the nodes which minimise the maximum absolute interpolation error i.e., <span class="math display">\[\min \max_{x\in[-1,1]} |e(x)|\]</span>. In general, we can also try finding nodes which minimise <span class="math inline">\(p\)</span>-norm of the interpolation error i.e., <span class="math inline">\(\min \lVert e(x) \rVert_p\)</span> where:
+<span class="math display">\[\lVert e(x) \rVert_p = \left( \int_{-1}^1 |e(x)|^p \, dx\right)^{\frac{1}{p}}\]</span> and <span class="math display">\[\lim_{p\to\infty} \lVert e(x) \rVert_p = \max_{x\in[-1,1]}|e(x)|\]</span></p>
+<p>Now the issue is it is difficult to know about <span class="math inline">\(f^{(n+1)}(\zeta)\)</span> as <span class="math inline">\(f(x)\)</span> is not known always. Now the best thing we can do is to find nodes which minimise <span class="math display">\[\min \max_{x\in[-1,1]}\left|\prod_{k=0}^n(x-x_k)\right| \text{ or } \min \lVert \prod_{k=0}^n(x-x_k) \rVert_p\]</span>.</p>
+<p>It turns out that Legendre nodes minimise <span class="math inline">\(||w(x)||_2\)</span>, Chebyshev nodes of first kind minimise <span class="math inline">\(||w(x)||_{\infty}\)</span> and Chebyshev nodes of second kind minimises <span class="math inline">\(||w(x)||_1\)</span>.</p>
+<div id="legendre-nodes" class="section level4 hasAnchor" number="3.3.3.1">
+<h4><span class="header-section-number">3.3.3.1</span> Legendre Nodes<a href="interpolation.html#legendre-nodes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Monic Legendre polynomials are defined as:
+<span class="math display">\[q_0(x) = 1, \, \, q_1(x) = x\]</span>
+<span class="math inline">\(q_n(x)\)</span> is a monic polynomial of degree <span class="math inline">\(n\)</span> such that:
+<span class="math display">\[\begin{equation}
+\int_{-1}^1 q_n(x) q_m(x) \, dx = 0 \ \  \ \forall \,  m\neq n
+\end{equation}\]</span></p>
+<p>First few monic Legendre polynomials are:
+<span class="math display">\[\begin{align*}
+  q_0(x) &amp;= 1\\
+  q_1(x) &amp;= x\\
+  q_2(x) &amp;= x^2-\frac{1}{3}\\
+  q_3(x) &amp;= x^3-\frac{3}{5}x\\
+  q_4(x) &amp;= x^4- \frac{6}{7}x^2+\frac{3}{35}
+\end{align*}\]</span></p>
+<p>The zeros of these Legendre polynomials are called Legendre nodes. Legendre nodes minimise <span class="math inline">\(||w(x)||_2\)</span>.</p>
+</div>
+<div id="chebyshev-nodes-of-first-kind" class="section level4 hasAnchor" number="3.3.3.2">
+<h4><span class="header-section-number">3.3.3.2</span> Chebyshev nodes of first kind<a href="interpolation.html#chebyshev-nodes-of-first-kind" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Chebyshev polynomials of first kind are given by <span class="math inline">\(T_n(x) = \cos(n\cos^{-1}(x))\)</span>.</p>
+<p>First few Chebyshev polynomials are:
+<span class="math display">\[\begin{align}
+T_0(x) &amp;= 1\\
+T_1(x) &amp;= x\\
+T_2(x) &amp;= 2x^2-1\\
+T_3(x) &amp;= 4x^3-3x\\
+T_4(x) &amp;= 8x^4-8x^2+1
+\end{align}\]</span></p>
+<p>An interesting property of these polynomials are <span class="math inline">\(T_m(x)\)</span> and <span class="math inline">\(T_n(x)\)</span> are orthogonal weighted by <span class="math inline">\(\frac{1}{\sqrt{1-x^2}}\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+   \int_{-1}^{1}\frac{ T_n(x)T_m(x)}{\sqrt{1-x^2}}dx &amp;= 0 , m \neq n\\
+                                    &amp;= \pi,m = n= 0\\
+                                    &amp;= \frac{\pi}{2}, m = n \neq 0               
+\end{align}\]</span></p>
+<p><strong>Proof:-</strong></p>
+<p>Let <span class="math inline">\(x = \cos \theta\)</span> where <span class="math inline">\(\theta \in [0,\pi]\)</span>. This implies that <span class="math inline">\(dx = -\sin \theta \, d \theta = -\sqrt{1-x^2} \, d \theta\)</span>. And <span class="math inline">\(x=-1 \implies \theta = \pi\)</span> and <span class="math inline">\(x =1 \implies \theta = 0\)</span>. Therefore,
+<span class="math display">\[\begin{align*}
+\int_{-1}^{1} T_m(x)T_n(x) \frac{1}{\sqrt{1-x^2}} dx &amp; = \int_{0}^{\pi} \cos(m\theta) \cos(n\theta) d\theta \\
+&amp;= \frac{1}{2}{\int_{0}^{\pi}} \cos(m+n)\theta
++ \cos(m-n)\theta d\theta  \\
+&amp;=\frac{1}{2} \left[\sin\frac{(m+n)\theta }{m+n}\right]_{0}^{\pi}
++ \left[\sin\frac{(m-n)\theta }{m-n}\right]_{0}^{\pi}\\
+&amp;= 0, \text{ if } m \neq n
+\end{align*}\]</span></p>
+<p>Similarly with appropriate substitution, conditions for $m = n=0 $ and $m = n $ can be proved.</p>
+<p>The zeros of Chebyshev polynomial <span class="math inline">\(T_{n+1}(x)\)</span> are given by <span class="math inline">\(x_k = \cos\left( \frac{2k+1}{2n+2} \pi \right)\)</span> where <span class="math inline">\(k \in \{ 0,1,2,\cdots,n \}\)</span>.</p>
+<p><strong>Proof:-</strong></p>
+<p>We have <span class="math display">\[T_{n+1}(x) = \cos((n+1)\arccos(x))\]</span>
+<span class="math display">\[T_{n+1}(x) = 0 \implies \cos((n+1)\arccos(x)) = 0\]</span></p>
+<p><span class="math display">\[\implies(n+1) \arccos(x) = (2k+1)\frac{\pi}{2} \ \ \ k \in \mathbb{Z}\]</span></p>
+<p><span class="math display">\[\implies \arccos(x) = (2k+1)\frac{\pi}{2(n+1)} \ \ \ \ k \in \mathbb{Z}\]</span></p>
+<p>But as the principle range of <span class="math inline">\(\arccos(x)\)</span> is defined as <span class="math inline">\([0,\pi]\)</span>, we must restrict the values <span class="math inline">\(k\)</span> can take.</p>
+<p><span class="math display">\[0 \le (2k+1)\frac{\pi}{2(n+1)} \le \pi \implies 0 \le k \le n+\frac{1}{2} \]</span></p>
+<p>But as <span class="math inline">\(k \in \mathbb{Z}\)</span>, we can say that the possible values <span class="math inline">\(k\)</span> can take are <span class="math inline">\(\{ 0,1,2,\cdots,n\}\)</span>.</p>
+<p>Therefore <span class="math inline">\(\arccos(x_k) = (2k+1)\frac{\pi}{2(n+1)} \ \ \ \ k \in \{ 0,1,2,\cdots,n\}\)</span>
+<span class="math display">\[\implies x_k = \cos\left( (2k+1)\frac{\pi}{2(n+1)} \right)\ \ \ \ k \in \{ 0,1,2,\cdots,n\}\]</span></p>
+<p>Therefore the zeros of <span class="math inline">\(T_{n+1}(x)\)</span> are in the interval <span class="math inline">\([-1,1]\)</span> are given by <span class="math inline">\(x_k = \cos\left( \frac{2k+1}{2n+2} \pi \right)\)</span> where <span class="math inline">\(k \in \{ 0,1,2,\cdots,n \}\)</span>. The number of zeros is also consistent with the fact that as <span class="math inline">\(T_{n+1}(x)\)</span> is an <span class="math inline">\((n+1)\)</span> th-degree polynomial, it has <span class="math inline">\((n+1)\)</span> roots. Also, these zeros are distinct.</p>
+<p>These zeros are called the Chebyshev nodes of first kind. They minimise <span class="math inline">\(||w(x)||_{\infty}\)</span></p>
+<p><strong>Theorem</strong></p>
+<p>If <span class="math inline">\(f(x)\)</span> is smooth on <span class="math inline">\([-1,1]\)</span>, then Lagrange interpolation using the roots of Chebyshev nodes of first kind converges uniformly.</p>
+<p><strong>INSERT RUNGE FUNCTION-CHEBYSHEV NODES CONVERGENCE CODE</strong></p>
+</div>
 </div>
 </div>
 <div id="wierstrass-approximation-theorem" class="section level2 hasAnchor" number="3.4">
 <h2><span class="header-section-number">3.4</span> Wierstrass Approximation theorem<a href="interpolation.html#wierstrass-approximation-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Suppose <span class="math inline">\(f\)</span> is a continuous real-valued function defined on the real interval <span class="math inline">\([a,b]\)</span>. For every <span class="math inline">\(\epsilon &gt; 0\)</span>, there exists a polynomial <span class="math inline">\(p\)</span> such that for all <span class="math inline">\(x\)</span> in <span class="math inline">\([a,b]\)</span>, we have <span class="math inline">\(|f(x) - p(x)| &lt; \epsilon\)</span>.</em></p>
+<p><em><strong>Bernstein polynomial:</strong></em></p>
+<p>The Bernstein basis polynomials of degree <span class="math inline">\(n\)</span> are defined as
+<span class="math display">\[\begin{equation}
+    b_{k,n}(x) = {}^nC_{k}\, x^k (1-x)^{n-k}
+\end{equation}\]</span>
+A linear combination of these basis polynomials can be used to obtain other polynomials. One of the properties of these polynomials is that
+<span class="math display">\[\begin{equation}
+\begin{aligned}
+    \sum_{k=0}^n {b_{k,n}(x)} &amp;= \sum_{k=0}^n {{}^nC_{k}\, x^k (1-x)^{n-k}} \\
+    &amp;= (x + (1 - x))^n = 1
+    \label{equ:property}
+\end{aligned}
+\end{equation}\]</span>
+So these polynomials can also be considered to act as some kind of weights. Now, for approximating functions, the Bernstein Polynomial is defined as
+<span class="math display">\[\begin{equation}
+    B_n(f;x) = \sum_{k=0}^n {f\left(\dfrac{k}{n}\right) {}^nC_{k}\, x^k (1-x)^{n-k}}
+    \label{eqn:bern}
+\end{equation}\]</span>
+Here, <span class="math inline">\(f\)</span> is the function being approximated, <span class="math inline">\(n\)</span> is the order of approximation &amp; <span class="math inline">\(x\)</span> is the point at which the approximation is made.</p>
+<p><strong>Proof:</strong></p>
+<p>To prove the theorem on closed intervals <span class="math inline">\([a,b]\)</span>, without loss of generality, we can take the closed interval as <span class="math inline">\([0, 1]\)</span>. Thus, <span class="math inline">\(f\)</span> can be considered as a continuous real-valued function on <span class="math inline">\([0, 1]\)</span>. Since <span class="math inline">\(f\)</span> is a continuous function, we can say that for a given <span class="math inline">\(\epsilon &gt; 0\)</span>, there exists a <span class="math inline">\(\delta &gt; 0\)</span> such that:
+<span class="math display">\[\begin{equation}
+    |x-y| &lt; \delta \implies |f(x) - f(y)| &lt;\frac{\epsilon}{2} \ \ \ \  \forall \, x,y \in [0,1]
+    \label{equ:convcond}
+\end{equation}\]</span>
+To prove that <span class="math inline">\(B_n(f,x)\)</span> converges to <span class="math inline">\(f(x)\)</span> uniformly, we show that <span class="math inline">\(|B_n(f,x) - f(x)|\)</span> has to be made small. By the definition of Bernstein’s polynomial, as shown in Eqn. <span class="math inline">\(\ref{eqn:bern}\)</span> and by using the property given in Eqn. <span class="math inline">\(\ref{equ:property}\)</span>, we can write <span class="math inline">\(|B_n(f;x) - f(x)|\)</span> as:
+<span class="math display">\[\begin{align*}
+    |B_n(f;x) - f(x)| &amp;= \left| \sum_{k=0}^n {\left(f\left(\dfrac{k}{n}\right) - f(x)\right) {}^nC_{k} \, x^k (1-x)^{n-k}} \right| \\
+    &amp;\leq \sum_{k=0}^n {\left|f\left(\dfrac{k}{n}\right) - f(x)\right| {}^nC_{k} \, x^k (1-x)^{n-k}}
+\end{align*}\]</span>
+Now, if we consider <span class="math inline">\(y=\dfrac{k}{n}\)</span> in Eqn. <span class="math inline">\(\ref{equ:convcond}\)</span> and if <span class="math inline">\(\left|\dfrac{k}{n} - x\right| &lt; \delta\)</span>, we can say that <span class="math inline">\(\left|f\left(\dfrac{k}{n}\right) - f(x)\right| &lt; \dfrac{\epsilon}{2}\)</span>. But this is not true in the entire domain. So, we partition the domain in to two sets: <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, where <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> have the following properties:
+<span class="math display">\[\begin{equation}
+    \begin{aligned}
+        A \cup B &amp;= [0,1]\\
+        A \cap B &amp;= \phi\\
+        A &amp;= \{x:|k/n - x| \leq \delta, x \in [0,1]\}\\
+        B &amp;= \{x:|k/n-x| &gt; \delta, x \in [0,1]\}
+    \end{aligned}
+    \label{equ:sets}
+\end{equation}\]</span>
+By dividing the domain into sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> as defined in <span class="math inline">\(\ref{equ:sets}\)</span>, we can write:
+<span class="math display">\[\begin{equation*}
+\begin{split}
+    |B_n(f;x) - f(x)| = \sum_{x\in A} \left|f\left(\dfrac{k}{n}\right) - f(x)\right| &amp;{}^nC_{k}\, x^k (1-x)^{n-k} \\
+    &amp;+ \sum_{x\in B} \left|f\left(\dfrac{k}{n}\right) - f(x)\right |{}^nC_{k}\, x^k (1-x)^{n-k}
+\end{split}
+\end{equation*}\]</span>
+From Eqns. <span class="math inline">\(\ref{equ:convcond}\)</span> and <span class="math inline">\(\ref{equ:sets}\)</span>, we can say that <span class="math inline">\(\left|f\left(\dfrac{k}{n}\right) - f(x)\right|\)</span> has an upper bound of <span class="math inline">\(\dfrac{\epsilon}{2}\)</span> on the set <span class="math inline">\(A\)</span>. Therefore, we can write:
+<span class="math display">\[\begin{equation*}
+\begin{split}
+    |B_n(f;x) - f(x)| \leq \sum_{x\in A} \left(\dfrac{\epsilon}{2}\right){}^nC_{k}\, x^k &amp;(1-x)^{n-k} \\
+    &amp;+ \sum_{x\in B} \left|f\left(\dfrac{k}{n}\right) - f(x)\right |{}^nC_{k}\, x^k (1-x)^{n-k}
+\end{split}
+\end{equation*}\]</span>
+By using the property described in Eqn. <span class="math inline">\(\ref{equ:property}\)</span>, we can simplify the above inequality as:
+<span class="math display">\[\begin{equation*}
+    |B_n(f,;x) - f(x)| \leq \frac{\epsilon}{2} + \sum_{x\in B} \left|f\left(\dfrac{k}{n}\right) - f(x)\right |{}^nC_{k}\, x^k (1-x)^{n-k}
+\end{equation*}\]</span>
+Since <span class="math inline">\(f\)</span> is uniformly converging in <span class="math inline">\([0,1]\)</span>, <span class="math inline">\(f\)</span> is bounded from above. So, let the maximum value of <span class="math inline">\(f\)</span> in the domain be <span class="math inline">\(M\)</span>. Thus:
+<span class="math display">\[\begin{equation*}
+    \text{max\{} | f(x) | \} = M \ \ \ \  \forall \, x \in [0,1]
+\end{equation*}\]</span>
+Thus, the maximum value <span class="math inline">\(\left|f\left(\dfrac{k}{n}\right) - f(x)\right|\)</span> can achieve in the domain is <span class="math inline">\(2M\)</span> (considering the case where, one of them is <span class="math inline">\(M\)</span> and the other is <span class="math inline">\(-M\)</span>). Thus, we have:
+<span class="math display">\[\begin{equation*}
+    |B_n(f;x) - f(x)| \leq \frac{\epsilon}{2} + (2M) \sum_{x\in B} {{}^nC_{k}\, x^k (1-x)^{n-k}}
+\end{equation*}\]</span>
+Now, in set <span class="math inline">\(B\)</span>, <span class="math inline">\(\left| \dfrac{k}{n} - x \right| &gt; \delta\)</span>. Thus, we get:
+<span class="math display">\[\begin{equation*}
+    \frac{\left( k/n - x \right)^2}{\delta^2} &gt; 1
+\end{equation*}\]</span>
+Multiplying this to the second term of RHS, we get:
+<span class="math display">\[\begin{equation*}
+    |B_n(f;x) - f(x)| \leq \frac{\epsilon}{2} + (2M) \sum_{x\in B} {\frac{\left( k/n - x \right)^2}{\delta^2}{}^nC_{k}\, x^k (1-x)^{n-k}}
+\end{equation*}\]</span>
+The second term can now be written as:
+<span class="math display">\[\begin{equation*}
+    \dfrac{2M}{\delta^2 n^2} \sum_{x\in B} {(k-nx)^2 \, {}^nC_{k}\, x^k (1-x)^{n-k}}
+\end{equation*}\]</span>
+The summation term is equivalent to computing the variance of a binomial distribution with parameters <span class="math inline">\(n\)</span> &amp; <span class="math inline">\(x\)</span>. The variance is given by <span class="math inline">\(nx(1-x)\)</span>. Thus, we get:
+<span class="math display">\[\begin{equation*}
+    |B_n(f;x) - f(x)| \leq \frac{\epsilon}{2} + \dfrac{2M}{\delta^2 n^2} nx(1-x)
+\end{equation*}\]</span>
+We know that using AM <span class="math inline">\(\geq\)</span> GM:
+<span class="math display">\[\begin{equation*}
+    x(1-x) \leq \dfrac{1}{4}
+\end{equation*}\]</span>
+Thus, we have:
+<span class="math display">\[\begin{equation*}
+    |B_n(f;x) - f(x)| \leq \frac{\epsilon}{2} + \dfrac{M}{2\delta^2 n}
+\end{equation*}\]</span>
+Now, let us define a quantity <span class="math inline">\(N\)</span> such that the above condition holds true for all <span class="math inline">\(n &gt; N\)</span>, which gives us <span class="math inline">\(\dfrac{1}{n} &lt; \dfrac{1}{N}\)</span>. Thus:
+<span class="math display">\[\begin{equation*}
+    |B_n(f;x) - f(x)| \leq \frac{\epsilon}{2} + \dfrac{M}{2\delta^2 N}
+\end{equation*}\]</span>
+If we choose the <span class="math inline">\(N\)</span> such that:
+<span class="math display">\[\begin{equation*}
+    \dfrac{M}{2\delta^2N} = \dfrac{\epsilon}{2}
+\end{equation*}\]</span>
+giving us:
+<span class="math display">\[\begin{align*}
+    |B_n(f;x) - f(x)| &amp;\leq \dfrac{\epsilon}{2} + \dfrac{\epsilon}{2} \\
+    |B_n(f;x) - f(x)| &amp;\leq \epsilon
+\end{align*}\]</span>
+Thus, we have for all <span class="math inline">\(n &gt; N\)</span>, where <span class="math inline">\(N = \dfrac{M}{\delta^2\epsilon}\)</span>, we have
+<span class="math display">\[\begin{equation}
+    |B_n(f;x) - f(x)| \leq \epsilon
+\end{equation}\]</span>
+i.e., the Bernstein Polynomial <span class="math inline">\(B_n(f;x)\)</span> uniformly converges to <span class="math inline">\(f(x)\)</span> for all <span class="math inline">\(x\)</span> in the domain <span class="math inline">\([0,1]\)</span>.</p>
 <!-- # Cross-references {#cross} -->
 <!-- Cross-references make it easier for your readers to find and link to elements in your book. -->
 <!-- ## Chapters and sub-chapters -->
