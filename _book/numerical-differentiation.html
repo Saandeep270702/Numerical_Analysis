@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Sai Saandeep.S, Dr. Sivaram" />
 
 
-<meta name="date" content="2023-06-18" />
+<meta name="date" content="2023-06-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -182,6 +182,42 @@ set in the _output.yml file.</p>" />
 <h1><span class="header-section-number">Chapter 6</span> Numerical Differentiation<a href="numerical-differentiation.html#numerical-differentiation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="motivation-4" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Motivation<a href="numerical-differentiation.html#motivation-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Given a continuous function <span class="math inline">\(f(x)\)</span>. We have seen that finding anti-derivative for all functions is not possible and hence, we resort to finding approximate values of definite integrals using Numerical methods(Quadratures). But derivatives can be found for any differentiable function <span class="math inline">\(f(x)\)</span> using Chain rule etc.,</p>
+<p>Eg:- Consider <span class="math inline">\(f(x) = \cos(x^2)\)</span> which is continuous and differentiable.</p>
+<p><span class="math inline">\(\int_0^1 f(x) \, dx = \int_0^1 \cos(x^2)\, dx\)</span> has no closed form. But <span class="math inline">\(f&#39;(x) = -2x\sin(x^2)\)</span> which can be found using chain rule.</p>
+<p>Now the question which naturally arises is: Why do we need to think of finding derivatives numerically then?</p>
+<ol style="list-style-type: decimal">
+<li><p>Consider the case where <span class="math inline">\(f(x)\)</span> is known at discrete node points <span class="math inline">\(\{x_i\}_{i=0}^n\)</span>. To find derivatives at these nodes, one way is to interpolate using an interpolant polynomial <span class="math inline">\(p(x)\)</span> and then find <span class="math inline">\(p&#39;(x)\)</span>. We can find using a less computationally expensive way as will be discussed in this chapter.</p></li>
+<li><p>Solving Differential Equations</p>
+<ol style="list-style-type: lower-alpha">
+<li><strong>Ordinary Differential Equations(ODEs):</strong></li>
+</ol>
+<p><strong>Simple Pendulum:-</strong></p>
+<p>** ATTACH SIMPLE PENDULUM PIC WITH ITS FBD**</p>
+<p>For simple pendulum with no damping and using small angle approximation about equilibrium position, we have the equation of motion as:
+<span class="math display">\[\begin{equation}
+\frac{d^2\theta}{dt^2}+\frac{g}{l}\theta = 0
+\end{equation}\]</span>
+with initial conditions <span class="math inline">\(\theta(t=0)= \theta_0\)</span> and <span class="math inline">\(\frac{d\theta}{dt}(t=0) = 0\)</span>.</p>
+<p>The exact solution for this ODE is known which is <span class="math inline">\(\theta = \theta_0 \cos\left( \sqrt{g}{l} t \right)\)</span>.</p>
+<p>But if the assumptions of small angle oscillations and no damping are relaxed then the equation of motion becomes:
+<span class="math display">\[\begin{equation}
+\frac{d^2\theta}{dt^2}+C\frac{d\theta}{dt}+\frac{g}{l}\sin \theta = 0
+\end{equation}\]</span>
+with initial conditions remaining the same. But solving this ODE analytically is impossible. Therefore, we need access to numerical methods to solve ODEs.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><strong>Partial Differential Equations(PDEs):-</strong></li>
+</ol>
+<p>Some examples are Wave Equation(Hyperbolic PDE)
+<span class="math display">\[\partial{\partial^2 u}{\partial t^2}-c^2 \nabla^2 u= 0\]</span></p>
+<p>Heat/Diffusion Equation(Parabolic PDE)
+<span class="math display">\[\partial{\partial u}{\partial t}-\alpha \nabla^2 u= 0\]</span></p>
+<p>Laplace Equation(Elliptic PDE)
+<span class="math display">\[\nabla^2 u = 0 \text{ on } \Omega\]</span>
+with boundary condition <span class="math inline">\(u = f(x,y,z)\)</span> on <span class="math inline">\(\partial \Omega\)</span></p>
+<p>For specific boundaries like a rectangle, the solution can be found analytically. But for a general boundaries, it is extremely difficult to find analytical solutions. Therefore, numerical methods have to be used for solving these PDEs.</p></li>
+</ol>
+<p>In this course, we consider solving only ODEs i.e, 1 independent variable per dependent variable.</p>
 </div>
 <div id="finite-differences" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Finite Differences<a href="numerical-differentiation.html#finite-differences" class="anchor-section" aria-label="Anchor link to header"></a></h2>

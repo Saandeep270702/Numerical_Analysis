@@ -80,7 +80,7 @@
 
 \title{Numerical Analysis}
 \author{Sai Saandeep.S, Dr.~Sivaram}
-\date{2023-06-18}
+\date{2023-06-19}
 
 \begin{document}
 \maketitle
@@ -972,6 +972,69 @@ Thus, convergence is not always guaranteed in Newton's Method.
 
 \hypertarget{motivation-4}{%
 \section{Motivation}\label{motivation-4}}
+
+Given a continuous function \(f(x)\). We have seen that finding anti-derivative for all functions is not possible and hence, we resort to finding approximate values of definite integrals using Numerical methods(Quadratures). But derivatives can be found for any differentiable function \(f(x)\) using Chain rule etc.,
+
+Eg:- Consider \(f(x) = \cos(x^2)\) which is continuous and differentiable.
+
+\(\int_0^1 f(x) \, dx = \int_0^1 \cos(x^2)\, dx\) has no closed form. But \(f'(x) = -2x\sin(x^2)\) which can be found using chain rule.
+
+Now the question which naturally arises is: Why do we need to think of finding derivatives numerically then?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Consider the case where \(f(x)\) is known at discrete node points \(\{x_i\}_{i=0}^n\). To find derivatives at these nodes, one way is to interpolate using an interpolant polynomial \(p(x)\) and then find \(p'(x)\). We can find using a less computationally expensive way as will be discussed in this chapter.
+\item
+  Solving Differential Equations
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    \textbf{Ordinary Differential Equations(ODEs):}
+  \end{enumerate}
+
+  \textbf{Simple Pendulum:-}
+
+  ** ATTACH SIMPLE PENDULUM PIC WITH ITS FBD**
+
+  For simple pendulum with no damping and using small angle approximation about equilibrium position, we have the equation of motion as:
+  \begin{equation}
+   \frac{d^2\theta}{dt^2}+\frac{g}{l}\theta = 0
+   \end{equation}
+  with initial conditions \(\theta(t=0)= \theta_0\) and \(\frac{d\theta}{dt}(t=0) = 0\).
+
+  The exact solution for this ODE is known which is \(\theta = \theta_0 \cos\left( \sqrt{g}{l} t \right)\).
+
+  But if the assumptions of small angle oscillations and no damping are relaxed then the equation of motion becomes:
+  \begin{equation}
+   \frac{d^2\theta}{dt^2}+C\frac{d\theta}{dt}+\frac{g}{l}\sin \theta = 0
+   \end{equation}
+  with initial conditions remaining the same. But solving this ODE analytically is impossible. Therefore, we need access to numerical methods to solve ODEs.
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \setcounter{enumii}{1}
+  \tightlist
+  \item
+    \textbf{Partial Differential Equations(PDEs):-}
+  \end{enumerate}
+
+  Some examples are Wave Equation(Hyperbolic PDE)
+  \[\partial{\partial^2 u}{\partial t^2}-c^2 \nabla^2 u= 0\]
+
+  Heat/Diffusion Equation(Parabolic PDE)
+  \[\partial{\partial u}{\partial t}-\alpha \nabla^2 u= 0\]
+
+  Laplace Equation(Elliptic PDE)
+  \[\nabla^2 u = 0 \text{ on } \Omega\]
+  with boundary condition \(u = f(x,y,z)\) on \(\partial \Omega\)
+
+  For specific boundaries like a rectangle, the solution can be found analytically. But for a general boundaries, it is extremely difficult to find analytical solutions. Therefore, numerical methods have to be used for solving these PDEs.
+\end{enumerate}
+
+In this course, we consider solving only ODEs i.e, 1 independent variable per dependent variable.
 
 \hypertarget{finite-differences}{%
 \section{Finite Differences}\label{finite-differences}}
