@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Sai Saandeep.S, Dr. Sivaram" />
 
 
-<meta name="date" content="2023-06-19" />
+<meta name="date" content="2023-06-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -193,7 +193,7 @@ set in the _output.yml file.</p>" />
 <li><strong>Ordinary Differential Equations(ODEs):</strong></li>
 </ol>
 <p><strong>Simple Pendulum:-</strong></p>
-<p>** ATTACH SIMPLE PENDULUM PIC WITH ITS FBD**</p>
+<p><strong>ATTACH SIMPLE PENDULUM PIC WITH ITS FBD</strong></p>
 <p>For simple pendulum with no damping and using small angle approximation about equilibrium position, we have the equation of motion as:
 <span class="math display">\[\begin{equation}
 \frac{d^2\theta}{dt^2}+\frac{g}{l}\theta = 0
@@ -221,6 +221,74 @@ with boundary condition <span class="math inline">\(u = f(x,y,z)\)</span> on <sp
 </div>
 <div id="finite-differences" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Finite Differences<a href="numerical-differentiation.html#finite-differences" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To construct approximations for derivatives, we use Taylor series. Let <span class="math inline">\(f(t)\)</span> be a real differentiable function whose values are known at <span class="math inline">\(\{t_i\}_{i=0}^n=t_0+i h\)</span> where <span class="math inline">\(h = \Delta t\)</span> which is a constant</p>
+<p>Define <span class="math inline">\(f_i = f(t_i)\)</span> and <span class="math inline">\(f&#39;_i = \frac{df}{dt}(t_i)\)</span></p>
+<p>We can write <span class="math inline">\(f_{j+1}\)</span> in terms of <span class="math inline">\(f_j\)</span> and derivatives of <span class="math inline">\(f\)</span> at <span class="math inline">\(t_j\)</span> by writing Taylor series of <span class="math inline">\(f(t_{j+1})\)</span> about <span class="math inline">\(t=t_j\)</span>.</p>
+<p><span class="math display">\[f_{j+1} = f(t_j+h)= f(t_j)+hf&#39;(t_j)+\frac{h^2}{2!}f&#39;&#39;(t_j)+\dots\]</span>
+<span class="math display">\[\dfrac{f_{j+1}-f_j}{h}-\frac{h}{2!}f&#39;&#39;(t_j)-\frac{h^2}{3!}f&#39;&#39;&#39;(t_j)-\dots = f&#39;(t_j) = f&#39;_j\]</span></p>
+<p><span class="math display">\[\begin{equation}
+f&#39;_j = \dfrac{f_{j+1}-f_j}{h} + \mathcal{O}(h)
+\end{equation}\]</span>
+The above approximation is called <strong>Forward Finite Difference Approximation</strong></p>
+<p>Now consider the Taylor series of <span class="math inline">\(f(t_{j-1})\)</span> about <span class="math inline">\(t=t_j\)</span>.</p>
+<p><span class="math display">\[f_{j-1} = f(t_j-h)= f(t_j)-hf&#39;(t_j)+\frac{h^2}{2!}f&#39;&#39;(t_j)+\dots\]</span>
+<span class="math display">\[\dfrac{f_{j}-f_{j-1}}{h}+\frac{h}{2!}f&#39;&#39;(t_j)-\frac{h^2}{3!}f&#39;&#39;&#39;(t_j)+\dots = f&#39;(t_j) = f&#39;_j\]</span></p>
+<p><span class="math display">\[\begin{equation}
+f&#39;_j = \dfrac{f_{j}-f_{j-1}}{h} + \mathcal{O}(h)
+\end{equation}\]</span>
+The above approximation is called <strong>Backward Finite Difference Approximation</strong></p>
+<p>We can clearly see that both Forward and Backward Finite differences are <strong>1st order accurate.</strong> Now the question to ask is “Can we improve the order of accuracy?”</p>
+<p>Consider the Taylor Series Expansions of <span class="math inline">\(f_{j+1}\)</span> and <span class="math inline">\(f_{j-1}\)</span> about <span class="math inline">\(t_j\)</span>.
+<span class="math display">\[\begin{align*}
+f_{j+1} &amp;= f(t_j)+hf&#39;(t_j)+\frac{h^2}{2!}f&#39;&#39;(t_j)+\frac{h^3}{3!}f&#39;&#39;&#39;(t_j)+\frac{h^4}{4!}f^{(4)}(t_j)+\dots\\
+f_{j-1} &amp;= f(t_j)-hf&#39;(t_j)+\frac{h^2}{2!}f&#39;&#39;(t_j)-\frac{h^3}{3!}f&#39;&#39;&#39;(t_j)+\frac{h^4}{4!}f^{(4)}(t_j)-\dots
+\end{align*}\]</span>
+Subtracting () from (), we get
+<span class="math display">\[\implies f_{j+1}-f_{j-1} = 2hf&#39;_j+\frac{2h^3}{3!}f&#39;&#39;&#39;(t_j)+\frac{2h^5}{5!}f^{(5)}(t_j)+\dots\]</span>
+<span class="math display">\[\implies f_{j+1}-f_{j-1}-\frac{2h^3}{3!}f&#39;&#39;&#39;(t_j)-\frac{2h^5}{5!}f^{(5)}(t_j)-\dots = 2hf&#39;_j\]</span></p>
+<p><span class="math display">\[\begin{equation}
+f&#39;_j = \frac{f_{j+1}-f_{j-1}}{2h} + \mathcal{O}(h^2)
+\end{equation}\]</span>
+We can see that the order of accuracy has been improved to 2. This approximation is called <strong>Central Finite Difference Approximation.</strong></p>
+<p><strong>ATTACH CODE/ACCURACY PLOT</strong></p>
+<p>To improve the order of accuracy, we need to consider more “grid points”. To understand this clearly, let us consider the example below.</p>
+<p><strong>Example:</strong> Construct Finite difference scheme to find <span class="math inline">\(f&#39;_j\)</span> from <span class="math inline">\(f_j\)</span>, <span class="math inline">\(f_{j\pm 1}\)</span> and <span class="math inline">\(f_{j \pm 2}\)</span>.</p>
+<p><strong>Solution:</strong></p>
+<p>Let
+<span class="math display">\[\begin{equation}
+f&#39;_j = a f_{j+2}+b f_{j+1}+cf_{j}+d f_{j-1}+e f_{j-2}
+\end{equation}\]</span>
+where <span class="math inline">\(a,b,c,d,e\)</span> are to be found.</p>
+<p>Write Taylor series of <span class="math inline">\(f_{j \pm 1}\)</span> and <span class="math inline">\(f_{j\pm 1}\)</span> about <span class="math inline">\(t_j\)</span> on RHS of the above equation(), we get:
+<span class="math display">\[\begin{align*}
+f&#39;_j  &amp;= a\left(f(t_j)+2hf&#39;(t_j)+\frac{(2h)^2}{2!}f&#39;&#39;(t_j)+\frac{(2h)^3}{3!}f&#39;&#39;&#39;(t_j)+\frac{(2h)^4}{4!}f^{(4)}(t_j)+\frac{(2h)^5}{5!}f^{(5)}(t_j)+\dots \right) \\
+&amp;+ b \left( f(t_j)+hf&#39;(t_j)+\frac{h^2}{2!}f&#39;&#39;(t_j)+\frac{h^3}{3!}f&#39;&#39;&#39;(t_j)+\frac{h^4}{4!}f^{(4)}(t_j)+\frac{h^5}{5!}f^{(5)}(t_j)+\dots \right)\\
+&amp;+ cf_j \\
+&amp;+ d \left(f(t_j)-hf&#39;(t_j)+\frac{h^2}{2!}f&#39;&#39;(t_j)-\frac{h^3}{3!}f&#39;&#39;&#39;(t_j)+\frac{h^4}{4!}f^{(4)}(t_j)-\frac{h^5}{5!}f^{(5)}(t_j)+\dots \right)\\
+&amp;+ e \left( f(t_j)-2hf&#39;(t_j)+\frac{(2h)^2}{2!}f&#39;&#39;(t_j)-\frac{(2h)^3}{3!}f&#39;&#39;&#39;(t_j)+\frac{(2h)^4}{4!}f^{(4)}(t_j)-\frac{(2h)^5}{5!}f^{(5)}(t_j)+\dots \right)
+\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}
+\implies f&#39;_j  &amp;= (a+b+c+d+e) f_j + h(2a+b-d-2e)f&#39;_j+ \frac{h^2}{2!}(4a+b+d+4e) f&#39;&#39;_j \\
+&amp;+ \frac{h^3}{3!}(8a+b-d-8e) f&#39;&#39;&#39;_j + \frac{h^4}{4!}(16a+b+d+16e) f^{(4)}_j\\
+&amp;+ \frac{h^5}{5!}(32a+b-d-32e) f^{(5)}_j+\mathcal{O}(h^6)
+\end{align*}\]</span>
+Now there are 5 variables but infinitely many equations(obtained after comparing coefficients of <span class="math inline">\(f\)</span> and its derivatives at <span class="math inline">\(t_j\)</span> on both sides of the above equation).
+On comparing coefficients of <span class="math inline">\(f_j, f&#39;_j, \dots, f^{(4)}_j\)</span>, we get 5 equations in 5 variables and order of accuracy in Taylor series is 5. If we take any other set of 5 equations, we get order of accuracy in Taylor series lower than 5. Thus, to get the best order of accuracy, the following equations must be true.</p>
+<p><span class="math display">\[\begin{align}
+a+b+c+d+e &amp;=0\\
+h(2a+b-d-2e) &amp;=1\\
+4a+b+d+4e &amp;=0\\
+8a+b-d-8e &amp;=0\\
+16a+b+d+16e &amp;=0
+\end{align}\]</span></p>
+<p>On solving these set of equations, we get the values of <span class="math inline">\((a,b,c,d,e)\)</span> as:</p>
+<p><span class="math display">\[\begin{equation}
+(a,b,c,d,e) = \left(-\frac{1}{12h}, \frac{2}{3h}, 0 , -\frac{2}{3h}, \frac{1}{12h} \right)
+\end{equation}\]</span></p>
+<p>Therefore the finite difference approximation with 4th order accuracy is:
+<span class="math display">\[\begin{equation}
+f&#39;_j = \frac{1}{12h}(-f_{j+2}+8f_{j+1}-8f_{j-1}+f_{j-2}) + \mathcal{O}(h^4)
+\end{equation}\]</span></p>
 <!-- # Blocks -->
 <!-- ## Equations -->
 <!-- Here is an equation. -->
