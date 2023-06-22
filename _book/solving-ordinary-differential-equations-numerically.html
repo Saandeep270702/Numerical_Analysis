@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Sai Saandeep.S, Dr. Sivaram" />
 
 
-<meta name="date" content="2023-06-21" />
+<meta name="date" content="2023-06-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -182,6 +182,34 @@ set in the _output.yml file.</p>" />
 <h1><span class="header-section-number">Chapter 7</span> Solving Ordinary Differential Equations Numerically<a href="solving-ordinary-differential-equations-numerically.html#solving-ordinary-differential-equations-numerically" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="introduction-2" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Introduction<a href="solving-ordinary-differential-equations-numerically.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As seen in the previous chapter, our main focus in this course is to solve ODEs i.e., 1 independent variable per dependent variable numerically.</p>
+<p><strong>Initial Value Problem(IVP):</strong> ODE along with boundary conditions at a single point. Typically, independent variable is time.</p>
+<p><a href="Example:-" class="uri">Example:-</a>
+<span class="math display">\[\begin{equation}
+    \frac{d^2\theta}{dt^2}+C\frac{d\theta}{dt}+\frac{g}{l}\sin \theta = 0
+\end{equation}\]</span>
+with “initial conditions” given by <span class="math inline">\(\theta(t=0)= \theta_0\)</span> and <span class="math inline">\(\frac{d\theta}{dt}(t=0) = 0\)</span>.</p>
+<p><strong>Boundary Value Problem(BVP):</strong> Conditions known at multiple points
+<a href="Example:-" class="uri">Example:-</a>
+<span class="math display">\[\begin{equation}
+    \frac{d^2\theta}{dt^2}+C\frac{d\theta}{dt}+\frac{g}{l}\sin \theta = 0
+\end{equation}\]</span>
+with “initial conditions” given by <span class="math inline">\(\theta(t=0)= \theta_0\)</span> and <span class="math inline">\(\theta(t=1) = 0\)</span>.</p>
+<p>Note that the above ODE is 2nd order, non-linear and homogeneous ODE. If an external forcing is given, then the equation becomes non-homogeneous.</p>
+<p>We can convert the above second order ODE to a set of 2 first order ODEs.</p>
+<p>Define <span class="math display">\[\omega = \frac{d\theta}{dt}\]</span></p>
+<p>Therefore equation() can be written as:
+<span class="math display">\[\frac{d\omega}{dt}+C \omega+\frac{g}{l}\sin \theta = 0\]</span>
+Therefore, equation() can be written as a system of 1st order ODEs as:
+<span class="math display">\[\begin{equation}
+\begin{bmatrix} \dot{\theta} \\  \dot{\omega} \end{bmatrix}=\begin{bmatrix} \omega \\  -C \omega-\frac{g}{l}\sin \theta \end{bmatrix}
+\end{equation}\]</span></p>
+<p>with initial conditions as
+<span class="math display">\[\begin{equation}
+\begin{bmatrix} \theta(0) \\  \omega(0) \end{bmatrix}=\begin{bmatrix} \theta_0 \\  0 \end{bmatrix}
+\end{equation}\]</span></p>
+<p>Similarly, we can express any <span class="math inline">\(n\)</span>th order ODE as system of <span class="math inline">\(n\)</span> 1st order ODEs.</p>
+<p>Hence, we’ll look into solving a first order ODE numerically and then solve Simple Pendulum equation numerically.</p>
 </div>
 <div id="different-basic-methods" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Different Basic Methods<a href="solving-ordinary-differential-equations-numerically.html#different-basic-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
