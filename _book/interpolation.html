@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Sai Saandeep.S, Dr. Sivaram" />
 
 
-<meta name="date" content="2023-06-22" />
+<meta name="date" content="2023-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -502,6 +502,25 @@ Thus, we have for all <span class="math inline">\(n &gt; N\)</span>, where <span
     |B_n(f;x) - f(x)| \leq \epsilon
 \end{equation}\]</span>
 i.e., the Bernstein Polynomial <span class="math inline">\(B_n(f;x)\)</span> uniformly converges to <span class="math inline">\(f(x)\)</span> for all <span class="math inline">\(x\)</span> in the domain <span class="math inline">\([0,1]\)</span>.</p>
+<p><strong>NOTE:-</strong>
+1. A sequence <span class="math inline">\(\{a_n\}_{n \ge 0}\)</span> converges to <span class="math inline">\(a\)</span> <strong>algebraically</strong> if <span class="math inline">\(\exists N&gt;0\)</span> such that <span class="math inline">\(\forall \, n&gt;N\)</span>
+<span class="math display">\[|a_n-a|&lt;\frac{k}{n^{\alpha}} \text{ for some } k, \,\alpha &gt;0 \]</span></p>
+<p>Examples:- a. <span class="math inline">\(a_n = 1+\frac{1}{n^2}\)</span> converges to 1 algebaically as <span class="math display">\[|a_n-1| = \frac{1}{n^2}&lt;\frac{10}{n^2}\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><span class="math inline">\(a_n = e^{-n}\)</span> converges to 0 algebraically as <span class="math display">\[|a_n| =e^{-n} &lt;\frac{1}{n} \ \forall n\ge 1\]</span></li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li><p>A sequence <span class="math inline">\(\{a_n\}_{n \ge 0}\)</span> converges to <span class="math inline">\(a\)</span> <strong>geometrically</strong> if <span class="math inline">\(\exists N&gt;0\)</span> such that <span class="math inline">\(\forall \, n&gt;N\)</span>
+<span class="math display">\[|a_n-a|&lt;kc^n \text{ for some } k&gt;0 , |c|&lt;1 \]</span></p></li>
+<li><p>Given any <span class="math inline">\(c\)</span> and <span class="math inline">\(\alpha\)</span> (such that <span class="math inline">\(|c|&lt;1\)</span> and <span class="math inline">\(\alpha&gt;0\)</span>), there exists <span class="math inline">\(N = N(c,\alpha)&gt;0\)</span> such that <span class="math inline">\(\forall n&gt;N\)</span></p></li>
+</ol>
+<p><span class="math display">\[c^n&lt;\frac{1}{n^{\alpha}}\]</span>
+This implies that all geometrically convergent series are algebraically convergent.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Error in Bernstein polynomial <span class="math inline">\(B_n(x)\)</span> approximation goes down as <span class="math inline">\(\frac{1}{n}\)</span>. This means that <span class="math inline">\(B_n(x)\)</span> uniformly converges to <span class="math inline">\(f(x)\)</span> algebraically at the rate <span class="math inline">\(\frac{1}{n}\)</span>.</p></li>
+<li><p>If <span class="math inline">\(f(x)\)</span> is smooth then the Chebyshev interpolant is Geometrically convergent to <span class="math inline">\(f\)</span>. This convergence is also known as Spectral Convergence.</p></li>
+</ol>
+<p>Consider the function <span class="math inline">\(f(x) = \frac{1}{1+25x^2}\)</span>. Let us consider the analytic continuation of <span class="math inline">\(f(x)\)</span> on a compact set <span class="math inline">\(\Omega \in \mathbb{C}^2\)</span> such that <span class="math inline">\([-1,1] \subset \Omega\)</span> which is <span class="math inline">\(\frac{1}{1+25z^2}\)</span>. This is analytic on any compact set <span class="math inline">\(\Omega\)</span> which doesn’t contain <span class="math inline">\(\pm i/5\)</span>.</p>
 <!-- # Cross-references {#cross} -->
 <!-- Cross-references make it easier for your readers to find and link to elements in your book. -->
 <!-- ## Chapters and sub-chapters -->

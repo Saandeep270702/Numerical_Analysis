@@ -393,6 +393,32 @@ Thus, we have for all $n > N$, where $N = \dfrac{M}{\delta^2\epsilon}$, we have
 \end{equation}
 i.e., the Bernstein Polynomial $B_n(f;x)$ uniformly converges to $f(x)$ for all $x$ in the domain $[0,1]$.
 
+
+**NOTE:-**
+1. A sequence $\{a_n\}_{n \ge 0}$ converges to $a$ **algebraically** if $\exists N>0$ such that $\forall \, n>N$
+$$|a_n-a|<\frac{k}{n^{\alpha}} \text{ for some } k, \,\alpha >0 $$
+
+Examples:- a. $a_n = 1+\frac{1}{n^2}$ converges to 1 algebaically as $$|a_n-1| = \frac{1}{n^2}<\frac{10}{n^2}$$
+
+b. $a_n = e^{-n}$ converges to 0 algebraically as $$|a_n| =e^{-n} <\frac{1}{n} \ \forall n\ge 1$$
+
+2. A sequence $\{a_n\}_{n \ge 0}$ converges to $a$ **geometrically** if $\exists N>0$ such that $\forall \, n>N$
+$$|a_n-a|<kc^n \text{ for some } k>0 , |c|<1 $$
+
+3. Given any $c$ and $\alpha$ (such that $|c|<1$ and $\alpha>0$), there exists $N = N(c,\alpha)>0$ such that $\forall n>N$
+
+$$c^n<\frac{1}{n^{\alpha}}$$
+This implies that all geometrically convergent series are algebraically convergent. 
+
+4. Error in Bernstein polynomial $B_n(x)$ approximation goes down as $\frac{1}{n}$. This means that $B_n(x)$ uniformly converges to $f(x)$ algebraically at the rate $\frac{1}{n}$. 
+
+5. If $f(x)$ is smooth then the Chebyshev interpolant is Geometrically convergent to $f$. This convergence is also known as Spectral Convergence. 
+
+Consider the function $f(x) = \frac{1}{1+25x^2}$. Let us consider the analytic continuation of $f(x)$ on a compact set $\Omega \in \mathbb{C}^2$ such that $[-1,1] \subset \Omega$ which is $\frac{1}{1+25z^2}$. This is analytic on any compact set $\Omega$ which doesn't contain $\pm i/5$. 
+
+
+
+
 <!-- # Cross-references {#cross} -->
 
 <!-- Cross-references make it easier for your readers to find and link to elements in your book. -->

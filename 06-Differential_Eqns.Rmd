@@ -39,7 +39,7 @@ with initial conditions as
 
 Similarly, we can express any $n$th order ODE as system of $n$ 1st order ODEs. 
 
-Hence, we'll look into solving a first order ODE numerically and then solve Simple Pendulum equation numerically.
+Hence, we'll first look into solving a first order ODE numerically and then solve Simple Pendulum equation numerically.
 
 
 ## Different Basic Methods

@@ -80,7 +80,7 @@
 
 \title{Numerical Analysis}
 \author{Sai Saandeep.S, Dr.~Sivaram}
-\date{2023-06-22}
+\date{2023-06-23}
 
 \begin{document}
 \maketitle
@@ -779,6 +779,44 @@ Thus, we have for all \(n > N\), where \(N = \dfrac{M}{\delta^2\epsilon}\), we h
 \end{equation}
 i.e., the Bernstein Polynomial \(B_n(f;x)\) uniformly converges to \(f(x)\) for all \(x\) in the domain \([0,1]\).
 
+\textbf{NOTE:-}
+1. A sequence \(\{a_n\}_{n \ge 0}\) converges to \(a\) \textbf{algebraically} if \(\exists N>0\) such that \(\forall \, n>N\)
+\[|a_n-a|<\frac{k}{n^{\alpha}} \text{ for some } k, \,\alpha >0 \]
+
+Examples:- a. \(a_n = 1+\frac{1}{n^2}\) converges to 1 algebaically as \[|a_n-1| = \frac{1}{n^2}<\frac{10}{n^2}\]
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \(a_n = e^{-n}\) converges to 0 algebraically as \[|a_n| =e^{-n} <\frac{1}{n} \ \forall n\ge 1\]
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  A sequence \(\{a_n\}_{n \ge 0}\) converges to \(a\) \textbf{geometrically} if \(\exists N>0\) such that \(\forall \, n>N\)
+  \[|a_n-a|<kc^n \text{ for some } k>0 , |c|<1 \]
+\item
+  Given any \(c\) and \(\alpha\) (such that \(|c|<1\) and \(\alpha>0\)), there exists \(N = N(c,\alpha)>0\) such that \(\forall n>N\)
+\end{enumerate}
+
+\[c^n<\frac{1}{n^{\alpha}}\]
+This implies that all geometrically convergent series are algebraically convergent.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\item
+  Error in Bernstein polynomial \(B_n(x)\) approximation goes down as \(\frac{1}{n}\). This means that \(B_n(x)\) uniformly converges to \(f(x)\) algebraically at the rate \(\frac{1}{n}\).
+\item
+  If \(f(x)\) is smooth then the Chebyshev interpolant is Geometrically convergent to \(f\). This convergence is also known as Spectral Convergence.
+\end{enumerate}
+
+Consider the function \(f(x) = \frac{1}{1+25x^2}\). Let us consider the analytic continuation of \(f(x)\) on a compact set \(\Omega \in \mathbb{C}^2\) such that \([-1,1] \subset \Omega\) which is \(\frac{1}{1+25z^2}\). This is analytic on any compact set \(\Omega\) which doesn't contain \(\pm i/5\).
+
 \hypertarget{quadratures}{%
 \chapter{Quadratures}\label{quadratures}}
 
@@ -1172,7 +1210,7 @@ with initial conditions as
 
 Similarly, we can express any \(n\)th order ODE as system of \(n\) 1st order ODEs.
 
-Hence, we'll look into solving a first order ODE numerically and then solve Simple Pendulum equation numerically.
+Hence, we'll first look into solving a first order ODE numerically and then solve Simple Pendulum equation numerically.
 
 \hypertarget{different-basic-methods}{%
 \section{Different Basic Methods}\label{different-basic-methods}}
