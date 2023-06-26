@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Sai Saandeep.S, Dr. Sivaram" />
 
 
-<meta name="date" content="2023-06-23" />
+<meta name="date" content="2023-06-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -272,9 +272,101 @@ Therefore the condition number of the matrix vector product is:
 \kappa_r =  \frac{\Vert A \Vert_p \Vert x \Vert_p}{\Vert Ax\Vert_p}
 \end{equation}\]</span></p>
 <p>From Sub-multiplicative property, as <span class="math inline">\(\Vert Ax\Vert_p \ge\Vert A \Vert_p \Vert x \Vert_p\)</span>, we can show that <span class="math inline">\(\kappa_r\ge 1\)</span>.</p>
+<p><strong>Case-1:-</strong> <span class="math inline">\(A\in \mathbb{R}^{m\times n}\)</span> is a fat matrix(<span class="math inline">\(m&lt;n\)</span>)</p>
+<p>From Rank-Nullity Theorem, we know that</p>
+<p><span class="math display">\[\text{Dimension of Nullspace$(A)$+Rank$(A)$ = $n$}\]</span></p>
+<p>We know that Rank<span class="math inline">\((A) \le \min(m,n) \implies\)</span> Rank <span class="math inline">\((A) \le m\)</span> as <span class="math inline">\(A\)</span> is a fat matrix.</p>
+<p><span class="math display">\[\implies \text{Dimension of Nullspace}(A) \ge n-m\]</span>
+<span class="math inline">\(\implies \exists\)</span> a non-zero vector <span class="math inline">\(z \in\)</span> Nullspace<span class="math inline">\((A)\)</span> i.e., <span class="math inline">\(\exists z\in \mathbb{R}^{n\times 1}\)</span> such that <span class="math inline">\(Az=0\)</span>.</p>
+<p>From the definition of condition number as in equation(), we have:
+<span class="math inline">\(\kappa_r(A,x) = \frac{\Vert A \Vert_p \Vert x \Vert_p}{\Vert Ax\Vert_p}\)</span></p>
+<p>If <span class="math inline">\(x=z\)</span> then as <span class="math inline">\(Az=0\)</span>, we have <span class="math inline">\(\Vert Az\Vert_p = 0\)</span>. Therefore <span class="math inline">\(\kappa_r \to \infty\)</span>.</p>
+<p>Thus, multiplication by a fat matrix is <strong>highly ill-conditioned.</strong></p>
+<p><strong>Case-2:-</strong> <span class="math inline">\(A\)</span> is an invertible square matrix</p>
+<p>From the definition of condition number as in equation(), we have:
+<span class="math display">\[\begin{align}
+\kappa_r(A,x) &amp;=  \frac{\Vert A \Vert_p \Vert x \Vert_p}{\Vert Ax\Vert_p}\\
+&amp;= \frac{\Vert A \Vert_p \Vert A^{-1}(Ax) \Vert_p}{\Vert Ax\Vert_p}\\
+\end{align}\]</span></p>
+<p>From submultiplicative property of matrix norms, we can write <span class="math inline">\(\Vert A^{-1}(Ax) \Vert_p \le \Vert A^{-1} \Vert_p \Vert Ax \Vert_p\)</span>. Therefore,</p>
+<p><span class="math display">\[\begin{align}
+\kappa_r(A,x)&amp;= \frac{\Vert A \Vert_p \Vert A^{-1}(Ax) \Vert_p}{\Vert Ax\Vert_p}\\
+\implies \kappa_r(A,x)&amp;\le \frac{\Vert A \Vert_p \Vert A^{-1} \Vert_p \Vert Ax \Vert_p}{\Vert Ax\Vert_p}\\
+\end{align}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+\kappa_r(A,x) \le \Vert A \Vert_p \Vert A^{-1} \Vert_p
+\end{equation}\]</span>
+Therefore condition number is bounded above by <span class="math inline">\(\Vert A \Vert_p \Vert A^{-1} \Vert_p\)</span> which is independent of vector <span class="math inline">\(x\)</span>.</p>
+<p>Define Condition number of matrix <span class="math inline">\(A\)</span> as <span class="math display">\[\kappa_p(A) = \Vert A \Vert_p \Vert A^{-1} \Vert_p\]</span>.</p>
+<p>From submultiplicative property we can show that <span class="math inline">\(\kappa_p(A)\ge 1\)</span>.</p>
+<p>Let us find condition number for some special matrices. Let us consider <span class="math inline">\(A=Q\)</span> to be an orthogonal/ unitary matrix.</p>
+<p>As <span class="math inline">\(Q\)</span> is an orthogonal matrix <span class="math inline">\(Q^TQ = I\implies Q^T = Q^{-1}\)</span>.</p>
+<p>Therefore <span class="math display">\[\Vert Qx \Vert_2^2 = (Qx)^TQx = x^TQ^TQx = x^Tx = \Vert x\Vert_2^2\]</span></p>
+<p>Thus, <span class="math display">\[\Vert Qx \Vert_2= \Vert x\Vert_2 = \Vert Q^Tx \Vert_2\]</span></p>
+<p>From definition of 2-norm of a matrix, we have,
+<span class="math display">\[\begin{align}
+\Vert Q\Vert_p &amp;= \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert Qx \rVert_p}{\lVert x \rVert_p}\\
+\implies \Vert Q\Vert_2 &amp;= \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert x \rVert_2}{\lVert x \rVert_2}\\
+\implies \Vert Q\Vert_2 &amp;= 1
+\end{align}\]</span></p>
+<p>Therefore,
+<span class="math display">\[\begin{equation}
+\Vert Q^T\Vert_2 = 1
+\end{equation}\]</span></p>
+<p>The condition number of <span class="math inline">\(Q\)</span> is therefore,
+<span class="math display">\[\begin{equation}
+\kappa_2(Q) = \Vert Q \Vert_p \Vert Q^{-1} \Vert_p = \Vert Q \Vert_2 \Vert Q^T \Vert_2 = 1
+\end{equation}\]</span></p>
 </div>
 <div id="solving-linear-systems" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Solving Linear Systems<a href="numerical-linear-algebra.html#solving-linear-systems" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Consider the linear system <span class="math inline">\(Ax=b\)</span> where <span class="math inline">\(A\in\mathbb{R}^{m\times n}\)</span>, <span class="math inline">\(\mathbf{x}\in\mathbb{R}^{n\times 1}\)</span> and <span class="math inline">\(\mathbf{b}\in\mathbb{R}^{m\times 1}\)</span> . Inputs are <span class="math inline">\(A, \mathbf{b}\)</span> and output is a vector <span class="math inline">\(\mathbf{x}\)</span>.</p>
+<p>In this course, we assume that <span class="math inline">\(A\)</span> is a square(i.e., <span class="math inline">\(m=n\)</span>) and invertible matrix (so that we have a unique <span class="math inline">\(x\)</span>). Our goal is to find that unique <span class="math inline">\(x\)</span> which satisfies the system of equations.</p>
+<p>Let’s go step by step.</p>
+<ol style="list-style-type: decimal">
+<li><p>If <span class="math inline">\(A\)</span> is a unitary matrix, then <span class="math inline">\(AA^T = I=A^TA\)</span>.
+<span class="math display">\[Ax=b \implies A^T Ax = A^Tb \implies x = A^T b\]</span>
+To get <span class="math inline">\(x\)</span>, we need to perform <span class="math inline">\(n^2\)</span> multiplications and <span class="math inline">\(n(n-1)\)</span> additions.</p></li>
+<li><p>If <span class="math inline">\(A=U\)</span> is an upper triangular matrix.</p></li>
+</ol>
+<p>Let <span class="math inline">\(Ux=b\)</span> in matrix form be:
+<span class="math display">\[\begin{equation}
+\begin{bmatrix}
+U_{11} &amp; U_{12} &amp; U_{13} &amp; \cdots &amp; U_{1n}\\
+0      &amp; U_{22} &amp; U_{23} &amp; \cdots &amp; U_{2n}\\
+0      &amp; 0      &amp; U_{33} &amp; \cdots &amp; U_{3n}\\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+0      &amp; 0      &amp; 0      &amp; \cdots &amp; U_{nn}
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\x_3\\ \vdots\\ x_n\end{bmatrix}
+=
+\begin{bmatrix} b_1 \\ b_2 \\b_3\\ \vdots\\ b_n\end{bmatrix}
+\end{equation}\]</span></p>
+<p>The last row of <span class="math inline">\(U\)</span> corresponds to the equation
+<span class="math display">\[\begin{equation}
+U_{nn} x_n = b_n
+\end{equation}\]</span></p>
+<p>Now as <span class="math inline">\(U\)</span> is invertible, all the diagonal elements are non-zero i.e., <span class="math inline">\(U_{ii}\neq 0 \ \forall i \in\{1,2,\cdots , n\}\)</span>.</p>
+<p>Therefore
+<span class="math display">\[\begin{equation}
+U_{nn} x_n = b_n \implies x_n = \frac{b_n}{U_{nn}}
+\end{equation}\]</span></p>
+<p>Similarly, we have:
+<span class="math display">\[\begin{equation}
+U_{(n-1),(n-1)}x_{n-1}+U_{(n-1),n}x_n = b_{n-1} \implies x_{n-1} = \frac{b_{n-1}-U_{(n-1),n}x_n}{U_{(n-1),(n-1)}}
+\end{equation}\]</span></p>
+<p>Using induction, we can prove that for <span class="math inline">\(i \in \{1,2,\cdots,n-1\}\)</span>, we have:
+<span class="math display">\[\begin{equation}
+x_i = \frac{b_i -\sum_{j=i+1}^n U_{i,j}x_j}{U_{ii}}
+\end{equation}\]</span></p>
+<p>To calculate <span class="math inline">\(x_i\)</span>(for <span class="math inline">\(i \in \{1,2,\cdots,n\}\)</span>), we need to perform 1 division, <span class="math inline">\((n-i)\)</span> multiplications and <span class="math inline">\((n-i)\)</span> additions/subtractions.</p>
+<p>Therefore to calculate the output vector <span class="math inline">\(x\)</span>, we need to perform</p>
+<ul>
+<li><p><span class="math inline">\(\sum_{i=1}^n 1 = n\)</span> divisions</p></li>
+<li><p><span class="math inline">\(\sum_{i=1}^n (n-i) = \frac{n^2-n}{2}\)</span> multiplications</p></li>
+<li><p><span class="math inline">\(\sum_{i=1}^n (n-i) = \frac{n^2-n}{2}\)</span> additions/subtractions</p></li>
+<li><p>In total <span class="math inline">\(n+ \frac{n^2-n}{2}+\frac{n^2-n}{2} = n^2\)</span> operations are required to get <span class="math inline">\(x\)</span></p></li>
+</ul>
 <!-- All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (`#`) per .Rmd file. -->
 <!-- ## A section -->
 <!-- All chapter sections start with a second-level (`##`) or higher heading followed by your section title, like the sections above and below here. You can have as many as you want within a chapter. -->

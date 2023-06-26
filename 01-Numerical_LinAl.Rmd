@@ -123,7 +123,136 @@ Therefore the condition number of the matrix vector product is:
 
 From Sub-multiplicative property, as $\Vert Ax\Vert_p \ge\Vert A \Vert_p \Vert x \Vert_p$, we can show that $\kappa_r\ge 1$. 
 
+**Case-1:-** $A\in \mathbb{R}^{m\times n}$ is a fat matrix($m<n$) 
+
+From Rank-Nullity Theorem, we know that 
+
+$$\text{Dimension of Nullspace$(A)$+Rank$(A)$ = $n$}$$
+
+We know that Rank$(A) \le \min(m,n) \implies$ Rank $(A) \le m$ as $A$ is a fat matrix. 
+
+$$\implies \text{Dimension of Nullspace}(A) \ge n-m$$
+$\implies \exists$ a non-zero vector $z \in$ Nullspace$(A)$ i.e., $\exists z\in \mathbb{R}^{n\times 1}$ such that $Az=0$.
+
+From the definition of condition number as in equation(), we have:
+$\kappa_r(A,x) =  \frac{\Vert A \Vert_p \Vert x \Vert_p}{\Vert Ax\Vert_p}$
+
+If $x=z$ then as $Az=0$, we have $\Vert Az\Vert_p = 0$. Therefore $\kappa_r \to \infty$. 
+
+Thus, multiplication by a fat matrix is **highly ill-conditioned.**
+
+**Case-2:-** $A$ is an invertible square matrix
+
+From the definition of condition number as in equation(), we have:
+\begin{align}
+\kappa_r(A,x) &=  \frac{\Vert A \Vert_p \Vert x \Vert_p}{\Vert Ax\Vert_p}\\
+ &= \frac{\Vert A \Vert_p \Vert A^{-1}(Ax) \Vert_p}{\Vert Ax\Vert_p}\\
+\end{align}
+
+From submultiplicative property of matrix norms, we can write $\Vert A^{-1}(Ax) \Vert_p \le \Vert A^{-1} \Vert_p \Vert Ax \Vert_p$. Therefore, 
+
+\begin{align}
+\kappa_r(A,x)&= \frac{\Vert A \Vert_p \Vert A^{-1}(Ax) \Vert_p}{\Vert Ax\Vert_p}\\
+\implies \kappa_r(A,x)&\le \frac{\Vert A \Vert_p \Vert A^{-1} \Vert_p \Vert Ax \Vert_p}{\Vert Ax\Vert_p}\\
+\end{align}
+
+\begin{equation}
+\kappa_r(A,x) \le \Vert A \Vert_p \Vert A^{-1} \Vert_p
+\end{equation}
+Therefore condition number is bounded above by $\Vert A \Vert_p \Vert A^{-1} \Vert_p$ which is independent of vector $x$. 
+
+Define Condition number of matrix $A$ as $$\kappa_p(A) = \Vert A \Vert_p \Vert A^{-1} \Vert_p$$.
+
+From submultiplicative property we can show that $\kappa_p(A)\ge 1$. 
+
+Let us find condition number for some special matrices. Let us consider $A=Q$ to be an orthogonal/ unitary matrix. 
+
+As $Q$ is an orthogonal matrix $Q^TQ = I\implies Q^T = Q^{-1}$. 
+
+
+Therefore $$\Vert Qx \Vert_2^2 = (Qx)^TQx = x^TQ^TQx = x^Tx = \Vert x\Vert_2^2$$ 
+
+Thus, $$\Vert Qx \Vert_2= \Vert x\Vert_2 = \Vert Q^Tx \Vert_2$$ 
+
+From definition of 2-norm of a matrix, we have,
+\begin{align}
+\Vert Q\Vert_p &= \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert Qx \rVert_p}{\lVert x \rVert_p}\\
+\implies \Vert Q\Vert_2 &= \sup_{x\in\mathbb{R}^{n}\setminus \{ \mathbf{0} \}} \frac{\lVert x \rVert_2}{\lVert x \rVert_2}\\
+\implies \Vert Q\Vert_2 &= 1
+\end{align}
+
+Therefore,
+\begin{equation}
+\Vert Q^T\Vert_2 = 1
+\end{equation}
+
+The condition number of $Q$ is therefore,
+\begin{equation}
+\kappa_2(Q) = \Vert Q \Vert_p \Vert Q^{-1} \Vert_p = \Vert Q \Vert_2 \Vert Q^T \Vert_2 = 1 
+\end{equation}
+
 ## Solving Linear Systems
+
+Consider the linear system $Ax=b$ where $A\in\mathbb{R}^{m\times n}$, $\mathbf{x}\in\mathbb{R}^{n\times 1}$ and $\mathbf{b}\in\mathbb{R}^{m\times 1}$ . Inputs are $A, \mathbf{b}$ and output is a vector $\mathbf{x}$. 
+
+In this course, we assume that $A$ is a square(i.e., $m=n$) and invertible matrix (so that we have a unique $x$). Our goal is to find that unique $x$ which satisfies the system of equations. 
+
+Let's go step by step. 
+
+1. If $A$ is a unitary matrix, then $AA^T = I=A^TA$. 
+$$Ax=b \implies A^T Ax = A^Tb \implies x = A^T b$$
+To get $x$, we need to perform $n^2$ multiplications and $n(n-1)$ additions.
+
+2. If $A=U$ is an upper triangular matrix. 
+
+Let $Ux=b$ in matrix form be:
+\begin{equation}
+\begin{bmatrix}
+U_{11} & U_{12} & U_{13} & \cdots & U_{1n}\\
+0      & U_{22} & U_{23} & \cdots & U_{2n}\\
+0      & 0      & U_{33} & \cdots & U_{3n}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+0      & 0      & 0      & \cdots & U_{nn}
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\x_3\\ \vdots\\ x_n\end{bmatrix}
+=
+\begin{bmatrix} b_1 \\ b_2 \\b_3\\ \vdots\\ b_n\end{bmatrix}
+\end{equation}
+
+The last row of $U$ corresponds to  the equation 
+\begin{equation}
+U_{nn} x_n = b_n
+\end{equation}
+
+Now as $U$ is invertible, all the diagonal elements are non-zero i.e., $U_{ii}\neq 0 \ \forall i \in\{1,2,\cdots , n\}$. 
+
+Therefore 
+\begin{equation}
+U_{nn} x_n = b_n \implies x_n = \frac{b_n}{U_{nn}}
+\end{equation}
+
+Similarly, we have:
+\begin{equation}
+U_{(n-1),(n-1)}x_{n-1}+U_{(n-1),n}x_n = b_{n-1} \implies x_{n-1} = \frac{b_{n-1}-U_{(n-1),n}x_n}{U_{(n-1),(n-1)}}
+\end{equation}
+
+Using induction, we can prove that for $i \in \{1,2,\cdots,n-1\}$, we have:
+\begin{equation}
+x_i = \frac{b_i -\sum_{j=i+1}^n U_{i,j}x_j}{U_{ii}}
+\end{equation}
+
+To calculate $x_i$(for $i \in \{1,2,\cdots,n\}$), we need to perform 1 division, $(n-i)$ multiplications and $(n-i)$ additions/subtractions. 
+
+Therefore to calculate the output vector $x$, we need to perform 
+
+* $\sum_{i=1}^n 1 = n$ divisions
+
+* $\sum_{i=1}^n (n-i) = \frac{n^2-n}{2}$ multiplications
+
+* $\sum_{i=1}^n (n-i) = \frac{n^2-n}{2}$ additions/subtractions
+
+* In total $n+ \frac{n^2-n}{2}+\frac{n^2-n}{2} = n^2$ operations are required to get $x$
+
 
 <!-- All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (`#`) per .Rmd file. -->
 
