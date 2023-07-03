@@ -197,7 +197,9 @@ Consider the linear system $Ax=b$ where $A\in\mathbb{R}^{m\times n}$, $\mathbf{x
 
 In this course, we assume that $A$ is a square(i.e., $m=n$) and invertible matrix (so that we have a unique $x$). Our goal is to find that unique $x$ which satisfies the system of equations. 
 
-Let's go step by step. 
+Let's go step by step. Let us consider special matrices first and then discuss about a general matrix $A$.
+
+### Special Matrices
 
 1. If $A$ is a unitary matrix, then $AA^T = I=A^TA$. 
 $$Ax=b \implies A^T Ax = A^Tb \implies x = A^T b$$
@@ -251,7 +253,27 @@ Therefore to calculate the output vector $x$, we need to perform
 
 * $\sum_{i=1}^n (n-i) = \frac{n^2-n}{2}$ additions/subtractions
 
-* In total $n+ \frac{n^2-n}{2}+\frac{n^2-n}{2} = n^2$ operations are required to get $x$
+* In total $n+ \frac{n^2-n}{2}+\frac{n^2-n}{2} = n^2$ operations are required to get $x$. In other words "Computational Complexity is $n^2$"
+
+> **NOTE:- ** 
+>
+> 1. Loosely speaking computational complexity of an algorithm means the number of operations performed in the algorithm. 
+>
+> 2. We say that $f(n)\in \mathcal{O}(g(n))$
+
+
+
+### General Case 
+
+## Solving Overdetermined Systems
+
+## Solving Underdetermined Systems
+
+## Iterative Methods for solving Linear Systems
+
+Previously, we have seen "direct methods" to solve linear systems like Gauss-Jordan elimination, Partial and complete pivoting. They can be solved exactly with $\infty$ precision machines. But the computational cost is high. 
+
+For lesser computational cost, we use iterative methods. But the issue is that we can not solve exactly using these methods always. 
 
 
 <!-- All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (`#`) per .Rmd file. -->

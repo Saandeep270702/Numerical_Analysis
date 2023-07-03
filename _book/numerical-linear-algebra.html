@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Sai Saandeep.S, Dr. Sivaram" />
 
 
-<meta name="date" content="2023-06-26" />
+<meta name="date" content="2023-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -97,7 +97,14 @@ set in the _output.yml file.</p>" />
 <li class="chapter" data-level="2.1" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#columnspace-nullspace-and-all"><i class="fa fa-check"></i><b>2.1</b> Columnspace, Nullspace and all</a></li>
 <li class="chapter" data-level="2.2" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#matrix-norms"><i class="fa fa-check"></i><b>2.2</b> Matrix Norms</a></li>
 <li class="chapter" data-level="2.3" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#condition-number-of-matrix-vector-products"><i class="fa fa-check"></i><b>2.3</b> Condition number of Matrix vector products</a></li>
-<li class="chapter" data-level="2.4" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#solving-linear-systems"><i class="fa fa-check"></i><b>2.4</b> Solving Linear Systems</a></li>
+<li class="chapter" data-level="2.4" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#solving-linear-systems"><i class="fa fa-check"></i><b>2.4</b> Solving Linear Systems</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#special-matrices"><i class="fa fa-check"></i><b>2.4.1</b> Special Matrices</a></li>
+<li class="chapter" data-level="2.4.2" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#general-case"><i class="fa fa-check"></i><b>2.4.2</b> General Case</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#solving-overdetermined-systems"><i class="fa fa-check"></i><b>2.5</b> Solving Overdetermined Systems</a></li>
+<li class="chapter" data-level="2.6" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#solving-underdetermined-systems"><i class="fa fa-check"></i><b>2.6</b> Solving Underdetermined Systems</a></li>
+<li class="chapter" data-level="2.7" data-path="numerical-linear-algebra.html"><a href="numerical-linear-algebra.html#iterative-methods-for-solving-linear-systems"><i class="fa fa-check"></i><b>2.7</b> Iterative Methods for solving Linear Systems</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="interpolation.html"><a href="interpolation.html"><i class="fa fa-check"></i><b>3</b> Interpolation</a>
 <ul>
@@ -322,7 +329,9 @@ Therefore condition number is bounded above by <span class="math inline">\(\Vert
 <h2><span class="header-section-number">2.4</span> Solving Linear Systems<a href="numerical-linear-algebra.html#solving-linear-systems" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Consider the linear system <span class="math inline">\(Ax=b\)</span> where <span class="math inline">\(A\in\mathbb{R}^{m\times n}\)</span>, <span class="math inline">\(\mathbf{x}\in\mathbb{R}^{n\times 1}\)</span> and <span class="math inline">\(\mathbf{b}\in\mathbb{R}^{m\times 1}\)</span> . Inputs are <span class="math inline">\(A, \mathbf{b}\)</span> and output is a vector <span class="math inline">\(\mathbf{x}\)</span>.</p>
 <p>In this course, we assume that <span class="math inline">\(A\)</span> is a square(i.e., <span class="math inline">\(m=n\)</span>) and invertible matrix (so that we have a unique <span class="math inline">\(x\)</span>). Our goal is to find that unique <span class="math inline">\(x\)</span> which satisfies the system of equations.</p>
-<p>Let’s go step by step.</p>
+<p>Let’s go step by step. Let us consider special matrices first and then discuss about a general matrix <span class="math inline">\(A\)</span>.</p>
+<div id="special-matrices" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Special Matrices<a href="numerical-linear-algebra.html#special-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li><p>If <span class="math inline">\(A\)</span> is a unitary matrix, then <span class="math inline">\(AA^T = I=A^TA\)</span>.
 <span class="math display">\[Ax=b \implies A^T Ax = A^Tb \implies x = A^T b\]</span>
@@ -365,8 +374,30 @@ x_i = \frac{b_i -\sum_{j=i+1}^n U_{i,j}x_j}{U_{ii}}
 <li><p><span class="math inline">\(\sum_{i=1}^n 1 = n\)</span> divisions</p></li>
 <li><p><span class="math inline">\(\sum_{i=1}^n (n-i) = \frac{n^2-n}{2}\)</span> multiplications</p></li>
 <li><p><span class="math inline">\(\sum_{i=1}^n (n-i) = \frac{n^2-n}{2}\)</span> additions/subtractions</p></li>
-<li><p>In total <span class="math inline">\(n+ \frac{n^2-n}{2}+\frac{n^2-n}{2} = n^2\)</span> operations are required to get <span class="math inline">\(x\)</span></p></li>
+<li><p>In total <span class="math inline">\(n+ \frac{n^2-n}{2}+\frac{n^2-n}{2} = n^2\)</span> operations are required to get <span class="math inline">\(x\)</span>. In other words “Computational Complexity is <span class="math inline">\(n^2\)</span>”</p></li>
 </ul>
+<blockquote>
+<p><strong>NOTE:- </strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Loosely speaking computational complexity of an algorithm means the number of operations performed in the algorithm.</p></li>
+<li><p>We say that <span class="math inline">\(f(n)\in \mathcal{O}(g(n))\)</span></p></li>
+</ol>
+</blockquote>
+</div>
+<div id="general-case" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> General Case<a href="numerical-linear-algebra.html#general-case" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="solving-overdetermined-systems" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Solving Overdetermined Systems<a href="numerical-linear-algebra.html#solving-overdetermined-systems" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="solving-underdetermined-systems" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Solving Underdetermined Systems<a href="numerical-linear-algebra.html#solving-underdetermined-systems" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="iterative-methods-for-solving-linear-systems" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Iterative Methods for solving Linear Systems<a href="numerical-linear-algebra.html#iterative-methods-for-solving-linear-systems" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Previously, we have seen “direct methods” to solve linear systems like Gauss-Jordan elimination, Partial and complete pivoting. They can be solved exactly with <span class="math inline">\(\infty\)</span> precision machines. But the computational cost is high.</p>
+<p>For lesser computational cost, we use iterative methods. But the issue is that we can not solve exactly using these methods always.</p>
 <!-- All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (`#`) per .Rmd file. -->
 <!-- ## A section -->
 <!-- All chapter sections start with a second-level (`##`) or higher heading followed by your section title, like the sections above and below here. You can have as many as you want within a chapter. -->

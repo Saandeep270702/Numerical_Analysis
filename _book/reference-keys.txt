@@ -11,6 +11,11 @@ columnspace-nullspace-and-all
 matrix-norms
 condition-number-of-matrix-vector-products
 solving-linear-systems
+special-matrices
+general-case
+solving-overdetermined-systems
+solving-underdetermined-systems
+iterative-methods-for-solving-linear-systems
 interpolation
 motivation---interpolation-vs.-approximation
 lagrange-interpolation
