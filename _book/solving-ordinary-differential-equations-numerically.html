@@ -220,6 +220,13 @@ Therefore, equation() can be written as a system of 1st order ODEs as:
 </div>
 <div id="different-basic-methods" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Different Basic Methods<a href="solving-ordinary-differential-equations-numerically.html#different-basic-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Consider solving the IVP
+<span class="math display">\[\begin{equation}
+\frac{dy}{dt} = \sin(\exp(y^2)t)
+\end{equation}\]</span>
+with the initial condition <span class="math inline">\(y(0) = 1\)</span>. We can see that the analytical solution is not possible. To solve the IVP numerically, let us first discretise time as <span class="math inline">\(\{t_k\}_{k=0}^n\)</span> where <span class="math inline">\(t_0 = 0\)</span> and <span class="math inline">\(t_n=T\)</span> time at which we are interested in finding <span class="math inline">\(y\)</span> value and <span class="math inline">\(y_{i+1}-y_i = \Delta t\)</span> for <span class="math inline">\(i\in\{0,1,\dots,n-1\}\)</span>.</p>
+<p><strong>ATTACH GRID DISCRETISATION PIC</strong></p>
+<p>We can find derivative <span class="math inline">\(\frac{dy}{dt}\)</span> at <span class="math inline">\(t=t_i\)</span>(for all <span class="math inline">\(i\)</span>), using a finite difference formula and then convert the differential equation to a set of algebraic equations. Solving these would give <span class="math inline">\(y_i = y(t_i)\)</span>.</p>
 </div>
 <div id="linear-stability-analysis" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> Linear Stability Analysis<a href="solving-ordinary-differential-equations-numerically.html#linear-stability-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>

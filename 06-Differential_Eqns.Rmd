@@ -44,6 +44,18 @@ Hence, we'll first look into solving a first order ODE numerically and then solv
 
 ## Different Basic Methods
 
+Consider solving the IVP
+\begin{equation}
+\frac{dy}{dt} = \sin(\exp(y^2)t)
+\end{equation}
+with the initial condition $y(0) = 1$. We can see that the analytical solution is not possible. To solve the IVP numerically, let us first discretise time as $\{t_k\}_{k=0}^n$ where $t_0 = 0$ and $t_n=T$ time at which we are interested in finding $y$ value and $y_{i+1}-y_i = \Delta t$ for $i\in\{0,1,\dots,n-1\}$.
+
+**ATTACH GRID DISCRETISATION PIC**
+
+We can find derivative $\frac{dy}{dt}$ at $t=t_i$(for all $i$), using a finite difference formula and then convert the differential equation to a set of algebraic equations. Solving these would give $y_i = y(t_i)$.
+
+
+
 ## Linear Stability Analysis
 
 ## Accuracy
