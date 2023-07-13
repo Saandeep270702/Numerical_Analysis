@@ -1,12 +1,57 @@
 # Quadratures
-
+In this chapter, we see how to find a definite integral numerically.
 ## Motivation
+Consider a continuous function $f(x)$ in an interval $[a,b]$. We are interested in finding the integral $\int_a^b f(x)\, dx$. 
+
+If we don't know $f(x)$ at all points, then how to find integral? Based on what we have studied till now, one way we can think of to approximate the integral is to first find a polynomial interpolant $p(x)$ using the known points and then find the integral $\int_a^b p(x) \, dx$. We can say that 
+\begin{equation}
+\int_a^b f(x)\, dx \approx \int_a^b p(x) \, dx
+\end{equation}
+
+But we have seen that there are issues like non-uniform convergence based in node distribution in the previous chapter. Therefore, we avoid this method. We resort to other methods to find the definite integral numerically.
+
+Now, even if we know the exact form of the function at all points in the interval $(a,b)$, we can not always find a closed form for the anti-derivative of the function. 
+
+Example:- Consider $f(x) = \exp(-x^2)$. We can't find the exact form of $\int f(x)\, dx = \int e^{-x^2}\, dx$. We can find $\int_{-\infty}^{\infty} e^{-x^2}\, dx$ using multivariable calculus methods say exactly. But for some random finite interval $(a,b)$, it is impossible to find the exact value. To get the approximate value, we use numerical methods. 
+
+In some cases, though finding exact value of the integral is possible, it is extremely difficult to find it. 
+
 
 ## Different Schemes
 
 ### Basic Schemes
 
-### Accuracy
+**ATTACH FIGURES FOR EACH SCHEME**
+
+1. Lower/Left Riemann Sum:
+
+\begin{equation}
+\int_a^b f(x) \, dx \approx \sum_{i=0}^{n-1} f(x_i) \left( \frac{b-a}{n} \right)
+\end{equation}
+
+2. Upper/Right Riemann Sum:
+
+\begin{equation}
+\int_a^b f(x) \, dx \approx \sum_{i=1}^{n} f(x_i) \left( \frac{b-a}{n} \right)
+\end{equation}
+
+3. Trapezoidal Rule:
+Instead of rectangles, let us approximate the areas by first dividing into trapeziums and summing up areas. 
+
+\begin{equation}
+\int_a^b f(x) \, dx \approx \frac{1}{2} h \left[ \sum_{i=1}^n (f(x_{i-1})+f(x_i)) \right]
+\end{equation}
+
+We can see that the trapezoidal rule is an average of Left and Right Riemann Sums.
+
+4. Midpoint/Rectangular rule
+
+\begin{equation}
+\int_a^b f(x) \, dx \approx h \sum_{i=0}^{n-1} f\left( \frac{x_i+x_{i+1}}{2} \right) 
+\end{equation}
+
+### Accuracy of these schemes
+Now the question arises - How accurate are these approximations?
 
 ### Simpson's Rule
 

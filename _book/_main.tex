@@ -80,7 +80,7 @@
 
 \title{Numerical Analysis}
 \author{Sai Saandeep.S, Dr.~Sivaram}
-\date{2023-07-03}
+\date{2023-07-13}
 
 \begin{document}
 \maketitle
@@ -985,14 +985,77 @@ Consider the function \(f(x) = \frac{1}{1+25x^2}\). Let us consider the analytic
 \hypertarget{quadratures}{%
 \chapter{Quadratures}\label{quadratures}}
 
-\hypertarget{motivation-2}{%
-\section{Motivation}\label{motivation-2}}
+In this chapter, we see how to find a definite integral numerically.
+\#\# Motivation
+Consider a continuous function \(f(x)\) in an interval \([a,b]\). We are interested in finding the integral \(\int_a^b f(x)\, dx\).
+
+If we don't know \(f(x)\) at all points, then how to find integral? Based on what we have studied till now, one way we can think of to approximate the integral is to first find a polynomial interpolant \(p(x)\) using the known points and then find the integral \(\int_a^b p(x) \, dx\). We can say that
+\begin{equation}
+\int_a^b f(x)\, dx \approx \int_a^b p(x) \, dx
+\end{equation}
+
+But we have seen that there are issues like non-uniform convergence based in node distribution in the previous chapter. Therefore, we avoid this method. We resort to other methods to find the definite integral numerically.
+
+Now, even if we know the exact form of the function at all points in the interval \((a,b)\), we can not always find a closed form for the anti-derivative of the function.
+
+\url{Example:-} Consider \(f(x) = \exp(-x^2)\). We can't find the exact form of \(\int f(x)\, dx = \int e^{-x^2}\, dx\). We can find \(\int_{-\infty}^{\infty} e^{-x^2}\, dx\) using multivariable calculus methods say exactly. But for some random finite interval \((a,b)\), it is impossible to find the exact value. To get the approximate value, we use numerical methods.
+
+In some cases, though finding exact value of the integral is possible, it is extremely difficult to find it.
 
 \hypertarget{different-schemes}{%
 \section{Different Schemes}\label{different-schemes}}
 
 \hypertarget{basic-schemes}{%
 \subsection{Basic Schemes}\label{basic-schemes}}
+
+\textbf{ATTACH FIGURES FOR EACH SCHEME}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Lower/Left Riemann Sum:
+\end{enumerate}
+
+\begin{equation}
+\int_a^b f(x) \, dx \approx \sum_{i=0}^{n-1} f(x_i) \left( \frac{b-a}{n} \right)
+\end{equation}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Upper/Right Riemann Sum:
+\end{enumerate}
+
+\begin{equation}
+\int_a^b f(x) \, dx \approx \sum_{i=1}^{n} f(x_i) \left( \frac{b-a}{n} \right)
+\end{equation}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Trapezoidal Rule:
+\end{enumerate}
+
+\begin{equation}
+\int_a^b f(x) \, dx \approx \frac{1}{2} h \left[ \sum_{i=1}^n (f(x_{i-1})+f(x_i)) \right]
+\end{equation}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Midpoint/Rectangular rule
+\end{enumerate}
+
+\begin{equation}
+\int_a^b f(x) \, dx \approx h \sum_{i=0}^{n-1} f\left( \frac{x_i+x_{i+1}}{2} \right) 
+\end{equation}
 
 \hypertarget{accuracy}{%
 \subsection{Accuracy}\label{accuracy}}
@@ -1021,8 +1084,8 @@ Consider the function \(f(x) = \frac{1}{1+25x^2}\). Let us consider the analytic
 \hypertarget{root-finding-algorithms}{%
 \chapter{Root Finding Algorithms}\label{root-finding-algorithms}}
 
-\hypertarget{motivation-3}{%
-\section{Motivation}\label{motivation-3}}
+\hypertarget{motivation-2}{%
+\section{Motivation}\label{motivation-2}}
 
 Let \(f(x)\) be a continuous function. We are interested in solving \(f(x)=0\) for \(x\),i.e., we are interested in finding \(x^*\) such that \(f(x^*)=0\). But finding \(x^*\) analytically is not always easy.
 
@@ -1173,8 +1236,8 @@ Thus, convergence is not always guaranteed in Newton's Method.
 \hypertarget{numerical-differentiation}{%
 \chapter{Numerical Differentiation}\label{numerical-differentiation}}
 
-\hypertarget{motivation-4}{%
-\section{Motivation}\label{motivation-4}}
+\hypertarget{motivation-3}{%
+\section{Motivation}\label{motivation-3}}
 
 Given a continuous function \(f(x)\). We have seen that finding anti-derivative for all functions is not possible and hence, we resort to finding approximate values of definite integrals using Numerical methods(Quadratures). But derivatives can be found for any differentiable function \(f(x)\) using Chain rule etc.,
 

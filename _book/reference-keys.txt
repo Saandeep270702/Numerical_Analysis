@@ -29,7 +29,6 @@ legendre-nodes
 chebyshev-nodes-of-first-kind
 wierstrass-approximation-theorem
 quadratures
-motivation-2
 different-schemes
 basic-schemes
 accuracy
@@ -41,13 +40,13 @@ formula-and-derivation
 higher-order-quadratures
 gaussian-quadratures
 root-finding-algorithms
-motivation-3
+motivation-2
 bisection-method
 newton-method
 rate-of-convergence
 possibility-of-non-convergence
 numerical-differentiation
-motivation-4
+motivation-3
 finite-differences
 solving-ordinary-differential-equations-numerically
 introduction-2
