@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Sai Saandeep.S, Dr. Sivaram" />
 
 
-<meta name="date" content="2023-07-13" />
+<meta name="date" content="2023-07-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,7 +127,7 @@ set in the _output.yml file.</p>" />
 <li class="chapter" data-level="4.1" data-path="quadratures.html"><a href="quadratures.html#different-schemes"><i class="fa fa-check"></i><b>4.1</b> Different Schemes</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="quadratures.html"><a href="quadratures.html#basic-schemes"><i class="fa fa-check"></i><b>4.1.1</b> Basic Schemes</a></li>
-<li class="chapter" data-level="4.1.2" data-path="quadratures.html"><a href="quadratures.html#accuracy"><i class="fa fa-check"></i><b>4.1.2</b> Accuracy</a></li>
+<li class="chapter" data-level="4.1.2" data-path="quadratures.html"><a href="quadratures.html#accuracy-of-these-schemes"><i class="fa fa-check"></i><b>4.1.2</b> Accuracy of these schemes</a></li>
 <li class="chapter" data-level="4.1.3" data-path="quadratures.html"><a href="quadratures.html#simpsons-rule"><i class="fa fa-check"></i><b>4.1.3</b> Simpson’s Rule</a></li>
 <li class="chapter" data-level="4.1.4" data-path="quadratures.html"><a href="quadratures.html#trapezoidal-rule-with-end-point-corrections"><i class="fa fa-check"></i><b>4.1.4</b> Trapezoidal Rule with End point Corrections</a></li>
 </ul></li>
@@ -159,7 +159,7 @@ set in the _output.yml file.</p>" />
 <li class="chapter" data-level="7.1" data-path="solving-ordinary-differential-equations-numerically.html"><a href="solving-ordinary-differential-equations-numerically.html#introduction-2"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
 <li class="chapter" data-level="7.2" data-path="solving-ordinary-differential-equations-numerically.html"><a href="solving-ordinary-differential-equations-numerically.html#different-basic-methods"><i class="fa fa-check"></i><b>7.2</b> Different Basic Methods</a></li>
 <li class="chapter" data-level="7.3" data-path="solving-ordinary-differential-equations-numerically.html"><a href="solving-ordinary-differential-equations-numerically.html#linear-stability-analysis"><i class="fa fa-check"></i><b>7.3</b> Linear Stability Analysis</a></li>
-<li class="chapter" data-level="7.4" data-path="solving-ordinary-differential-equations-numerically.html"><a href="solving-ordinary-differential-equations-numerically.html#accuracy-1"><i class="fa fa-check"></i><b>7.4</b> Accuracy</a></li>
+<li class="chapter" data-level="7.4" data-path="solving-ordinary-differential-equations-numerically.html"><a href="solving-ordinary-differential-equations-numerically.html#accuracy"><i class="fa fa-check"></i><b>7.4</b> Accuracy</a></li>
 <li class="chapter" data-level="7.5" data-path="solving-ordinary-differential-equations-numerically.html"><a href="solving-ordinary-differential-equations-numerically.html#simple-pendulum---solving-system-of-odes"><i class="fa fa-check"></i><b>7.5</b> Simple Pendulum - Solving System of ODEs</a></li>
 <li class="chapter" data-level="7.6" data-path="solving-ordinary-differential-equations-numerically.html"><a href="solving-ordinary-differential-equations-numerically.html#simple-pendulum---finite-difference-for-2nd-order-derivative"><i class="fa fa-check"></i><b>7.6</b> Simple Pendulum - Finite difference for 2nd order derivative</a></li>
 </ul></li>
@@ -385,6 +385,208 @@ x_i = \frac{b_i -\sum_{j=i+1}^n U_{i,j}x_j}{U_{ii}}
 </div>
 <div id="general-case" class="section level3 hasAnchor" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> General Case<a href="numerical-linear-algebra.html#general-case" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We know that to solve <span class="math inline">\(Ax=b\)</span>, we convert the Augmented matrix <span class="math inline">\([A|b]\)</span> to its Row Reduced Echelon Foem(RREF) by doing elementary row operations on <span class="math inline">\(A\)</span> to get an Identity matrix.</p>
+<p>Instead of fully converting to an Identity matrix, let us convert to an upper triangular matrix, say <span class="math inline">\(U\)</span>.i.e., we do row operations to get <span class="math display">\[Ux=c\]</span> from <span class="math inline">\(Ax=b\)</span> where <span class="math inline">\(U\)</span> is an upper triangular matrix and <span class="math inline">\(c\)</span> is the vector obtained by performing corresponding operations on <span class="math inline">\(b\)</span>.</p>
+<p>Let <span class="math inline">\(Ax=b\)</span> in matrix form be:
+<span class="math display">\[\begin{equation}
+\begin{bmatrix}
+A_{11} &amp; A_{12} &amp; A_{13} &amp; \cdots &amp; A_{1n}\\
+A_{21} &amp; A_{22} &amp; A_{23} &amp; \cdots &amp; A_{2n}\\
+A_{31} &amp; A_{32} &amp; A_{33} &amp; \cdots &amp; A_{3n}\\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+A_{n1} &amp; A_{n2} &amp; A_{n3} &amp; \cdots &amp; A_{nn}
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\x_3\\ \vdots\\ x_n\end{bmatrix}
+=
+\begin{bmatrix} b_1 \\ b_2 \\b_3\\ \vdots\\ b_n\end{bmatrix}
+\end{equation}\]</span></p>
+<p>To convert <span class="math inline">\(A\)</span> to an upper triangular matrix <span class="math inline">\(U\)</span> (i.e., to have <span class="math inline">\(U_{ij} = 0\)</span> for <span class="math inline">\(i&gt;j\)</span>) using row operations, we need to make all elements below the diagonal to be zero. To achieve this, we firstly make all elements below <span class="math inline">\(A_{11}\)</span> in the 1st column to be zero using the below operations on <span class="math inline">\(j^{th}\)</span> row (<span class="math inline">\(j&gt;1\)</span>) :(We assume that <span class="math inline">\(A_{11}\neq 0\)</span>)</p>
+<p><span class="math display">\[\begin{align}
+R_{j,1} &amp;=0\\
+R_{j,2:n} &amp;\gets R_{j,2:n} - \frac{A_{j1}}{A_{11}}R_{1,2:n} \\
+b_j &amp;\gets b_j - \frac{A_{j1}}{A_{11}} b_1
+\end{align}\]</span></p>
+<p>We proceed like this to make all elements below the diagonal to be zero. Consider <span class="math inline">\(k^{th}\)</span> step in this process. Let the matrix in this step be:</p>
+<p><span class="math display">\[\begin{equation}
+\begin{bmatrix}
+A_{11} &amp; A_{12} &amp; A_{13} &amp; \cdots &amp; A_{1,k} &amp; \cdots &amp; A_{1n}\\
+0      &amp; A_{22} &amp; A_{23} &amp; \cdots &amp; A_{2,k} &amp; \cdots &amp; A_{2n}\\
+0      &amp; 0      &amp; A_{33} &amp; \cdots &amp; A_{3,k} &amp; \cdots &amp; A_{3n}\\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots  &amp; \vdots &amp; \vdots\\
+0      &amp; 0      &amp; 0      &amp; \cdots &amp; A_{k,k} &amp; \cdots &amp; A_{k,n}\\
+0      &amp; 0      &amp; 0      &amp; \cdots &amp; A_{k+1,k} &amp; \cdots &amp; A_{k+1,n}\\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots  &amp; \vdots &amp; \vdots\\
+0      &amp; 0      &amp; 0      &amp; \cdots &amp; A_{n,k} &amp; \cdots &amp; A_{n,n}\\
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\x_3\\ \vdots\\ x_n\end{bmatrix}
+=
+\begin{bmatrix} b_1 \\ b_2 \\b_3\\ \vdots\\ b_n\end{bmatrix}
+\end{equation}\]</span>
+The row operations, to be done on <span class="math inline">\(j^{th}\)</span> row, so that all elements below <span class="math inline">\(A_{kk}\)</span> become zero (in <span class="math inline">\(k^{th}\)</span> column) is given as follows: For <span class="math inline">\(j&gt;k\)</span> and <span class="math inline">\(A_{k,k}\neq 0\)</span></p>
+<p><span class="math display">\[\begin{align}
+R_{j,k} &amp;=0\\
+R_{j,k+1:n} &amp;\gets R_{j,k+1:n} - \frac{A_{j,k}}{A_{k,k}}R_{k,k+1:n} \\
+b_j &amp;\gets b_j - \frac{A_{j,k}}{A_{k,k}} b_k
+\end{align}\]</span></p>
+<p>Let us now calculate the number of operations required to be done for converting <span class="math inline">\(A\)</span> to RREF. In 1st step, for the row operation <span class="math display">\[R_{j,2:n} \gets R_{j,2:n} - \frac{A_{j1}}{A_{11}}R_{1,2:n}\]</span> for a particular row-<span class="math inline">\(j\)</span>, we need to do 1 division, <span class="math inline">\(n-1\)</span> multiplications and <span class="math inline">\(n-1\)</span> additions. There are <span class="math inline">\(n-1\)</span> such rows. Therefore, for the row operation on all these <span class="math inline">\(n-1\)</span> rows, <span class="math inline">\(n-1\)</span> divisions, <span class="math inline">\((n-1)^2\)</span> multiplications and <span class="math inline">\((n-1)^2\)</span> additions have to be done.</p>
+<p>For <span class="math inline">\(k^{th}\)</span> step(<span class="math inline">\(1\le k\le n-1\)</span>), row operation <span class="math display">\[R_{j,k+1:n} \gets R_{j,k+1:n} - \frac{A_{j,k}}{A_{k,k}}R_{k,k+1:n}\]</span> on row-<span class="math inline">\(j\)</span> for <span class="math inline">\(k+1\le j\le n\)</span>, requires 1 division, <span class="math inline">\((n-k)\)</span> multiplications and <span class="math inline">\((n-k)\)</span> additions. Therefore, we need
+to perform <span class="math inline">\(n-k\)</span> divisions, <span class="math inline">\((n-k)^2\)</span> multiplications and <span class="math inline">\((n-k)^2\)</span> additions.</p>
+<p>Therefore, the number of operations required to convert <span class="math inline">\(A\)</span> to <span class="math inline">\(U\)</span> are:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(\sum_{k=0}^{n-1} (n-k) = \sum_{k=1}^n k = \frac{n(n-1)}{2}\)</span> Divisions</p></li>
+<li><p><span class="math inline">\(\sum_{k=0}^{n-1} (n-k)^2 = \sum_{k=1}^n k^2 = \frac{n(n-1)(2n-1)}{6}\)</span> Multiplications</p></li>
+<li><p><span class="math inline">\(\sum_{k=0}^{n-1} (n-k)^2 = \sum_{k=1}^n k^2 = \frac{n(n-1)(2n-1)}{6}\)</span> Additions</p></li>
+</ol>
+<p>Total number of operations to convert from <span class="math inline">\(A\)</span> to <span class="math inline">\(U\)</span> = <span class="math inline">\(\frac{n(n-1)}{2}+2\frac{n(n-1)(2n-1)}{6}\)</span></p>
+<p>Now, let us calculate the number of operations required to get <span class="math inline">\(c\)</span> from <span class="math inline">\(b\)</span>. Consider the operation on the <span class="math inline">\(k^{th}\)</span> step(<span class="math inline">\(1\le k\le n-1\)</span>): <span class="math display">\[b_j \gets b_j - \frac{A_{j,k}}{A_{k,k}} b_k\]</span>. This operation requires <span class="math inline">\((n-k)\)</span> multiplications and <span class="math inline">\((n-k)\)</span> additions. Note that we have already calculated <span class="math inline">\(\frac{A_{j,k}}{A_{k,k}}\)</span> while converting <span class="math inline">\(A\)</span> to <span class="math inline">\(U\)</span>. Hence, no separate division operation is involved.</p>
+<p>Therefore, number of operations on RHS are:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(\sum_{k=0}^{n-1} (n-k) = \sum_{k=1}^n k = \frac{n(n-1)}{2}\)</span> Multiplications.</p></li>
+<li><p><span class="math inline">\(\sum_{k=0}^{n-1} (n-k) = \sum_{k=1}^n k = \frac{n(n-1)}{2}\)</span> Additions</p></li>
+</ol>
+<p>After converting <span class="math inline">\(Ax=b\)</span> to <span class="math inline">\(Ux=c\)</span>, we have seen that solving <span class="math inline">\(Ux=c\)</span> requires <span class="math inline">\(n\)</span> divisions, <span class="math inline">\(\frac{n(n-1)}{2}\)</span> additions and <span class="math inline">\(\frac{n(n-1)}{2}\)</span> multiplications.</p>
+<p>Therefore, for solving <span class="math inline">\(Ax=b\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li><p>Number of divisions required = <span class="math inline">\(\frac{n(n+1)}{2}+n\)</span></p></li>
+<li><p>Number of multiplications required = <span class="math inline">\(\frac{n(n-1)(2n-1)}{6}+\frac{n(n-1)}{2}+\frac{n(n-1)}{2}\)</span></p></li>
+<li><p>Number of additions required = <span class="math inline">\(\frac{n(n-1)(2n-1)}{6}+\frac{n(n-1)}{2}+\frac{n(n-1)}{2}\)</span></p></li>
+</ol>
+<p>We can see that multiplications &amp; addition operations are the most expensive(time consuming)</p>
+<p>Therefore, the total number of operations = <span class="math inline">\(2\left[ \frac{n(n-1)(2n-1)}{6}+n(n-1)\right]+\frac{n(n+1)}{2}+n\)</span></p>
+<p>In other words Total number of operations <span class="math inline">\(\in \mathcal{O}(n^3)\)</span></p>
+<p>Now the question arises. Where will this fail?</p>
+<ol style="list-style-type: decimal">
+<li><p>We have assumed that <span class="math inline">\(A_{11} \neq 0\)</span> in the first step. This may not always hold true. Also, there is a possibility that <span class="math inline">\(A_{kk}=0\)</span> in the intermediate steps also. If this occurs then we can’t proceed further.</p></li>
+<li><p>Precision issues might occur. Consider solving the system of equations.</p></li>
+</ol>
+<p><span class="math display">\[\begin{align}
+2^{-60}x_1+x_2&amp;=1\\
+x_1+x_2&amp;=2
+\end{align}\]</span>
+The equations can be written in matrix form as:
+<span class="math display">\[\begin{equation}
+\begin{bmatrix}
+2^{-60}&amp; 1\\
+1&amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+1\\2
+\end{bmatrix}
+\end{equation}\]</span></p>
+<p>The solution is <span class="math inline">\(x_1 \approx 1\)</span> and <span class="math inline">\(x_2 \approx 1\)</span>.</p>
+<p>Let us try to solve this with the help of method described in this section.
+First, we do the row operations <span class="math inline">\(R_1 \gets R_2 - \frac{1}{2^{-60}}R_1 \implies R_1 \gets R_2 - 2^{60} R_2\)</span> to get:
+<span class="math display">\[\begin{equation}
+\begin{bmatrix}
+2^{-60}&amp; 1\\
+0&amp; 1-2^{60}
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+1\\2-2^{60}
+\end{bmatrix}
+\end{equation}\]</span></p>
+<p><span class="math inline">\(1-2^{60}\)</span> and <span class="math inline">\(2-2^{60}\)</span> is represented on the 64 bit machine as <span class="math inline">\(2^{-60}\)</span>. Therefore, the machine represents the equations as:
+<span class="math display">\[\begin{equation}
+\begin{bmatrix}
+2^{-60}&amp; 1\\
+0&amp; -2^{60}
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+1\\-2^{60}
+\end{bmatrix}
+\end{equation}\]</span></p>
+<p>This implies that <span class="math inline">\(x_2=1\)</span> and <span class="math inline">\(2^{-60}x_1+x_2=1\implies x_1=0\)</span>. But this is <strong>significantly</strong> different from the exact solution.</p>
+<p>If we have had an infinite precision machine, then we would have got accurate results. But since, we have only finite precision machines, we have this issue.</p>
+<p>Let us calculate condition number of this matrix. The condition number as calculated by MATLAB using <code>cond()</code> function gives condition number as 2.6180 which is a relatively small condition number. This means that small changes in input don’t give very large changes in output. Hence it is a well conditioned problem. Therefore, condition number is not an issue.</p>
+<p>Therefore, Algorithm has to be blamed here</p>
+<p>We say that an algorithm is stable if it gives almost correct answer to a well conditioned problem. As this gives a completely different answer, we say that this algorithm is unstable.(even if it doesn’t encounter zero in the diagonal)</p>
+<p>How to overcome these issues? Let us think this way. For the first issue, if a zero diagonal entry is encountered, let us try swapping row with a row which has a non-zero element in that column. Now the question arises which row? We tend to swap with the row which has largest absolute value. Instead of swapping only when zero is encountered, we do it in every step.</p>
+<p>Let us consider the example problem, we were discussing earlier.
+<span class="math display">\[\begin{equation}
+\begin{bmatrix}
+2^{-60}&amp; 1\\
+1&amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+1\\2
+\end{bmatrix}
+\end{equation}\]</span></p>
+<p>In first column, the maximum value is 1. Thus, we swap 1st and 2nd rows.
+<span class="math display">\[\begin{equation}
+\begin{bmatrix}
+1&amp; 1\\
+2^{-60}&amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+2\\1
+\end{bmatrix}
+\end{equation}\]</span>
+We do a row operation <span class="math inline">\(R_2\gets R_2-2^{-60}R_1\)</span> to get:
+<span class="math display">\[\begin{equation}
+\begin{bmatrix}
+1&amp; 1\\
+0&amp; 1-2^{-60}
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+2\\1-2^{-59}
+\end{bmatrix}
+\end{equation}\]</span></p>
+<p><span class="math inline">\(1-2^{-60}\)</span> and <span class="math inline">\(1-2^{-59}\)</span> is represented on the 64 bit machine as <span class="math inline">\(1\)</span>. Therefore, the machine represents the equations as:
+<span class="math display">\[\begin{equation}
+\begin{bmatrix}
+1&amp; 1\\
+0&amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+2\\1
+\end{bmatrix}
+\end{equation}\]</span></p>
+<p>The solution to these system of equations give <span class="math inline">\(x_2=1\)</span> and <span class="math inline">\(x_1=1\)</span>.</p>
+<p>This method in which we swap rows is called <strong>partial pivoting</strong>. Partial pivoting is seen to be stable in practice.</p>
+<p>Eg: Solve the system using partial pivoting
+<span class="math display">\[\begin{align}
+x_1+2x_2+3x_3 &amp;=6\\
+x_1+2x_2+4x_3 &amp;=7\\
+x_1-2x_2+x_3  &amp;= 0
+\end{align}\]</span></p>
+<p>A much more better way is including a column swap as well. The process is decribed in the below example. This process is called <strong>Complete Pivoting</strong> which is stable but has more computation cost(due to multiple swaps/ comparisions)</p>
+<p>Eg: Solve the system using complete pivoting.
+<span class="math display">\[\begin{align}
+x_1+2x_2+3x_3 &amp;= 6\\
+x_1+2x_2+4x_3 &amp;= 7\\
+x_1-2x_2+10x_3&amp;= -11
+\end{align}\]</span></p>
+<p><strong>ADD SOLUTION</strong></p>
+<p>Order of computational cost: Complete Pivoting &gt; Partial Pivoting &gt; No Pivoting</p>
+<p>Order of Stability: Complete Pivoting &gt; Partial Pivoting &gt; No Pivoting</p>
 </div>
 </div>
 <div id="solving-overdetermined-systems" class="section level2 hasAnchor" number="2.5">

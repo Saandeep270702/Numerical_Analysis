@@ -80,7 +80,7 @@
 
 \title{Numerical Analysis}
 \author{Sai Saandeep.S, Dr.~Sivaram}
-\date{2023-07-13}
+\date{2023-07-16}
 
 \begin{document}
 \maketitle
@@ -516,6 +516,267 @@ Therefore to calculate the output vector \(x\), we need to perform
 
 \hypertarget{general-case}{%
 \subsection{General Case}\label{general-case}}
+
+We know that to solve \(Ax=b\), we convert the Augmented matrix \([A|b]\) to its Row Reduced Echelon Foem(RREF) by doing elementary row operations on \(A\) to get an Identity matrix.
+
+Instead of fully converting to an Identity matrix, let us convert to an upper triangular matrix, say \(U\).i.e., we do row operations to get \[Ux=c\] from \(Ax=b\) where \(U\) is an upper triangular matrix and \(c\) is the vector obtained by performing corresponding operations on \(b\).
+
+Let \(Ax=b\) in matrix form be:
+\begin{equation}
+\begin{bmatrix}
+A_{11} & A_{12} & A_{13} & \cdots & A_{1n}\\
+A_{21} & A_{22} & A_{23} & \cdots & A_{2n}\\
+A_{31} & A_{32} & A_{33} & \cdots & A_{3n}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+A_{n1} & A_{n2} & A_{n3} & \cdots & A_{nn}
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\x_3\\ \vdots\\ x_n\end{bmatrix}
+=
+\begin{bmatrix} b_1 \\ b_2 \\b_3\\ \vdots\\ b_n\end{bmatrix}
+\end{equation}
+
+To convert \(A\) to an upper triangular matrix \(U\) (i.e., to have \(U_{ij} = 0\) for \(i>j\)) using row operations, we need to make all elements below the diagonal to be zero. To achieve this, we firstly make all elements below \(A_{11}\) in the 1st column to be zero using the below operations on \(j^{th}\) row (\(j>1\)) :(We assume that \(A_{11}\neq 0\))
+
+\begin{align}
+R_{j,1} &=0\\
+R_{j,2:n} &\gets R_{j,2:n} - \frac{A_{j1}}{A_{11}}R_{1,2:n} \\
+b_j &\gets b_j - \frac{A_{j1}}{A_{11}} b_1
+\end{align}
+
+We proceed like this to make all elements below the diagonal to be zero. Consider \(k^{th}\) step in this process. Let the matrix in this step be:
+
+\begin{equation}
+\begin{bmatrix}
+A_{11} & A_{12} & A_{13} & \cdots & A_{1,k} & \cdots & A_{1n}\\
+0      & A_{22} & A_{23} & \cdots & A_{2,k} & \cdots & A_{2n}\\
+0      & 0      & A_{33} & \cdots & A_{3,k} & \cdots & A_{3n}\\
+\vdots & \vdots & \vdots & \vdots & \ddots  & \vdots & \vdots\\
+0      & 0      & 0      & \cdots & A_{k,k} & \cdots & A_{k,n}\\
+0      & 0      & 0      & \cdots & A_{k+1,k} & \cdots & A_{k+1,n}\\
+\vdots & \vdots & \vdots & \vdots & \ddots  & \vdots & \vdots\\
+0      & 0      & 0      & \cdots & A_{n,k} & \cdots & A_{n,n}\\
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\x_3\\ \vdots\\ x_n\end{bmatrix}
+=
+\begin{bmatrix} b_1 \\ b_2 \\b_3\\ \vdots\\ b_n\end{bmatrix}
+\end{equation}
+The row operations, to be done on \(j^{th}\) row, so that all elements below \(A_{kk}\) become zero (in \(k^{th}\) column) is given as follows: For \(j>k\) and \(A_{k,k}\neq 0\)
+
+\begin{align}
+R_{j,k} &=0\\
+R_{j,k+1:n} &\gets R_{j,k+1:n} - \frac{A_{j,k}}{A_{k,k}}R_{k,k+1:n} \\
+b_j &\gets b_j - \frac{A_{j,k}}{A_{k,k}} b_k
+\end{align}
+
+Let us now calculate the number of operations required to be done for converting \(A\) to RREF. In 1st step, for the row operation \[R_{j,2:n} \gets R_{j,2:n} - \frac{A_{j1}}{A_{11}}R_{1,2:n}\] for a particular row-\(j\), we need to do 1 division, \(n-1\) multiplications and \(n-1\) additions. There are \(n-1\) such rows. Therefore, for the row operation on all these \(n-1\) rows, \(n-1\) divisions, \((n-1)^2\) multiplications and \((n-1)^2\) additions have to be done.
+
+For \(k^{th}\) step(\(1\le k\le n-1\)), row operation \[R_{j,k+1:n} \gets R_{j,k+1:n} - \frac{A_{j,k}}{A_{k,k}}R_{k,k+1:n}\] on row-\(j\) for \(k+1\le j\le n\), requires 1 division, \((n-k)\) multiplications and \((n-k)\) additions. Therefore, we need
+to perform \(n-k\) divisions, \((n-k)^2\) multiplications and \((n-k)^2\) additions.
+
+Therefore, the number of operations required to convert \(A\) to \(U\) are:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \(\sum_{k=0}^{n-1} (n-k) = \sum_{k=1}^n k = \frac{n(n-1)}{2}\) Divisions
+\item
+  \(\sum_{k=0}^{n-1} (n-k)^2 = \sum_{k=1}^n k^2 = \frac{n(n-1)(2n-1)}{6}\) Multiplications
+\item
+  \(\sum_{k=0}^{n-1} (n-k)^2 = \sum_{k=1}^n k^2 = \frac{n(n-1)(2n-1)}{6}\) Additions
+\end{enumerate}
+
+Total number of operations to convert from \(A\) to \(U\) = \(\frac{n(n-1)}{2}+2\frac{n(n-1)(2n-1)}{6}\)
+
+Now, let us calculate the number of operations required to get \(c\) from \(b\). Consider the operation on the \(k^{th}\) step(\(1\le k\le n-1\)): \[b_j \gets b_j - \frac{A_{j,k}}{A_{k,k}} b_k\]. This operation requires \((n-k)\) multiplications and \((n-k)\) additions. Note that we have already calculated \(\frac{A_{j,k}}{A_{k,k}}\) while converting \(A\) to \(U\). Hence, no separate division operation is involved.
+
+Therefore, number of operations on RHS are:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \(\sum_{k=0}^{n-1} (n-k) = \sum_{k=1}^n k = \frac{n(n-1)}{2}\) Multiplications.
+\item
+  \(\sum_{k=0}^{n-1} (n-k) = \sum_{k=1}^n k = \frac{n(n-1)}{2}\) Additions
+\end{enumerate}
+
+After converting \(Ax=b\) to \(Ux=c\), we have seen that solving \(Ux=c\) requires \(n\) divisions, \(\frac{n(n-1)}{2}\) additions and \(\frac{n(n-1)}{2}\) multiplications.
+
+Therefore, for solving \(Ax=b\):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Number of divisions required = \(\frac{n(n+1)}{2}+n\)
+\item
+  Number of multiplications required = \(\frac{n(n-1)(2n-1)}{6}+\frac{n(n-1)}{2}+\frac{n(n-1)}{2}\)
+\item
+  Number of additions required = \(\frac{n(n-1)(2n-1)}{6}+\frac{n(n-1)}{2}+\frac{n(n-1)}{2}\)
+\end{enumerate}
+
+We can see that multiplications \& addition operations are the most expensive(time consuming)
+
+Therefore, the total number of operations = \(2\left[ \frac{n(n-1)(2n-1)}{6}+n(n-1)\right]+\frac{n(n+1)}{2}+n\)
+
+In other words Total number of operations \(\in \mathcal{O}(n^3)\)
+
+Now the question arises. Where will this fail?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  We have assumed that \(A_{11} \neq 0\) in the first step. This may not always hold true. Also, there is a possibility that \(A_{kk}=0\) in the intermediate steps also. If this occurs then we can't proceed further.
+\item
+  Precision issues might occur. Consider solving the system of equations.
+\end{enumerate}
+
+\begin{align}
+2^{-60}x_1+x_2&=1\\
+x_1+x_2&=2
+\end{align}
+The equations can be written in matrix form as:
+\begin{equation}
+\begin{bmatrix}
+2^{-60}& 1\\
+1& 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+= 
+\begin{bmatrix}
+1\\2
+\end{bmatrix}
+\end{equation}
+
+The solution is \(x_1 \approx 1\) and \(x_2 \approx 1\).
+
+Let us try to solve this with the help of method described in this section.
+First, we do the row operations \(R_1 \gets R_2 - \frac{1}{2^{-60}}R_1 \implies R_1 \gets R_2 - 2^{60} R_2\) to get:
+\begin{equation}
+\begin{bmatrix}
+2^{-60}& 1\\
+0& 1-2^{60}
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+= 
+\begin{bmatrix}
+1\\2-2^{60}
+\end{bmatrix}
+\end{equation}
+
+\(1-2^{60}\) and \(2-2^{60}\) is represented on the 64 bit machine as \(2^{-60}\). Therefore, the machine represents the equations as:
+\begin{equation}
+\begin{bmatrix}
+2^{-60}& 1\\
+0& -2^{60}
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+= 
+\begin{bmatrix}
+1\\-2^{60}
+\end{bmatrix}
+\end{equation}
+
+This implies that \(x_2=1\) and \(2^{-60}x_1+x_2=1\implies x_1=0\). But this is \textbf{significantly} different from the exact solution.
+
+If we have had an infinite precision machine, then we would have got accurate results. But since, we have only finite precision machines, we have this issue.
+
+Let us calculate condition number of this matrix. The condition number as calculated by MATLAB using \texttt{cond()} function gives condition number as 2.6180 which is a relatively small condition number. This means that small changes in input don't give very large changes in output. Hence it is a well conditioned problem. Therefore, condition number is not an issue.
+
+Therefore, Algorithm has to be blamed here
+
+We say that an algorithm is stable if it gives almost correct answer to a well conditioned problem. As this gives a completely different answer, we say that this algorithm is unstable.(even if it doesn't encounter zero in the diagonal)
+
+How to overcome these issues? Let us think this way. For the first issue, if a zero diagonal entry is encountered, let us try swapping row with a row which has a non-zero element in that column. Now the question arises which row? We tend to swap with the row which has largest absolute value. Instead of swapping only when zero is encountered, we do it in every step.
+
+Let us consider the example problem, we were discussing earlier.
+\begin{equation}
+\begin{bmatrix}
+2^{-60}& 1\\
+1& 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+= 
+\begin{bmatrix}
+1\\2
+\end{bmatrix}
+\end{equation}
+
+In first column, the maximum value is 1. Thus, we swap 1st and 2nd rows.
+\begin{equation}
+\begin{bmatrix}
+1& 1\\
+2^{-60}& 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+= 
+\begin{bmatrix}
+2\\1
+\end{bmatrix}
+\end{equation}
+We do a row operation \(R_2\gets R_2-2^{-60}R_1\) to get:
+\begin{equation}
+\begin{bmatrix}
+1& 1\\
+0& 1-2^{-60}
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+= 
+\begin{bmatrix}
+2\\1-2^{-59}
+\end{bmatrix}
+\end{equation}
+
+\(1-2^{-60}\) and \(1-2^{-59}\) is represented on the 64 bit machine as \(1\). Therefore, the machine represents the equations as:
+\begin{equation}
+\begin{bmatrix}
+1& 1\\
+0& 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+= 
+\begin{bmatrix}
+2\\1
+\end{bmatrix}
+\end{equation}
+
+The solution to these system of equations give \(x_2=1\) and \(x_1=1\).
+
+This method in which we swap rows is called \textbf{partial pivoting}. Partial pivoting is seen to be stable in practice.
+
+Eg: Solve the system using partial pivoting
+\begin{align}
+x_1+2x_2+3x_3 &=6\\
+x_1+2x_2+4x_3 &=7\\
+x_1-2x_2+x_3  &= 0
+\end{align}
+
+A much more better way is including a column swap as well. The process is decribed in the below example. This process is called \textbf{Complete Pivoting} which is stable but has more computation cost(due to multiple swaps/ comparisions)
+
+Eg: Solve the system using complete pivoting.
+\begin{align}
+x_1+2x_2+3x_3 &= 6\\
+x_1+2x_2+4x_3 &= 7\\
+x_1-2x_2+10x_3&= -11
+\end{align}
+
+\textbf{ADD SOLUTION}
+
+Order of computational cost: Complete Pivoting \textgreater{} Partial Pivoting \textgreater{} No Pivoting
+
+Order of Stability: Complete Pivoting \textgreater{} Partial Pivoting \textgreater{} No Pivoting
 
 \hypertarget{solving-overdetermined-systems}{%
 \section{Solving Overdetermined Systems}\label{solving-overdetermined-systems}}
@@ -1039,11 +1300,14 @@ In some cases, though finding exact value of the integral is possible, it is ext
 \tightlist
 \item
   Trapezoidal Rule:
+  Instead of rectangles, let us approximate the areas by first dividing into trapeziums and summing up areas.
 \end{enumerate}
 
 \begin{equation}
 \int_a^b f(x) \, dx \approx \frac{1}{2} h \left[ \sum_{i=1}^n (f(x_{i-1})+f(x_i)) \right]
 \end{equation}
+
+We can see that the trapezoidal rule is an average of Left and Right Riemann Sums.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1057,8 +1321,10 @@ In some cases, though finding exact value of the integral is possible, it is ext
 \int_a^b f(x) \, dx \approx h \sum_{i=0}^{n-1} f\left( \frac{x_i+x_{i+1}}{2} \right) 
 \end{equation}
 
-\hypertarget{accuracy}{%
-\subsection{Accuracy}\label{accuracy}}
+\hypertarget{accuracy-of-these-schemes}{%
+\subsection{Accuracy of these schemes}\label{accuracy-of-these-schemes}}
+
+Now the question arises - How accurate are these approximations?
 
 \hypertarget{simpsons-rule}{%
 \subsection{Simpson's Rule}\label{simpsons-rule}}
@@ -1456,8 +1722,8 @@ We can find derivative \(\frac{dy}{dt}\) at \(t=t_i\)(for all \(i\)), using a fi
 \hypertarget{linear-stability-analysis}{%
 \section{Linear Stability Analysis}\label{linear-stability-analysis}}
 
-\hypertarget{accuracy-1}{%
-\section{Accuracy}\label{accuracy-1}}
+\hypertarget{accuracy}{%
+\section{Accuracy}\label{accuracy}}
 
 \hypertarget{simple-pendulum---solving-system-of-odes}{%
 \section{Simple Pendulum - Solving System of ODEs}\label{simple-pendulum---solving-system-of-odes}}

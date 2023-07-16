@@ -31,7 +31,7 @@ wierstrass-approximation-theorem
 quadratures
 different-schemes
 basic-schemes
-accuracy
+accuracy-of-these-schemes
 simpsons-rule
 trapezoidal-rule-with-end-point-corrections
 euler-maclaurian-formula
@@ -52,6 +52,6 @@ solving-ordinary-differential-equations-numerically
 introduction-2
 different-basic-methods
 linear-stability-analysis
-accuracy-1
+accuracy
 simple-pendulum---solving-system-of-odes
 simple-pendulum---finite-difference-for-2nd-order-derivative
