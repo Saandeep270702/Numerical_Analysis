@@ -84,7 +84,32 @@ Backward Difference scheme is also referred to as  **Backward Euler Scheme**. Th
 
 ## Linear Stability Analysis
 
-Forward Euler seems to be more attractive because of the ease to compute the solution. But can we use this to solve all ODEs accurately?
+Forward Euler seems to be more attractive because of the ease to compute the solution. But can we use this to solve all ODEs accurately? 
+
+Consider the ODE $$\frac{dy}{dt} = f(y,t); \ \ \ y(t=0)=y_0$$
+Forward difference gives:
+\begin{equation}
+y_{i+1}-y_i = \Delta t f(y_i,t_i)
+\end{equation}
+
+We need to make sure that the difference between the numerically obtained solution and the exact solution i.e., $y_i-y(t_i)$ is small i.e., $$\lim_{\Delta t \to 0}y_i -y(t_i) = 0$$ If $y(t)$ is bounded then $y_i$ has to be bounded.
+
+
+
+Consider the example problem:
+$$\frac{dy}{dt} = -2y; \ \ \ y(t=0)=1$$
+The exact solution is $y(t) = \exp(-2t)$ which is bounded. 
+
+Using Forward Euler, we get:
+\begin{equation}
+y_{i+1} -y_i = -2\Delta t y_i \implies y_{i+1}=(1-2\Delta t) y_i
+\end{equation}
+
+\begin{equation}
+\implies y_{i+1} = (1-2\Delta t)^n y_0 = (1-2\Delta t)^n
+\end{equation}
+
+Consider $\Delta t = 2$, we get $y_n = (-3)^n y_0$ which is unbounded i.e., $\lim_{n\to \infty} y_n$ does not exist. Therefore, Forward Euler is bad for this $\Delta t$
 
 ## Accuracy
 
